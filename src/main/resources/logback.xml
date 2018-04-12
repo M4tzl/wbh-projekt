@@ -1,0 +1,10 @@
+<configuration>
+    <appender name="AWS_LOGS" class="ca.pjer.logback.AwsLogsAppender">
+        <logGroupName>WbhProjektLogs</logGroupName>
+        <logStreamName>WbhProjektLogStream</logStreamName>
+    </appender>
+
+    <root>
+        <appender-ref ref="AWS_LOGS"/>
+    </root>
+</configuration>
