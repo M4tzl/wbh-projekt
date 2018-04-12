@@ -62,11 +62,11 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.21</version>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>ca.pjer</groupId>
 			<artifactId>logback-awslogs-appender</artifactId>
 			<version>1.0.0</version>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
