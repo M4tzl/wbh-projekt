@@ -64,9 +64,9 @@
         </dependency>
 
         <dependency>
-            <groupId>ca.pjer</groupId>
-            <artifactId>logback-awslogs-appender</artifactId>
-            <version>1.0.0</version>
+            <groupId>com.j256.cloudwatchlogbackappender</groupId>
+            <artifactId>cloudwatchlogbackappender</artifactId>
+            <version>1.11</version>
         </dependency>
 
         <dependency>

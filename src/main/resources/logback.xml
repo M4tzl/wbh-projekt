@@ -1,28 +1,22 @@
 <configuration>
-    <!-- Timestamp used into the Log Stream Name -->
-    <timestamp key="date" datePattern="yyyyMMdd"/>
-
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{yyyyMMdd'T'HHmmss} %thread %level %logger{15} %msg%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="AWS_LOGS" class="ca.pjer.logback.AwsLogsAppender">
+    <appender name="CLOUDWATCH" class="com.j256.cloudwatchlogbackappender.CloudWatchAppender">
+        <region>eu-central-1</region>
+        <logGroup>wbh-projekt</logGroup>
+        <logStream>default-%iid</logStream>
         <layout>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <pattern>%d{yyyyMMdd'T'HHmmss} %thread %level %logger{15} %msg%n</pattern>
         </layout>
-        <logRegion>eu-central-1</logRegion>
-        <logGroupName>wbh-projekt</logGroupName>
-        <logStreamName>log_${date}</logStreamName>
-        <maxBatchLogEvents>200</maxBatchLogEvents>
-        <maxFlushTimeMillis>30000</maxFlushTimeMillis>
-        <maxBlockTimeMillis>5000</maxBlockTimeMillis>
     </appender>
 
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="AWS_LOGS"/>
+        <appender-ref ref="CLOUDWATCH"/>
     </root>
 </configuration>
