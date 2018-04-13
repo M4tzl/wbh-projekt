@@ -1,17 +1,16 @@
-package com.github.dmn1k.wbhprojekt;
+package com.github.dmn1k.wbhprojekt.infrastructure;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+// Wird von AWS verwendet um zu prüfen, ob Applikation noch läuft
 @Controller
 @RequestMapping("/health")
 public class HealthCheckController {
     @GetMapping
     public ResponseEntity<?> health(){
-        LoggerFactory.getLogger(HealthCheckController.class).warn("So beautiful");
         return ResponseEntity.ok("healthy");
     }
 }
