@@ -1,6 +1,6 @@
 {
     "family": "wbh-projekt",
-	"taskRoleArn": "arn:aws:iam::250682802074:role/wbh-ecs-access",
+    "taskRoleArn": "arn:aws:iam::250682802074:role/wbh-ecs-access",
     "containerDefinitions": [
         {
             "image": "%REPOSITORY_URI%:v_%BUILD_NUMBER%",
