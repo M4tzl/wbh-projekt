@@ -50,8 +50,18 @@ pipeline {
                       echo "entered new service"
                       aws ecs create-service --service-name ${SERVICE_NAME} --desired-count 2 --task-definition ${FAMILY} --cluster ${CLUSTER} --region ${REGION} --deployment-configuration minimumHealthyPercent=50
                     fi
+                    
+                    
+                    echo "Wait until deployment is finished ..."
+                    RUNNING_COUNT=0
+                    until [ $RUNNING_COUNT -eq 2 ]; do
+                        RUNNING_COUNT=`aws ecs describe-services --services ${SERVICE_NAME} --cluster ${CLUSTER} --region ${REGION} | jq '.services[].deployments[] | select(.desiredCount > 0) | .runningCount'`
+                        echo "Currently running: $RUNNING_COUNT / 2 tasks"   
+                        sleep 5 
+                    done
                 '''
             }
         }
+
     }
 }
