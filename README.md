@@ -4,7 +4,7 @@
 
 **Prod-URL**: http://wbh-projekt-lb-1252076767.eu-central-1.elb.amazonaws.com/
 
-**Jenkins (für Continuous Delivery auf AWS)**: http://ec2-18-184-30-180.eu-central-1.compute.amazonaws.com
+**Jenkins (für Continuous Delivery auf AWS)**: http://ec2-18-184-46-8.eu-central-1.compute.amazonaws.com
 
 ## Build & Run
 
