@@ -29,6 +29,7 @@ pipeline {
                     FAMILY=`sed -n 's/.*"family": "\\(.*\\)",/\\1/p' taskdef.json`
                     NAME=`sed -n 's/.*"name": "\\(.*\\)",/\\1/p' taskdef.json`
                     SERVICE_NAME=${NAME}-service
+                    DESIRED_COUNT=1
                     #Store the repositoryUri as a variable
                     REPOSITORY_URI=`aws ecr describe-repositories --repository-names ${REPOSITORY_NAME} --region ${REGION} | jq .repositories[].repositoryUri | tr -d '"'`
                     #Replace the build number and respository URI placeholders with the constants above
@@ -44,19 +45,19 @@ pipeline {
                       OLD_TASK_DEF=`aws ecs describe-services --services ${SERVICE_NAME} --cluster ${CLUSTER} --region ${REGION} | jq '.services[].deployments[] | select(.desiredCount > 0) | .taskDefinition' | tr -d '"'`
                       
                       echo "TASK-DEF to stop: $OLD_TASK_DEF"
-                      aws ecs update-service --cluster ${CLUSTER} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${OLD_TASK_DEF} --desired-count 0 --deployment-configuration minimumHealthyPercent=50
-                      aws ecs update-service --cluster ${CLUSTER} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${FAMILY}:${REVISION} --force-new-deployment --desired-count 2 --deployment-configuration minimumHealthyPercent=50
+                      aws ecs update-service --cluster ${CLUSTER} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${OLD_TASK_DEF} --desired-count 0 --deployment-configuration minimumHealthyPercent=0
+                      aws ecs update-service --cluster ${CLUSTER} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${FAMILY}:${REVISION} --force-new-deployment --desired-count $DESIRED_COUNT --deployment-configuration minimumHealthyPercent=0
                     else
                       echo "entered new service"
-                      aws ecs create-service --service-name ${SERVICE_NAME} --desired-count 2 --task-definition ${FAMILY} --cluster ${CLUSTER} --region ${REGION} --deployment-configuration minimumHealthyPercent=50
+                      aws ecs create-service --service-name ${SERVICE_NAME} --desired-count $DESIRED_COUNT --task-definition ${FAMILY} --cluster ${CLUSTER} --region ${REGION} --deployment-configuration minimumHealthyPercent=0
                     fi
                     
                     
                     echo "Wait until deployment is finished ..."
                     RUNNING_COUNT=0
-                    until [ $RUNNING_COUNT -eq 2 ]; do
+                    until [ $RUNNING_COUNT -eq $DESIRED_COUNT ]; do
                         RUNNING_COUNT=`aws ecs describe-services --services ${SERVICE_NAME} --cluster ${CLUSTER} --region ${REGION} | jq '.services[].deployments[] | select(.desiredCount > 0) | .runningCount'`
-                        echo "Currently running: $RUNNING_COUNT / 2 tasks"   
+                        echo "Currently running: $RUNNING_COUNT / $DESIRED_COUNT tasks"
                         sleep 5 
                     done
                 '''
