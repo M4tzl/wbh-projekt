@@ -22,3 +22,7 @@ wbh-projekt-db.cafuod7eczzu.eu-central-1.rds.amazonaws.com:5432
 Zur Administration kann beispielsweise [pgAdmin](https://www.pgadmin.org/) verwendet werden.
 
 Das Datenbankschema wird bei jedem Applikationsstart über [Liquibase](https://www.liquibase.org/) aktualisiert.
+
+
+**Lokal** wird eine H2-In-Memory-Datenbank verwendet, d.h. die Datenbank lebt nur so lange, wie die Anwendung läuft.
+Sie kann über http://localhost:8081/h2-console administriert werden.

@@ -64,6 +64,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- In-Memory Datenbank für lokales Testen -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
         <!-- Reduziert Boilerplate -->
         <dependency>
             <groupId>org.projectlombok</groupId>
