@@ -2,9 +2,7 @@
 
 ## URLs
 
-**Prod-URL**: http://ec2-18-196-147-231.eu-central-1.compute.amazonaws.com/
-
-**Jenkins (für Continuous Delivery auf AWS)**: http://ec2-18-184-46-8.eu-central-1.compute.amazonaws.com
+Jenkins: http://ec3-18-184-212-9.eu-central-1.compute.amazonaws.com
 
 ## Build & Run
 
