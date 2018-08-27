@@ -1,4 +1,4 @@
-package com.github.dmn1k.wbhprojekt.infrastructure;
+package com.github.dmn1k.tfm.infrastructure;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

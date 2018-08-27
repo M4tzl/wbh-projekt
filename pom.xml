@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.dmn1k</groupId>
-    <artifactId>wbh-projekt</artifactId>
+    <artifactId>tfm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>wbh-projekt</name>
+    <name>Tier-Fair-Mittlung</name>
     <description>WBH Projektarbeit</description>
 
     <parent>
@@ -98,7 +98,7 @@
     </dependencies>
 
     <build>
-        <finalName>wbh-projekt</finalName>
+        <finalName>tier-fair-mittlung</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

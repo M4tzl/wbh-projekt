@@ -1,4 +1,4 @@
-package com.github.dmn1k.wbhprojekt;
+package com.github.dmn1k.tfm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
