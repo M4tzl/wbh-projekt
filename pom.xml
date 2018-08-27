@@ -38,18 +38,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- jquery und bootstrap -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>4.0.0-2</version>
         </dependency>
 
         <!-- Datenbank (Schema-Update, Treiber) -->
@@ -104,19 +93,69 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <!-- Install our node and npm version to run npm/node scripts-->
+              <execution>
+                <id>install node and npm</id>
+                <goals>
+                  <goal>install-node-and-npm</goal>
+                </goals>
+                <configuration>
+                  <nodeVersion>v9.11.1</nodeVersion>
+                </configuration>
+              </execution>
+              <!-- Install all project dependencies -->
+              <execution>
+                <id>npm install</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <!-- optional: default phase is "generate-resources" -->
+                <phase>generate-resources</phase>
+                <!-- Optional configuration which provides for running any npm command -->
+                <configuration>
+                  <arguments>install</arguments>
+                </configuration>
+              </execution>
+              <!-- Build and minify static files -->
+              <execution>
+                <id>npm run build</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <configuration>
+                  <arguments>run build</arguments>
+                </configuration>
+              </execution>
+              <!-- Run Unit tests -->
+              <execution>
+                <id>npm run test</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <!-- optional: default phase is "generate-resources" -->
+                <phase>test</phase>
+                <!-- Optional configuration which provides for running any npm command -->
+                <configuration>
+                  <arguments>run test</arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>com.spotify</groupId>
+            <artifactId>dockerfile-maven-plugin</artifactId>
+            <version>1.4.4</version>
+            <configuration>
+              <repository>dmn1k/tfm</repository>
+              <tag>${project.version}</tag>
+            </configuration>
+          </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
 
 </project>

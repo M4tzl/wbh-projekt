@@ -3,4 +3,5 @@ FROM openjdk:8-jdk-alpine
 RUN apk add --no-cache curl jq
 VOLUME /tmp
 ADD target/tier-fair-mittlung.jar tier-fair-mittlung.jar
+EXPOSE 80
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=prod", "-jar","/tier-fair-mittlung.jar"]
