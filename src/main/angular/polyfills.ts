@@ -42,11 +42,6 @@ import 'core-js/es7/reflect';
  * Zone JS is required by default for Angular itself.
  */
 import 'zone.js/dist/zone'; // Included with Angular CLI.
-import 'intl'; // Run `npm install --save intl`.
-/**
- * Need to import at least one locale-data with intl.
- */
-import 'intl/locale-data/jsonp/de';
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 // import 'classlist.js';  // Run `npm install --save classlist.js`.
