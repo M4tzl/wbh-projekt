@@ -2,6 +2,7 @@ import {async, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {InserateComponent} from "./inserate/inserate.component";
+import { StoriesComponent } from './stories/stories.component';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
@@ -9,7 +10,8 @@ describe('AppComponent', () => {
             imports: [HttpClientTestingModule],
             declarations: [
                 AppComponent,
-                InserateComponent
+                InserateComponent,
+                StoriesComponent
             ],
         }).compileComponents();
     }));
