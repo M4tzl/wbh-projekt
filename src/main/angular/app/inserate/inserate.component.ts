@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {map, tap} from "rxjs/operators";
 import {Observable} from "rxjs";
 import {Inserat} from "./inserat";
+import {Story} from "../stories/story";
+import {Insert} from "@angular-devkit/build-optimizer/src/purify/purify";
 
 @Component({
     selector: 'app-inserate',
@@ -10,15 +12,19 @@ import {Inserat} from "./inserat";
     styleUrls: ['./inserate.component.css']
 })
 export class InserateComponent {
-    inserate: Observable<Inserat[]>;
+    inserate: Inserat[];
 
     constructor(private http: HttpClient) {
-        this.inserate = this.http.get("/inserate").pipe(
+        this.http.get("/inserate").pipe(
             map(result => (<any> result)._embedded.inserate),
             tap(r => console.log(r))
-        );
+        )
+            .subscribe(result => this.inserate = result);
 
-        this.inserate.subscribe();
+    }
 
+    doClick(inserat: Inserat) {
+        let index = this.inserate.indexOf(inserat);
+        this.inserate.splice(index, 1);
     }
 }

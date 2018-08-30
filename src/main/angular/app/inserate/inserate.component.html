@@ -1,5 +1,6 @@
 <ul class="list-group">
-    <li class="list-group-item" *ngFor="let inserat of inserate | async">
+    <li class="list-group-item" *ngFor="let inserat of inserate">
+        <button title="Click me" (click)="doClick(inserat)">Blablubb</button>
         {{inserat.titel}}
     </li>
 </ul>
