@@ -18,12 +18,38 @@ public class TestdataRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         inserateRepository.save(Inserat.builder()
-            .titel("Mein tolles Inserat")
+
+            .titel("Inserat A")
             .beschreibung("bla blubb")
             .build());
 
         inserateRepository.save(Inserat.builder()
-            .titel("Inserat 42")
+
+            .titel("Inserat B")
+            .beschreibung("blubdiblubb")
+            .build());
+
+        inserateRepository.save(Inserat.builder()
+
+            .titel("Inserat C")
+            .beschreibung("blubdiblubb")
+            .build());
+
+        inserateRepository.save(Inserat.builder()
+
+            .titel("Inserat D")
+            .beschreibung("blubdiblubb")
+            .build());
+
+        inserateRepository.save(Inserat.builder()
+
+            .titel("Inserat E")
+            .beschreibung("blubdiblubb")
+            .build());
+
+        inserateRepository.save(Inserat.builder()
+
+            .titel("Inserat F")
             .beschreibung("blubdiblubb")
             .build());
 

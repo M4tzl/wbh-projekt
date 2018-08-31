@@ -6,6 +6,8 @@ import {Inserat} from "./inserat";
 import {Story} from "../stories/story";
 import {Insert} from "@angular-devkit/build-optimizer/src/purify/purify";
 
+
+
 @Component({
     selector: 'app-inserate',
     templateUrl: './inserate.component.html',
@@ -13,6 +15,12 @@ import {Insert} from "@angular-devkit/build-optimizer/src/purify/purify";
 })
 export class InserateComponent {
     inserate: Inserat[];
+    key: string = 'Titel'; //set default
+    reverse: boolean = false;
+    sort(key){
+        this.key = key;
+        this.reverse = !this.reverse;
+    }
 
     constructor(private http: HttpClient) {
         this.http.get("/inserate").pipe(
@@ -23,8 +31,10 @@ export class InserateComponent {
 
     }
 
+
     doClick(inserat: Inserat) {
         let index = this.inserate.indexOf(inserat);
         this.inserate.splice(index, 1);
     }
+
 }

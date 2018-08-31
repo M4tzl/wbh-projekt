@@ -1,6 +1,40 @@
-<ul class="list-group">
+<div class="form-group col-md-2">
+    <!---Problem beim Test/Serverstart
+     <input type="text" class="form-control" placeholder="Suche"  [(ngModel)]="term">
+    -->
+    <input type="text" class="form-control" placeholder="Suche"  [(ngModel)]="term">
+</div>
+<div class="container">
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered table-striped ">
+            <thead class="bg-info">
+            <tr>
+                <th>Nr</th>
+                <th (click)="sort('titel')">Titel
+                        <span class="glyphicon sort-icon" *ngIf="key =='Titel'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+                <th>Aktion</th>
+            </tr>
+            </thead>
+            <tbody >
+            <!---Probleme beim Test/Serverstart
+            <tr *ngFor="let inserat of inserate | orderBy: key : reverse | filter:term">
+            -->
+            <tr *ngFor="let inserat of inserate  | orderBy: key : reverse | filter:term">
+                <td>{{inserat.id}}&nbsp;</td>
+                <td>{{inserat.titel}}&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!------
+  <ul class="list-group">
     <li class="list-group-item" *ngFor="let inserat of inserate">
         <button title="Click me harder" (click)="doClick(inserat)">Blablubb harder</button>
         {{inserat.titel}}
     </li>
 </ul>
+-->

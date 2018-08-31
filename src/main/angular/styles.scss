@@ -1,2 +1,35 @@
 @import '~bootstrap/scss/bootstrap-reboot';
 @import '~bootstrap/scss/bootstrap-grid';
+.navbar {
+    margin-bottom: 0;
+    background-color: #ff6600;
+    z-index: 9999;
+    border: 0;
+    border-radius: 0;
+    letter-spacing: 4px;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #ff6600 !important;
+    background-color: #fff !important;
+
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+.page-footer {
+    margin-bottom: 0;
+    background-color: #ff6600;
+    z-index: 9999;
+    border: 0;
+    border-radius: 0;
+}
+.page-footer li a, .page-footer  {
+    color: #fff !important;
+}
