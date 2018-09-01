@@ -10,14 +10,14 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { OrderModule } from 'ngx-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
-
-
+import { StoriesDetailComponent } from './stories-detail/stories-detail.component';
 
 @NgModule({
   declarations: [
       AppComponent,
       InserateComponent,
-      StoriesComponent
+      StoriesComponent,
+      StoriesDetailComponent
   ],
   imports: [
       BrowserModule,

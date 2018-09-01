@@ -54,5 +54,12 @@ public class TestdataRunner implements ApplicationRunner {
             .build());
 
         storiesRepository.save(new Story(null, "Story 1", "Blablubb"));
+        storiesRepository.save(new Story(null, "Story 2", "Blablubbnvnv"));
+        storiesRepository.save(new Story(null, "Story 3", "Blablubbvnvn"));
+        storiesRepository.save(new Story(null, "Story 4", "Blablubb gdfgdh"));
+        storiesRepository.save(new Story(null, "Story 5", "Blablubbvhfghd hdhdh"));
+        storiesRepository.save(new Story(null, "Story 6", "Blablubb hdhdfgh"));
+        storiesRepository.save(new Story(null, "Story 7", "Blablubb hsdhsdh "));
+        storiesRepository.save(new Story(null, "Story 8", "Blablubb hdhs hs"));
     }
 }

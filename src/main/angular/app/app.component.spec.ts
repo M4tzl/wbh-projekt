@@ -4,7 +4,7 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import { RouterTestingModule } from '@angular/router/testing';
 import {InserateComponent} from "./inserate/inserate.component";
 import { StoriesComponent } from './stories/stories.component';
-
+import { StoriesDetailComponent } from './stories-detail/stories-detail.component';
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -12,7 +12,8 @@ describe('AppComponent', () => {
             declarations: [
                 AppComponent,
                 InserateComponent,
-                StoriesComponent
+                StoriesComponent,
+                StoriesDetailComponent
             ],
         }).compileComponents();
     }));

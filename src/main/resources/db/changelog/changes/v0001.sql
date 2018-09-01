@@ -10,7 +10,7 @@ CREATE TABLE "inserat" (
 
 CREATE TABLE "story" (
     id bigserial NOT NULL,
-    title varchar(100) not null,
-    content varchar(MAX) null,
+    titel varchar(100) not null,
+    beschreibung varchar(MAX) null,
     primary key (id)
 );

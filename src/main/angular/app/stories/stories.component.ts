@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Story} from "./story";
 import {Observable} from "rxjs";
 
+
 @Component({
   selector: 'app-stories',
   templateUrl: './stories.component.html',

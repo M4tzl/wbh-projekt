@@ -1,6 +1,26 @@
-<h2>Stories</h2>
-<ul>
-    <li class="list-group-item list-group-item-primary" *ngFor="let story of stories | async">
-        {{story.title}}
-    </li>
-</ul>
+<div class="container">
+        <h4>Stories</h4>
+    <div class="form-group col-md-2">
+        <!---Problem beim Test/Serverstart
+         <input type="text" class="form-control" placeholder="Suche"  [(ngModel)]="term">
+        -->
+    </div>
+    <div class="table-responsive table-sm">
+        <table class="table table-hover table-bordered table-striped ">
+            <thead class="bg-info">
+            <tr>
+                <th>Nr</th>
+                <th (click)="sort('Titel')">Titel</th>
+                <th>Aktion</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let story of stories | async" routerLink="/stories/detail/{{story.id}}">
+                <td>{{story.id}}&nbsp;</td>
+                <td>{{story.titel}}&nbsp;</td>
+                <td>{{story.beschreibung}}&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
