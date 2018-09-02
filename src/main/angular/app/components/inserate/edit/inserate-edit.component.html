@@ -22,16 +22,10 @@
             <div class="col-md-6 mb-3">
                 <label for="rassenFreitext">Sonstige Informationen</label>
                 <input type="text"
-                       required
                        id="rassenFreitext"
                        class="form-control"
                        [(ngModel)]="inserat.rassenFreitext"
-                       name="rassenFreitext"
-                       #rassenFreitext="ngModel"/>
-                <div [hidden]="rassenFreitext.valid || rassenFreitext.pristine"
-                     class="alert alert-danger">
-                    rassenFreitext ist ein Pflichtfeld
-                </div>
+                       name="rassenFreitext"/>
             </div>
         </div>
 
