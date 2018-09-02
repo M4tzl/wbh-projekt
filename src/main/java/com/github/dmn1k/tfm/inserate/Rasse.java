@@ -9,15 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
 @Entity
-public class Story {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Rasse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String titel;
-    private String beschreibung;
+    private String bezeichnung;
 }

@@ -1,13 +1,15 @@
 package com.github.dmn1k.tfm;
 
-import com.github.dmn1k.tfm.inserate.Inserat;
-import com.github.dmn1k.tfm.inserate.InserateRepository;
-import com.github.dmn1k.tfm.inserate.StoriesRepository;
-import com.github.dmn1k.tfm.inserate.Story;
+import com.github.dmn1k.tfm.inserate.*;
+import com.github.dmn1k.tfm.stories.StoriesRepository;
+import com.github.dmn1k.tfm.stories.Story;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component
@@ -17,40 +19,49 @@ public class TestdataRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        inserateRepository.save(Inserat.builder()
+        List<Rasse> rassen = inserateRepository.findRassen();
+        Rasse bernhardiner = rassen.stream()
+            .filter(r -> r.getBezeichnung().equals("Bernhardiner"))
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Bernhardiner nicht in DB gefunden"));
 
-            .titel("Inserat A")
-            .beschreibung("bla blubb")
+        Rasse dackel = rassen.stream()
+            .filter(r -> r.getBezeichnung().equals("Dackel"))
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Dackel nicht in DB gefunden"));
+
+
+        Schulterhoehe schulterhoehe1 = inserateRepository.findSchulterhoehen().get(1);
+        Schulterhoehe schulterhoehe2 = inserateRepository.findSchulterhoehen().get(2);
+
+        inserateRepository.save(Inserat.builder()
+            .status(InseratStatus.AKTIV)
+            .geburtsdatum(LocalDate.now())
+            .rasse(bernhardiner)
+            .rufname("Hansi")
+            .schulterhoehe(schulterhoehe1)
+            .voraussichtlicheSchulterhoehe(schulterhoehe2)
+            .geschlecht(Geschlecht.M)
             .build());
 
         inserateRepository.save(Inserat.builder()
-
-            .titel("Inserat B")
-            .beschreibung("blubdiblubb")
+            .status(InseratStatus.ENTWURF)
+            .geburtsdatum(LocalDate.now())
+            .rasse(bernhardiner)
+            .rufname("Hansi 2")
+            .schulterhoehe(schulterhoehe2)
+            .voraussichtlicheSchulterhoehe(schulterhoehe2)
+            .geschlecht(Geschlecht.M)
             .build());
 
         inserateRepository.save(Inserat.builder()
-
-            .titel("Inserat C")
-            .beschreibung("blubdiblubb")
-            .build());
-
-        inserateRepository.save(Inserat.builder()
-
-            .titel("Inserat D")
-            .beschreibung("blubdiblubb")
-            .build());
-
-        inserateRepository.save(Inserat.builder()
-
-            .titel("Inserat E")
-            .beschreibung("blubdiblubb")
-            .build());
-
-        inserateRepository.save(Inserat.builder()
-
-            .titel("Inserat F")
-            .beschreibung("blubdiblubb")
+            .status(InseratStatus.VERMITTELT)
+            .geburtsdatum(LocalDate.of(2000, 1, 5))
+            .rasse(dackel)
+            .rufname("Fritz")
+            .schulterhoehe(schulterhoehe1)
+            .voraussichtlicheSchulterhoehe(schulterhoehe1)
+            .geschlecht(Geschlecht.W)
             .build());
 
         storiesRepository.save(new Story(null, "Story 1", "Blablubb"));

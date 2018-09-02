@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Builder
 @Entity
@@ -18,8 +16,52 @@ import javax.persistence.Id;
 public class Inserat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    private String titel;
-    private String beschreibung;
+    @Builder.Default
+    private LocalDate created = LocalDate.now();
+
+    private LocalDate lastUpdate;
+
+    @OneToOne
+    @JoinColumn(name = "rasse_id")
+    private Rasse rasse;
+
+    @Enumerated(EnumType.STRING)
+    private InseratStatus status;
+
+    private String rufname;
+    private String rassenFreitext;
+
+    @Enumerated(EnumType.STRING)
+    private Geschlecht geschlecht;
+
+    private LocalDate geburtsdatum;
+
+    private String kurzbeschreibung;
+
+    @OneToOne
+    @JoinColumn(name = "schulterhoehe_id")
+    private Schulterhoehe schulterhoehe;
+
+    @OneToOne
+    @JoinColumn(name = "voraussichtliche_schulterhoehe_id")
+    private Schulterhoehe voraussichtlicheSchulterhoehe;
+
+    private boolean kastriert;
+    private boolean gechipt;
+    private boolean geimpft;
+    private boolean stubenrein;
+    private boolean leinenfuehrigkeit;
+    private boolean autofahren;
+    private boolean vertraeglichkeitKinder;
+    private boolean vertraeglichkeitKatzen;
+    private boolean vertraeglichkeitHunde;
+    private boolean zutraulich;
+
+    private boolean zielgruppeAnfaenger;
+    private boolean zielgruppeSenioren;
+    private boolean zielgruppeGarten;
+    private boolean zielgruppeErfahren;
+    private boolean zielgruppeFamilien;
 }

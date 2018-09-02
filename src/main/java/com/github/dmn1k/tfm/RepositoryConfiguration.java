@@ -1,7 +1,7 @@
 package com.github.dmn1k.tfm;
 
 import com.github.dmn1k.tfm.inserate.Inserat;
-import com.github.dmn1k.tfm.inserate.Story;
+import com.github.dmn1k.tfm.stories.Story;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
