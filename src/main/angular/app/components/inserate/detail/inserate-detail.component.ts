@@ -3,6 +3,7 @@ import {InserateService} from "../../../services/inserate.service";
 import {ActivatedRoute} from "@angular/router";
 import {Inserat} from "../../../model/inserat";
 import {Location} from '@angular/common';
+import {finalize} from "rxjs/operators";
 
 @Component({
     selector: 'app-inserate-detail',
@@ -11,6 +12,7 @@ import {Location} from '@angular/common';
 })
 export class InserateDetailComponent implements OnInit {
     inserat: Inserat;
+    loading: boolean = true;
 
     constructor(private inserateService: InserateService,
                 private location: Location,
@@ -19,8 +21,13 @@ export class InserateDetailComponent implements OnInit {
 
 
     ngOnInit(): void {
+        this.loading = true;
+        this.inserat = <Inserat> {};
         const id = this.route.snapshot.params['id'];
         this.inserateService.load(id)
+            .pipe(
+                finalize(() => this.loading = false)
+            )
             .subscribe(result => this.inserat = result);
     }
 

@@ -23,6 +23,14 @@ import {BreedService} from "./services/breed.service";
 import {NgbModule, NgbDateAdapter, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import {CustomNgbDateParserFormatter} from "./infrastructure/custom-ngb-date-parser-formatter";
 import {CustomNgbDateAdapter} from "./infrastructure/custom-ngb-date-adapter";
+import {
+    MatInputModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule
+} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -37,12 +45,18 @@ import {CustomNgbDateAdapter} from "./infrastructure/custom-ngb-date-adapter";
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         OrderModule,
         Ng2SearchPipeModule,
         FormsModule,
         SortableTableModule,
         NgbModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressSpinnerModule,
         RouterModule.forRoot(AppRoutes)
     ],
     providers: [
