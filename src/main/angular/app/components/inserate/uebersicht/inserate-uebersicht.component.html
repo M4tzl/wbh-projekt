@@ -1,0 +1,26 @@
+<div class="container">
+    <h4>Inserate</h4>
+    <div class="form-group col-md-2">
+        <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
+    </div>
+    <div class="table-responsive">
+        <table sortable-table (sorted)="onSorted($event)" class="table table-hover table-bordered table-striped table-sm">
+            <thead class="bg-info">
+            <tr>
+                <th>ID</th>
+                <th sortable-column="lastUpdate">Inseratsdatum</th>
+                <th>Rufname</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let inserat of inserate | filter:term">
+                <td>{{inserat.id}}&nbsp;</td>
+                <td>{{inserat.lastUpdate}}&nbsp;</td>
+                <td>{{inserat.rufname}}&nbsp;</td>
+                <td>{{inserat.status}}&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

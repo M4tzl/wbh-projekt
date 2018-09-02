@@ -1,7 +1,7 @@
-import {InserateComponent} from './inserate.component';
-import {InserateService} from "../../services/inserate.service";
+import {InserateUebersichtComponent} from './inserate-uebersicht.component';
+import {InserateService} from "../../../services/inserate.service";
 import {instance, mock, when} from "ts-mockito";
-import {InseratUebersicht} from "../../model/inserat-uebersicht";
+import {InseratUebersicht} from "../../../model/inserat-uebersicht";
 import {of} from "rxjs";
 
 function createInserat(titel: string = 'random title') {
@@ -12,14 +12,14 @@ function createInserat(titel: string = 'random title') {
     };
 }
 
-describe('InserateComponent', () => {
+describe('InserateUebersichtComponent', () => {
     it('should display inserate from server', () => {
         const inserate = [
             createInserat()
         ];
         const inserateServiceMock = mock(InserateService);
         when(inserateServiceMock.loadAll()).thenReturn(of(inserate));
-        const component = new InserateComponent(instance(inserateServiceMock));
+        const component = new InserateUebersichtComponent(instance(inserateServiceMock));
 
         expect(component.inserate).toEqual(inserate);
     });

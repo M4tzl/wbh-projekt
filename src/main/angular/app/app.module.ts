@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import {InserateComponent} from './components/inserate/inserate.component';
+import {InserateUebersichtComponent} from './components/inserate/uebersicht/inserate-uebersicht.component';
 import {StoriesComponent} from './components/stories/stories.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
@@ -21,7 +21,7 @@ import {SortableTableModule} from "./lib/sortable-table/sortable-table.module";
 @NgModule({
     declarations: [
         AppComponent,
-        InserateComponent,
+        InserateUebersichtComponent,
         StoriesComponent,
         StoriesDetailComponent,
         StoriesEditComponent,

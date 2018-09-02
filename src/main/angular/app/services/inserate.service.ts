@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {InseratUebersicht} from "../model/inserat-uebersicht";
+import {Inserat} from "../model/inserat";
 
 @Injectable()
 export class InserateService {
@@ -22,5 +23,9 @@ export class InserateService {
             .pipe(
                 map(result => result._embedded.inserate)
             );
+    }
+
+    public load(id: number): Observable<Inserat> {
+        return this.httpClient.get<Inserat>(`/inserate/${id}`);
     }
 }
