@@ -29,5 +29,7 @@ export class StoriesService {
     public delete(id:number): Observable<Story> {
         return this.httpClient.delete<Story>("/stories/"+id);
     }
-
+    public update(story: Story): Observable<Story> {
+        return this.httpClient.put<Story>(`/stories/${story.id}`, story);
+    }
 }

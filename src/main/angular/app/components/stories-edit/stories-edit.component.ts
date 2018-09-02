@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Story } from '../../model/story';
 import { StoriesService } from '../../services/stories.service';
 
@@ -11,11 +11,25 @@ import { StoriesService } from '../../services/stories.service';
   styleUrls: ['./stories-edit.component.css']
 })
 export class StoriesEditComponent implements OnInit {
-    story:Story;
-    constructor(private location: Location, private route:ActivatedRoute, private service:StoriesService) {
+    story: Story = <Story>{};
+
+    constructor(private storyService: StoriesService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private location: Location) {
     }
-    ngOnInit(){
-        this.service.load(this.route.snapshot.params['id']).subscribe(result => this.story = result);
+
+
+    ngOnInit(): void {
+        const id = this.route.snapshot.params['id'];
+        this.storyService.load(id)
+            .subscribe(result => this.story = result);
+    }
+
+    onSubmit(){
+        const id = this.route.snapshot.params['id'];
+        this.storyService.update(this.story)
+            .subscribe(result => this.router.navigate(['/stories/edit/'+id]));
     }
     goBack(): void {
         this.location.back();
