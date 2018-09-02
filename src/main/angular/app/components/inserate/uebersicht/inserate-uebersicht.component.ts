@@ -42,20 +42,20 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
                 tap(() => {
                     this.paginator.pageIndex = 0;
 
-                    this.loadLessonsPage();
+                    this.loadInseratePage();
                 })
             )
             .subscribe();
 
         merge(this.sort.sortChange, this.paginator.page)
             .pipe(
-                tap(() => this.loadLessonsPage())
+                tap(() => this.loadInseratePage())
             )
             .subscribe();
 
     }
 
-    loadLessonsPage() {
+    loadInseratePage() {
         this.dataSource.loadInserate(
             this.searchField.nativeElement.value,
             'lastUpdate',

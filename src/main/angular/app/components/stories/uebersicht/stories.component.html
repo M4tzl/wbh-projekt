@@ -1,29 +1,49 @@
 <div class="container-fluid">
-        <h4>Stories</h4>
-    <div class="form-group col-md-2">
-         <input type="text" class="form-control" placeholder="Suche"  [(ngModel)]="term">
+    <h4>Stories</h4>
+
+    <mat-form-field>
+        <input matInput placeholder="Suche" #searchField>
+    </mat-form-field>
+
+    <div class="loading-indicator" *ngIf="dataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
     </div>
+
     <div class="table-responsive">
-        <table sortable-table (sorted)="onSorted($event)" class="table table-hover table-bordered table-striped table-sm">
-            <thead class="bg-info">
-            <tr>
-                <th sortable-column="ID">ID</th>
-                <th sortable-column="Titel">Titel</th>
-                <th sortable-column="Beschreibung">Beschreibung</th>
-                <th >Aktion</th>
-            </tr>
-            </thead>
-            <tbody >
-            <tr *ngFor="let story of stories | filter:term" >
-                <td>{{story.id}}&nbsp;</td>
-                <td>{{story.titel}}&nbsp;</td>
-                <td class="text-left"><span class="d-inline-block text-truncate" style="max-width: 150px;">{{story.beschreibung}}</span>&nbsp;</td>
-                <td nowrap>
-                    <a [routerLink]="['/stories/detail',story.id]"><img src="assets/img/view.png" alt="[View]" title="Anzeigen" height="30"></a>&nbsp;
-                    <a [routerLink]="['/stories/edit',story.id]"><img src="assets/img/edit.png" alt="[Edit]" title="Editieren" height="30"></a>&nbsp;
-                    <a [routerLink]="['/stories/delete',story.id]"><img src="assets/img/trash.png" alt="[Trash]" title="L�schen" height="30"></a></td>
-            </tr>
-            </tbody>
-        </table>
+        <mat-table class="table table-hover table-bordered table-striped table-sm" [dataSource]="dataSource"
+                   matSort matSortActive="titel" matSortDirection="asc" matSortDisableClear>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                <mat-cell *matCellDef="let story">{{story.id}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="titel">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Titel</mat-header-cell>
+                <mat-cell *matCellDef="let story">{{story.titel}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let story">
+                    <a [routerLink]="['/stories/detail',story.id]"><img src="assets/img/view.png" alt="[View]"
+                                                                        title="Anzeigen" height="30"></a>&nbsp;
+                    <a [routerLink]="['/stories/edit',story.id]"><img src="assets/img/edit.png" alt="[Edit]"
+                                                                      title="Editieren" height="30"></a>&nbsp;
+                    <a [routerLink]="['/stories/delete',story.id]"><img src="assets/img/trash.png" alt="[Trash]"
+                                                                        title="Löschen" height="30"></a>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+
+
+        <mat-paginator [length]="(dataSource.inserateResult$ | async)?.page?.totalElements"
+                       [pageSize]="initialPageSize"
+                       [pageSizeOptions]="pageSizes"></mat-paginator>
+
+
     </div>
 </div>
