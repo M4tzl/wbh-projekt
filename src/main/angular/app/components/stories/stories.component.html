@@ -1,24 +1,24 @@
 <div class="container">
         <h4>Stories</h4>
     <div class="form-group col-md-2">
-        <!---Problem beim Test/Serverstart
          <input type="text" class="form-control" placeholder="Suche"  [(ngModel)]="term">
-        -->
     </div>
     <div class="table-responsive table-sm">
         <table class="table table-hover table-bordered table-striped ">
             <thead class="bg-info">
             <tr>
-                <th>Nr</th>
+                <th (click)="sort('ID')">ID</th>
                 <th (click)="sort('Titel')">Titel</th>
-                <th>Aktion</th>
+                <th (click)="sort('Beschreibung')">Beschreibung</th>
+                <th >Aktion</th>
             </tr>
             </thead>
             <tbody >
-            <tr *ngFor="let story of stories | async" routerLink="/stories/detail/{{story.id}}">
+            <tr *ngFor="let story of stories | orderBy: key : reverse | filter:term" >
                 <td>{{story.id}}&nbsp;</td>
                 <td>{{story.titel}}&nbsp;</td>
-                <td>{{story.beschreibung}}&nbsp;</td>
+                <td class="text-left"><span class="d-inline-block text-truncate" style="max-width: 150px;">{{story.beschreibung}}</span>&nbsp;</td>
+                <td ><a [routerLink]="['/stories/detail',story.id]">[View]</a>&nbsp;<a  [routerLink]="['/stories/edit',story.id]">[Edit]</a>&nbsp;<a  [routerLink]="['/stories/delete',story.id]">[Delete]</a></td>
             </tr>
             </tbody>
         </table>

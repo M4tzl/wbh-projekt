@@ -14,13 +14,17 @@ import {RouterModule} from "@angular/router";
 import {AppRoutes} from "./app.routes";
 import {InserateService} from "./services/inserate.service";
 import {StoriesService} from "./services/stories.service";
+import { StoriesEditComponent } from './components/stories-edit/stories-edit.component';
+import { StoriesDeleteComponent } from './components/stories-delete/stories-delete.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         InserateComponent,
         StoriesComponent,
-        StoriesDetailComponent
+        StoriesDetailComponent,
+        StoriesEditComponent,
+        StoriesDeleteComponent
     ],
     imports: [
         BrowserModule,

@@ -10,6 +10,12 @@ import {StoriesService} from "../../services/stories.service";
 })
 export class StoriesComponent {
     stories: Story[];
+    key: string = 'Beschreibung'; //set default
+    reverse: boolean = false;
+    sort(key){
+        this.key = key;
+        this.reverse = !this.reverse;
+    }
 
   constructor(private storiesService: StoriesService) {
       this.storiesService.loadAll()

@@ -15,4 +15,11 @@ export class StoriesService {
                 map(result => result._embedded.stories)
             );
     }
+    public load(id:number): Observable<Story> {
+        return this.httpClient.get<Story>("/stories/"+id);
+    }
+    public delete(id:number): Observable<Story> {
+        return this.httpClient.delete<Story>("/stories/"+id);
+    }
+
 }
