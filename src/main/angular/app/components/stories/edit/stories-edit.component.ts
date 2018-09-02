@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
-import { Story } from '../../model/story';
-import { StoriesService } from '../../services/stories.service';
+import { Story } from '../../../model/story';
+import { StoriesService } from '../../../services/stories.service';
 
 
 @Component({

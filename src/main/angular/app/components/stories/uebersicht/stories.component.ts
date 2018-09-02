@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {Story} from "../../model/story";
-import {StoriesService} from "../../services/stories.service";
-import {ColumnSortedEvent} from "../../lib/sortable-table/sort.service";
+import {Story} from "../../../model/story";
+import {StoriesService} from "../../../services/stories.service";
+import {ColumnSortedEvent} from "../../../lib/sortable-table/sort.service";
 
 
 @Component({

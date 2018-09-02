@@ -1,8 +1,8 @@
 import {StoriesComponent} from './stories.component';
 import {instance, mock, when} from "ts-mockito";
 import {of} from "rxjs";
-import {Story} from "../../model/story";
-import {StoriesService} from "../../services/stories.service";
+import {Story} from "../../../model/story";
+import {StoriesService} from "../../../services/stories.service";
 
 function createStory(titel: string = 'random title') {
     return <Story>{

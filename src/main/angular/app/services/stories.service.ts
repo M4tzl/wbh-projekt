@@ -10,7 +10,7 @@ export class StoriesService {
     }
 
     public loadAll(sort?: string, sortDirection?: string): Observable<Story[]> {
-        let url = "/stories";
+        let url = "/api/stories";
         if(sort){
             url += "?sort=" + sort;
             if(sortDirection){
@@ -24,12 +24,12 @@ export class StoriesService {
             );
     }
     public load(id:number): Observable<Story> {
-        return this.httpClient.get<Story>("/stories/"+id);
+        return this.httpClient.get<Story>("/api/stories/"+id);
     }
     public delete(id:number): Observable<Story> {
-        return this.httpClient.delete<Story>("/stories/"+id);
+        return this.httpClient.delete<Story>("/api/stories/"+id);
     }
     public update(story: Story): Observable<Story> {
-        return this.httpClient.put<Story>(`/stories/${story.id}`, story);
+        return this.httpClient.put<Story>(`/api/stories/${story.id}`, story);
     }
 }

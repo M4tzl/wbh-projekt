@@ -1,11 +1,11 @@
 import {Routes} from "@angular/router";
 import {InserateUebersichtComponent} from "./components/inserate/uebersicht/inserate-uebersicht.component";
-import {StoriesComponent} from "./components/stories/stories.component";
-import {StoriesDetailComponent} from "./components/stories-detail/stories-detail.component";
-import { StoriesDeleteComponent } from "./components/stories-delete/stories-delete.component";
+import {StoriesComponent} from "./components/stories/uebersicht/stories.component";
+import {StoriesDetailComponent} from "./components/stories/detail/stories-detail.component";
+import { StoriesDeleteComponent } from "./components/stories/delete/stories-delete.component";
 import {InserateDetailComponent} from "./components/inserate/detail/inserate-detail.component";
 import {InserateEditComponent} from "./components/inserate/edit/inserate-edit.component";
-import { StoriesEditComponent } from "./components/stories-edit/stories-edit.component";
+import { StoriesEditComponent } from "./components/stories/edit/stories-edit.component";
 
 export const AppRoutes: Routes = [
     { path: '', redirectTo: 'inserate', pathMatch: 'full' },
