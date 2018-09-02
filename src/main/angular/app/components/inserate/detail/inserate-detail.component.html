@@ -1,32 +1,18 @@
 <div class="container">
+    <h4 class="mb-3">Inserat</h4>
     <div class="row">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="rasse">Rasse</label>
-                    <span id="rasse">{{inserat?.rasse}}</span>
-                </div>
-                <div class="col-md-6">
-                    <label for="sonstigeInfos">Sonstige Informationen</label>
-                    <span id="sonstigeInfos">{{inserat?.rassenFreitext}}</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="gebDatum">Geburtsdatum</label>
-                    <span id="gebDatum">{{inserat?.geburtsdatum}}</span>
-                </div>
-                <div class="col-md-3">
-                    <label for="groesseAktuell">Schulterhöhe (aktuell)</label>
-                    <span id="groesseAktuell">{{inserat?.schulterhoehe}}</span>
-                </div>
-                <div class="col-md-3">
-                    <label for="groesseZukunft">Schulterhöhe (vorauss.)</label>
-                    <span id="groesseZukunft">{{inserat?.voraussichtlicheSchulterhoehe}}</span>
-                </div>
-            </div>
+        <div class="col-md-6 mb-3">
+            <div><span>Rasse: </span>{{inserat.rasse}}</div>
         </div>
-
-        <!-- TODO: Weitere Felder anzeigen -->
+        <div class="col-md-6 mb-3">
+            <div><span>Sonstige Informationen: </span>{{inserat.rassenFreitext || 'Keine'}}</div>
+        </div>
     </div>
+
+    <div class="row">
+        <button class="btn btn-success" (click)="goBack()">zurück</button>
+        <button class="btn" [routerLink]="['/inserate/edit',inserat.id]">editieren</button>
+    </div>
+
+    <!-- TODO: Weitere Felder anzeigen -->
 </div>
