@@ -17,11 +17,16 @@ import {OrderModule} from "ngx-order-pipe";
 import {StoriesEditComponent} from './components/stories-edit/stories-edit.component';
 import {StoriesDeleteComponent} from './components/stories-delete/stories-delete.component';
 import {SortableTableModule} from "./lib/sortable-table/sortable-table.module";
+import {InserateDetailComponent} from "./components/inserate/detail/inserate-detail.component";
+import {InserateEditComponent} from "./components/inserate/edit/inserate-edit.component";
+import {BreedService} from "./services/breed.service";
 
 @NgModule({
     declarations: [
         AppComponent,
         InserateUebersichtComponent,
+        InserateDetailComponent,
+        InserateEditComponent,
         StoriesComponent,
         StoriesDetailComponent,
         StoriesEditComponent,
@@ -39,6 +44,7 @@ import {SortableTableModule} from "./lib/sortable-table/sortable-table.module";
     providers: [
         InserateService,
         StoriesService,
+        BreedService,
         {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     bootstrap: [AppComponent],

@@ -6,10 +6,10 @@ export interface Inserat extends InseratUebersicht {
     geburtsdatum:Date;
     kurzbeschreibung:string;
 
-    rasse: Rasse;
+    rasse: string;
 
-    schulterhoehe: Schulterhoehe;
-    voraussichtlicheSchulterhoehe: Schulterhoehe;
+    schulterhoehe: string;
+    voraussichtlicheSchulterhoehe: string;
 
     kastriert:boolean;
     gechipt:boolean;
@@ -28,14 +28,4 @@ export interface Inserat extends InseratUebersicht {
     zielgruppeErfahren:boolean;
     zielgruppeFamilien:boolean;
 
-}
-
-export interface Rasse {
-    id: number;
-    bezeichnung:string;
-}
-
-export interface Schulterhoehe {
-    id: number;
-    wert:string;
 }

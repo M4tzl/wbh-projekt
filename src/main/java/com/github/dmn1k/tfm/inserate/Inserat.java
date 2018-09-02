@@ -24,9 +24,7 @@ public class Inserat {
     @Builder.Default
     private LocalDate lastUpdate = LocalDate.now();
 
-    @OneToOne
-    @JoinColumn(name = "rasse_id")
-    private Rasse rasse;
+    private String rasse;
 
     @Enumerated(EnumType.STRING)
     private InseratStatus status;
@@ -41,13 +39,8 @@ public class Inserat {
 
     private String kurzbeschreibung;
 
-    @OneToOne
-    @JoinColumn(name = "schulterhoehe_id")
-    private Schulterhoehe schulterhoehe;
-
-    @OneToOne
-    @JoinColumn(name = "voraussichtliche_schulterhoehe_id")
-    private Schulterhoehe voraussichtlicheSchulterhoehe;
+    private String schulterhoehe;
+    private String voraussichtlicheSchulterhoehe;
 
     private boolean kastriert;
     private boolean gechipt;

@@ -1,28 +1,24 @@
-import {Component} from "@angular/core";
-import {InseratUebersicht} from "../../../model/inserat-uebersicht";
+import {Component, OnInit} from "@angular/core";
 import {InserateService} from "../../../services/inserate.service";
-import {ColumnSortedEvent} from "../../../lib/sortable-table/sort.service";
+import {ActivatedRoute} from "@angular/router";
+import {Inserat} from "../../../model/inserat";
 
 @Component({
     selector: 'app-inserate-detail',
     templateUrl: './inserate-detail.component.html',
     styleUrls: ['./inserate-detail.component.scss']
 })
-export class InserateUebersichtComponent {
-    inserate: InseratUebersicht[];
+export class InserateDetailComponent implements OnInit {
+    inserat: Inserat;
 
-    constructor(private inserateService: InserateService) {
-        this.loadInserate();
+    constructor(private inserateService: InserateService,
+                private route: ActivatedRoute) {
     }
 
-    onSorted(evt: ColumnSortedEvent){
-        this.loadInserate(evt);
-    }
 
-    private loadInserate(sortEvent?: ColumnSortedEvent) {
-        const sortColumn = (sortEvent || ({} as ColumnSortedEvent)).sortColumn;
-        const sortDirection = (sortEvent || ({} as ColumnSortedEvent)).sortDirection;
-        this.inserateService.loadAll(sortColumn, sortDirection)
-            .subscribe(result => this.inserate = result);
+    ngOnInit(): void {
+        const id = this.route.snapshot.params['id'];
+        this.inserateService.load(id)
+            .subscribe(result => this.inserat = result);
     }
 }

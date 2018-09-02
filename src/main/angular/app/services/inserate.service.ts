@@ -28,4 +28,8 @@ export class InserateService {
     public load(id: number): Observable<Inserat> {
         return this.httpClient.get<Inserat>(`/inserate/${id}`);
     }
+
+    public update(inserat: Inserat): Observable<Inserat> {
+        return this.httpClient.put<Inserat>(`/inserate/${inserat.id}`, inserat);
+    }
 }
