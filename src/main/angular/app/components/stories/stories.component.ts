@@ -6,7 +6,7 @@ import {StoriesService} from "../../services/stories.service";
 @Component({
   selector: 'app-stories',
   templateUrl: './stories.component.html',
-  styleUrls: ['./stories.component.css']
+  styleUrls: ['./stories.component.scss']
 })
 export class StoriesComponent {
     stories: Story[];

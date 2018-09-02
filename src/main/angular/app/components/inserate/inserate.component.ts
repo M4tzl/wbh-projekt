@@ -6,7 +6,7 @@ import {InserateService} from "../../services/inserate.service";
 @Component({
     selector: 'app-inserate',
     templateUrl: './inserate.component.html',
-    styleUrls: ['./inserate.component.css']
+    styleUrls: ['./inserate.component.scss']
 })
 export class InserateComponent {
     inserate: Inserat[];

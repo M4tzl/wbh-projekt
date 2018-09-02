@@ -1,26 +1,26 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {InserateComponent} from './inserate.component';
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {InserateService} from "../../services/inserate.service";
+import {instance, mock, when} from "ts-mockito";
+import {Inserat} from "../../model/inserat";
+import {of} from "rxjs";
+
+function createInserat(titel: string = 'random title') {
+    return <Inserat>{
+        id: 1,
+        titel: titel,
+        beschreibung: 'beschreibung'
+    };
+}
 
 describe('InserateComponent', () => {
-    let component: InserateComponent;
-    let fixture: ComponentFixture<InserateComponent>;
+    it('should display inserate from server', () => {
+        const inserate = [
+            createInserat()
+        ];
+        const inserateServiceMock = mock(InserateService);
+        when(inserateServiceMock.loadAll()).thenReturn(of(inserate));
+        const component = new InserateComponent(instance(inserateServiceMock));
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            declarations: [InserateComponent]
-        }).compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(InserateComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
-
-    it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(component.inserate).toEqual(inserate);
     });
 });

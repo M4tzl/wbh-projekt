@@ -4,7 +4,7 @@ import {Location} from '@angular/common';
 @Component({
     selector: 'app-stories-detail',
     templateUrl: './stories-detail.component.html',
-    styleUrls: ['./stories-detail.component.css']
+    styleUrls: ['./stories-detail.component.scss']
 })
 export class StoriesDetailComponent {
 

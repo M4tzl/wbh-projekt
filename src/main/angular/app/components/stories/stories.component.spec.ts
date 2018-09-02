@@ -1,27 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {StoriesComponent} from './stories.component';
+import {instance, mock, when} from "ts-mockito";
+import {of} from "rxjs";
+import {Story} from "../../model/story";
+import {StoriesService} from "../../services/stories.service";
 
-import { StoriesComponent } from './stories.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+function createStory(titel: string = 'random title') {
+    return <Story>{
+        id: 1,
+        titel: titel,
+        beschreibung: 'beschreibung'
+    };
+}
 
 describe('StoriesComponent', () => {
-  let component: StoriesComponent;
-  let fixture: ComponentFixture<StoriesComponent>;
+    it('should display stories from server', () => {
+        const stories = [
+            createStory()
+        ];
+        const storiesServiceMock = mock(StoriesService);
+        when(storiesServiceMock.loadAll()).thenReturn(of(stories));
+        const component = new StoriesComponent(instance(storiesServiceMock));
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StoriesComponent ],
-      imports: [HttpClientTestingModule]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(StoriesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+        expect(component.stories).toEqual(stories);
+    });
 });
