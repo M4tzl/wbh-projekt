@@ -28,7 +28,7 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.dataSource = new InserateDataSource(this.inserateService);
 
-        this.dataSource.loadInserate('', 'lastUpdate', 'asc', 0, this.initialPageSize);
+        this.dataSource.loadInserate('', 'lastUpdate', 'desc', 0, this.initialPageSize);
     }
 
     ngAfterViewInit() {

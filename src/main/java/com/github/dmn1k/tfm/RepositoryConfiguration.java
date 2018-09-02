@@ -11,7 +11,6 @@ public class RepositoryConfiguration extends RepositoryRestConfigurerAdapter {
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        config.exposeIdsFor(Inserat.class);
-        config.exposeIdsFor(Story.class);
+        config.exposeIdsFor(Inserat.class, Story.class);
     }
 }
