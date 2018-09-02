@@ -32,6 +32,6 @@ export class StoriesEditComponent implements OnInit {
             .subscribe(result => this.router.navigate(['/stories/edit/'+id]));
     }
     goBack(): void {
-        this.location.back();
+        this.router.navigate(['/stories/']);
     }
 }
