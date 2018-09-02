@@ -34,9 +34,6 @@ export class InserateService {
             return this.httpClient.put<Inserat>(`/inserate/${inserat.id}`, inserat);
         }
 
-        inserat['created'] = new Date();
-        inserat['lastUpdate'] = new Date();
-        inserat['status'] = 'AKTIV';
         return this.httpClient.post<Inserat>('/inserate', inserat);
     }
 }

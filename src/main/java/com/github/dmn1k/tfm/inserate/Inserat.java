@@ -1,6 +1,5 @@
 package com.github.dmn1k.tfm.inserate;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Builder
+@Builder(toBuilder = true)
 @Entity
 @Data
 @AllArgsConstructor
