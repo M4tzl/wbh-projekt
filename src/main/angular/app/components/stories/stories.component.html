@@ -3,18 +3,18 @@
     <div class="form-group col-md-2">
          <input type="text" class="form-control" placeholder="Suche"  [(ngModel)]="term">
     </div>
-    <div class="table-responsive table-sm">
-        <table class="table table-hover table-bordered table-striped ">
+    <div class="table-responsive">
+        <table sortable-table (sorted)="onSorted($event)" class="table table-hover table-bordered table-striped table-sm">
             <thead class="bg-info">
             <tr>
-                <th (click)="sort('ID')">ID</th>
-                <th (click)="sort('Titel')">Titel</th>
-                <th (click)="sort('Beschreibung')">Beschreibung</th>
+                <th sortable-column="ID">ID</th>
+                <th sortable-column="Titel">Titel</th>
+                <th sortable-column="Beschreibung">Beschreibung</th>
                 <th >Aktion</th>
             </tr>
             </thead>
             <tbody >
-            <tr *ngFor="let story of stories | orderBy: key : reverse | filter:term" >
+            <tr *ngFor="let story of stories | filter:term" >
                 <td>{{story.id}}&nbsp;</td>
                 <td>{{story.titel}}&nbsp;</td>
                 <td class="text-left"><span class="d-inline-block text-truncate" style="max-width: 150px;">{{story.beschreibung}}</span>&nbsp;</td>

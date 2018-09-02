@@ -9,8 +9,16 @@ export class StoriesService {
     constructor(private httpClient: HttpClient){
     }
 
-    public loadAll(): Observable<Story[]> {
-        return this.httpClient.get<any>("/stories")
+    public loadAll(sort?: string, sortDirection?: string): Observable<Story[]> {
+        let url = "/stories";
+        if(sort){
+            url += "?sort=" + sort;
+            if(sortDirection){
+                url += ","+sortDirection;
+            }
+        }
+
+        return this.httpClient.get<any>(url)
             .pipe(
                 map(result => result._embedded.stories)
             );
