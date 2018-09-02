@@ -18,7 +18,10 @@
                 <td>{{story.id}}&nbsp;</td>
                 <td>{{story.titel}}&nbsp;</td>
                 <td class="text-left"><span class="d-inline-block text-truncate" style="max-width: 150px;">{{story.beschreibung}}</span>&nbsp;</td>
-                <td ><a [routerLink]="['/stories/detail',story.id]">[View]</a>&nbsp;<a  [routerLink]="['/stories/edit',story.id]">[Edit]</a>&nbsp;<a  [routerLink]="['/stories/delete',story.id]">[Delete]</a></td>
+                <td >
+                    <a [routerLink]="['/stories/detail',story.id]"><img src="assets/img/view.png" alt="[View]" title="Anzeigen" height="30"></a>&nbsp;
+                    <a [routerLink]="['/stories/edit',story.id]"><img src="assets/img/edit.png" alt="[Edit]" title="Editieren" height="30"></a>&nbsp;
+                    <a [routerLink]="['/stories/delete',story.id]"><img src="assets/img/trash.png" alt="[Trash]" title="Löschen" height="30"></a></td>
             </tr>
             </tbody>
         </table>
