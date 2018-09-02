@@ -20,6 +20,9 @@ import {SortableTableModule} from "./lib/sortable-table/sortable-table.module";
 import {InserateDetailComponent} from "./components/inserate/detail/inserate-detail.component";
 import {InserateEditComponent} from "./components/inserate/edit/inserate-edit.component";
 import {BreedService} from "./services/breed.service";
+import {NgbModule, NgbDateAdapter, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import {CustomNgbDateParserFormatter} from "./infrastructure/custom-ngb-date-parser-formatter";
+import {CustomNgbDateAdapter} from "./infrastructure/custom-ngb-date-adapter";
 
 @NgModule({
     declarations: [
@@ -39,13 +42,16 @@ import {BreedService} from "./services/breed.service";
         Ng2SearchPipeModule,
         FormsModule,
         SortableTableModule,
+        NgbModule,
         RouterModule.forRoot(AppRoutes)
     ],
     providers: [
         InserateService,
         StoriesService,
         BreedService,
-        {provide: LocationStrategy, useClass: HashLocationStrategy}
+        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {provide: NgbDateParserFormatter, useClass: CustomNgbDateParserFormatter},
+        {provide: NgbDateAdapter, useClass: CustomNgbDateAdapter}
     ],
     bootstrap: [AppComponent],
 

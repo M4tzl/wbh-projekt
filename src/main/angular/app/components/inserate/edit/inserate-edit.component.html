@@ -33,14 +33,24 @@
             <div class="col-md-6 mb-3">
                 <label for="gebDatum">Geburtsdatum</label>
                 <input type="text"
+                       required
+                       ngbDatepicker
                        id="gebDatum"
                        class="form-control"
                        [(ngModel)]="inserat.geburtsdatum"
-                       name="gebDatum"/>
+                       name="gebDatum"
+                       #gebDatum="ngModel"
+                       #gebDatumDatepicker="ngbDatepicker"
+                       (click)="gebDatumDatepicker.toggle()"/>
+                <div [hidden]="gebDatum.valid || gebDatum.pristine"
+                     class="alert alert-danger">
+                    Das Geburtsdatum ist ein Pflichtfeld
+                </div>
             </div>
             <div class="col-md-3 mb-1">
                 <label for="groesseAktuell">Größe (aktuell)</label>
                 <select id="groesseAktuell"
+                        required
                         class="form-control"
                         [(ngModel)]="inserat.schulterhoehe" name="groesseAktuell"
                         #groesseAktuell="ngModel">
@@ -49,10 +59,16 @@
                         {{schulterhoehe}}
                     </option>
                 </select>
+
+                <div [hidden]="groesseAktuell.valid || groesseAktuell.pristine"
+                     class="alert alert-danger">
+                    Die aktuelle Größe ist ein Pflichtfeld
+                </div>
             </div>
             <div class="col-md-3 mb-1">
                 <label for="groesseVorauss">Größe (vorauss)</label>
                 <select id="groesseVorauss"
+                        required
                         class="form-control"
                         [(ngModel)]="inserat.voraussichtlicheSchulterhoehe" name="groesseVorauss"
                         #groesseVorauss="ngModel">
@@ -61,16 +77,28 @@
                         {{schulterhoehe}}
                     </option>
                 </select>
+
+                <div [hidden]="groesseVorauss.valid || groesseVorauss.pristine"
+                     class="alert alert-danger">
+                    Die voraussichtliche Größe ist ein Pflichtfeld
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="rufname">Rufname</label>
                 <input type="text"
+                       required
                        id="rufname"
                        class="form-control"
                        [(ngModel)]="inserat.rufname"
-                       name="rufname"/>
+                       name="rufname"
+                       #rufname="ngModel"/>
+
+                <div [hidden]="rufname.valid || rufname.pristine"
+                     class="alert alert-danger">
+                    Der Rufname ist ein Pflichtfeld
+                </div>
             </div>
             <div class="col-md-6 mb-4">
                 <label for="geschlecht">Geschlecht</label>
