@@ -1,5 +1,9 @@
 <div class="container-fluid" *ngIf="story">
-    <div class="col-sm-12"><button class="btn btn-success" (click)="goBack()">zurück</button></div>
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <button class="btn btn-success" (click)="goBack()">zurück</button>
+        </div>
+    </div>
     <div class="row border rounded ">
         <div class="col-sm-12 text-left bg-info font-weight-bold"><h3>{{story.titel}}</h3></div>
     </div>
@@ -20,5 +24,4 @@
                  <img src="assets/imgupload/20171210_145126.jpg" alt="..." class="img-thumbnail">
             </div>
     </div>
-    <div class="col-sm-12"><button class="btn btn-success" (click)="goBack()">zurück</button></div>
 </div>

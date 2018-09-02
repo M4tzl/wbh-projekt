@@ -1,32 +1,32 @@
-<div class="container">
+<div class="container-fluid">
+        <div class="row">
+                <div class="col-md-3 mb-3">
+                    <button class="btn btn-success" (click)="goBack()">zurück</button>
+                </div>
+            </div>
         <form (ngSubmit)="onSubmit()" #storyForm="ngForm" class="needs-validation" novalidate>
-            <h2 class="mb-3">Story editieren "{{story?.titel}}"</h2>
+                <div class="row border rounded ">
+                        <div class="col-sm-12 bg-info font-weight-bold"><h3>{{story?.titel}}</h3></div>
+                    </div>
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-12 mb-3">
                     <label for="titel">Titel</label>
-                    <input type="text"
-                           id="titel"
-                           class="form-control"
-                           [(ngModel)]="story.titel"
-                           name="titel"/>
+                    <input type="text" id="titel" class="form-control" [(ngModel)]="story.titel" name="titel" required/>
                 </div>
             </div>
             <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <label for="titel">Beschreibung</label>
                         <textarea
                                id="titel"
                                class="form-control"
                                [(ngModel)]="story.beschreibung"
-                               name="beschreibung"></textarea>
+                               name="beschreibung" rows="8"></textarea>
                     </div>
             </div>
             <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-3 mb-3">
                             <button type="submit" class="btn btn-success" [disabled]="!storyForm.form.valid">Speichern</button>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                            <button class="btn btn-success" (click)="goBack()">zurück</button>
                     </div>
             </div>
         </form>

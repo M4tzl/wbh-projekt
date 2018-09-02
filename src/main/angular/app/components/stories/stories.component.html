@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
         <h4>Stories</h4>
     <div class="form-group col-md-2">
          <input type="text" class="form-control" placeholder="Suche"  [(ngModel)]="term">
@@ -18,10 +18,10 @@
                 <td>{{story.id}}&nbsp;</td>
                 <td>{{story.titel}}&nbsp;</td>
                 <td class="text-left"><span class="d-inline-block text-truncate" style="max-width: 150px;">{{story.beschreibung}}</span>&nbsp;</td>
-                <td >
+                <td nowrap>
                     <a [routerLink]="['/stories/detail',story.id]"><img src="assets/img/view.png" alt="[View]" title="Anzeigen" height="30"></a>&nbsp;
                     <a [routerLink]="['/stories/edit',story.id]"><img src="assets/img/edit.png" alt="[Edit]" title="Editieren" height="30"></a>&nbsp;
-                    <a [routerLink]="['/stories/delete',story.id]"><img src="assets/img/trash.png" alt="[Trash]" title="Löschen" height="30"></a></td>
+                    <a [routerLink]="['/stories/delete',story.id]"><img src="assets/img/trash.png" alt="[Trash]" title="Lï¿½schen" height="30"></a></td>
             </tr>
             </tbody>
         </table>
