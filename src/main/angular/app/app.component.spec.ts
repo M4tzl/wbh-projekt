@@ -2,9 +2,9 @@ import {async, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import { RouterTestingModule } from '@angular/router/testing';
-import {InserateComponent} from "./inserate/inserate.component";
-import { StoriesComponent } from './stories/stories.component';
-import { StoriesDetailComponent } from './stories-detail/stories-detail.component';
+import {InserateComponent} from "./components/inserate/inserate.component";
+import { StoriesComponent } from './components/stories/stories.component';
+import { StoriesDetailComponent } from './components/stories-detail/stories-detail.component';
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
