@@ -13,12 +13,10 @@ import {RouterModule} from "@angular/router";
 import {AppRoutes} from "./app.routes";
 import {InserateService} from "./services/inserate.service";
 import {StoriesService} from "./services/stories.service";
-import {SortService} from "./components/sortable-table/sort.service";
-import {SortableColumnComponent} from "./components/sortable-table/sortable-column.component";
-import {SortableTableDirective} from "./components/sortable-table/sortable-table.directive";
 import {OrderModule} from "ngx-order-pipe";
-import { StoriesEditComponent } from './components/stories-edit/stories-edit.component';
-import { StoriesDeleteComponent } from './components/stories-delete/stories-delete.component';
+import {StoriesEditComponent} from './components/stories-edit/stories-edit.component';
+import {StoriesDeleteComponent} from './components/stories-delete/stories-delete.component';
+import {SortableTableModule} from "./lib/sortable-table/sortable-table.module";
 
 @NgModule({
     declarations: [
@@ -27,9 +25,7 @@ import { StoriesDeleteComponent } from './components/stories-delete/stories-dele
         StoriesComponent,
         StoriesDetailComponent,
         StoriesEditComponent,
-        StoriesDeleteComponent,
-        SortableColumnComponent,
-        SortableTableDirective
+        StoriesDeleteComponent
     ],
     imports: [
         BrowserModule,
@@ -37,12 +33,12 @@ import { StoriesDeleteComponent } from './components/stories-delete/stories-dele
         OrderModule,
         Ng2SearchPipeModule,
         FormsModule,
+        SortableTableModule,
         RouterModule.forRoot(AppRoutes)
     ],
     providers: [
         InserateService,
         StoriesService,
-        SortService,
         {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     bootstrap: [AppComponent],

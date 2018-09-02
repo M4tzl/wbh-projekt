@@ -3,14 +3,14 @@ import {Subscription} from "rxjs";
 import {SortService} from "./sort.service";
 
 @Component({
-    selector: 'sortable-column',
+    selector: '[sortable-column]',
     templateUrl: './sortable-column.component.html'
 })
 export class SortableColumnComponent implements OnInit, OnDestroy {
 
     constructor(private sortService: SortService) { }
 
-    @Input('sort-column')
+    @Input('sortable-column')
     column: string;
 
     @Input('sort-direction')

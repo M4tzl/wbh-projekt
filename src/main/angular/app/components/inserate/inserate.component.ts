@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {InseratUebersicht} from "../../model/inserat-uebersicht";
 import {InserateService} from "../../services/inserate.service";
-import {ColumnSortedEvent} from "../sortable-table/sort.service";
+import {ColumnSortedEvent} from "../../lib/sortable-table/sort.service";
 
 
 @Component({

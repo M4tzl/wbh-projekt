@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {InseratUebersicht} from "../model/inserat-uebersicht";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
+import {InseratUebersicht} from "../model/inserat-uebersicht";
 
 @Injectable()
 export class InserateService {
