@@ -23,14 +23,16 @@ export class InserateEditComponent implements OnInit {
 
     ngOnInit(): void {
         const id = this.route.snapshot.params['id'];
-        this.inserateService.load(id)
-            .subscribe(result => this.inserat = result);
+        if(id) {
+            this.inserateService.load(id)
+                .subscribe(result => this.inserat = result);
+        }
 
         this.rassen = this.breedService.loadAll();
     }
 
     onSubmit() {
-        this.inserateService.update(this.inserat)
+        this.inserateService.save(this.inserat)
             .subscribe(result => this.router.navigate(['/inserate']));
     }
 

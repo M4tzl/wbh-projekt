@@ -21,7 +21,10 @@ export class CustomNgbDateAdapter extends NgbDateAdapter<string> {
             return null;
         }
 
-        return `${date.year}-${date.month}-${date.day}`;
+        return `${date.year}-${this.pad(date.month)}-${this.pad(date.day)}`;
     }
 
+    private pad(n: number): string{
+        return n < 10 ? '0' + n : ''+n;
+    }
 }

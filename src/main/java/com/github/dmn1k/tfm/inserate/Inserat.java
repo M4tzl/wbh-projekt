@@ -1,5 +1,6 @@
 package com.github.dmn1k.tfm.inserate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

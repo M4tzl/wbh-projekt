@@ -12,6 +12,7 @@ export const AppRoutes: Routes = [
     { path: 'inserate', component: InserateUebersichtComponent },
     { path: 'inserate/detail/:id', component: InserateDetailComponent },
     { path: 'inserate/edit/:id', component: InserateEditComponent },
+    { path: 'inserate/create', component: InserateEditComponent },
     { path: 'stories', component: StoriesComponent },
     { path: 'stories/detail/:id', component: StoriesDetailComponent },
     { path: 'stories/delete/:id', component: StoriesDeleteComponent },

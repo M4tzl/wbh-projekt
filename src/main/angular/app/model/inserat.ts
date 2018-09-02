@@ -1,6 +1,9 @@
 import {InseratUebersicht} from "./inserat-uebersicht";
 
 export interface Inserat extends InseratUebersicht {
+    created: Date;
+    lastUpdate: Date;
+
     rassenFreitext:string;
     geschlecht:string;
     geburtsdatum:Date;

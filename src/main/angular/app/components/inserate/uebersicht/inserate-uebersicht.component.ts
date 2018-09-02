@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {InseratUebersicht} from "../../../model/inserat-uebersicht";
 import {InserateService} from "../../../services/inserate.service";
 import {ColumnSortedEvent} from "../../../lib/sortable-table/sort.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -12,7 +13,8 @@ import {ColumnSortedEvent} from "../../../lib/sortable-table/sort.service";
 export class InserateUebersichtComponent {
     inserate: InseratUebersicht[];
 
-    constructor(private inserateService: InserateService) {
+    constructor(private inserateService: InserateService,
+                private router: Router) {
         this.loadInserate();
     }
 
@@ -25,5 +27,9 @@ export class InserateUebersichtComponent {
         const sortDirection = (sortEvent || ({} as ColumnSortedEvent)).sortDirection;
         this.inserateService.loadAll(sortColumn, sortDirection)
             .subscribe(result => this.inserate = result);
+    }
+
+    addInserat() {
+        this.router.navigate(['/inserate/create']);
     }
 }

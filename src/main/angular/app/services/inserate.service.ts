@@ -29,7 +29,14 @@ export class InserateService {
         return this.httpClient.get<Inserat>(`/inserate/${id}`);
     }
 
-    public update(inserat: Inserat): Observable<Inserat> {
-        return this.httpClient.put<Inserat>(`/inserate/${inserat.id}`, inserat);
+    public save(inserat: Inserat): Observable<Inserat> {
+        if(inserat.id) {
+            return this.httpClient.put<Inserat>(`/inserate/${inserat.id}`, inserat);
+        }
+
+        inserat['created'] = new Date();
+        inserat['lastUpdate'] = new Date();
+        inserat['status'] = 'AKTIV';
+        return this.httpClient.post<Inserat>('/inserate', inserat);
     }
 }
