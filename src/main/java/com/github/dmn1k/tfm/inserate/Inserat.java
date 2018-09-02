@@ -21,7 +21,8 @@ public class Inserat {
     @Builder.Default
     private LocalDate created = LocalDate.now();
 
-    private LocalDate lastUpdate;
+    @Builder.Default
+    private LocalDate lastUpdate = LocalDate.now();
 
     @OneToOne
     @JoinColumn(name = "rasse_id")

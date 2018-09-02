@@ -4,19 +4,21 @@
         <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
     </div>
     <div class="table-responsive">
-        <table class="table table-hover table-bordered table-striped table-sm">
+        <table sortable-table (sorted)="onSorted($event)" class="table table-hover table-bordered table-striped table-sm">
             <thead class="bg-info">
             <tr>
-                <th>Nr</th>
-                <th (click)="sort('Titel')">Titel</th>
-                <th>Aktion</th>
+                <th>ID</th>
+                <sortable-column sort-column="lastUpdate">Inseratsdatum</sortable-column>
+                <th>Rufname</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let inserat of inserate | orderBy: key : reverse | filter:term">
+            <tr *ngFor="let inserat of inserate | filter:term">
                 <td>{{inserat.id}}&nbsp;</td>
-                <td>{{inserat.titel}}&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>{{inserat.lastUpdate}}&nbsp;</td>
+                <td>{{inserat.rufname}}&nbsp;</td>
+                <td>{{inserat.status}}&nbsp;</td>
             </tr>
             </tbody>
         </table>

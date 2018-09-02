@@ -1,11 +1,11 @@
 import {InserateComponent} from './inserate.component';
 import {InserateService} from "../../services/inserate.service";
 import {instance, mock, when} from "ts-mockito";
-import {Inserat} from "../../model/inserat";
+import {InseratUebersicht} from "../../model/inserat-uebersicht";
 import {of} from "rxjs";
 
 function createInserat(titel: string = 'random title') {
-    return <Inserat>{
+    return <InseratUebersicht>{
         id: 1,
         titel: titel,
         beschreibung: 'beschreibung'

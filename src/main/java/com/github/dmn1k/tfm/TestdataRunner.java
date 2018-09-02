@@ -35,6 +35,7 @@ public class TestdataRunner implements ApplicationRunner {
         Schulterhoehe schulterhoehe2 = inserateRepository.findSchulterhoehen().get(2);
 
         inserateRepository.save(Inserat.builder()
+            .lastUpdate(LocalDate.of(2018, 8, 10))
             .status(InseratStatus.AKTIV)
             .geburtsdatum(LocalDate.now())
             .rasse(bernhardiner)
@@ -46,6 +47,7 @@ public class TestdataRunner implements ApplicationRunner {
 
         inserateRepository.save(Inserat.builder()
             .status(InseratStatus.ENTWURF)
+            .created(LocalDate.of(2015, 1, 1))
             .geburtsdatum(LocalDate.now())
             .rasse(bernhardiner)
             .rufname("Hansi 2")
@@ -56,6 +58,8 @@ public class TestdataRunner implements ApplicationRunner {
 
         inserateRepository.save(Inserat.builder()
             .status(InseratStatus.VERMITTELT)
+            .created(LocalDate.of(2015, 1, 1))
+            .lastUpdate(LocalDate.of(2018, 5, 2))
             .geburtsdatum(LocalDate.of(2000, 1, 5))
             .rasse(dackel)
             .rufname("Fritz")

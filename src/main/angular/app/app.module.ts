@@ -6,7 +6,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {InserateComponent} from './components/inserate/inserate.component';
 import {StoriesComponent} from './components/stories/stories.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import {OrderModule} from 'ngx-order-pipe';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {FormsModule} from '@angular/forms';
 import {StoriesDetailComponent} from './components/stories-detail/stories-detail.component';
@@ -14,6 +13,10 @@ import {RouterModule} from "@angular/router";
 import {AppRoutes} from "./app.routes";
 import {InserateService} from "./services/inserate.service";
 import {StoriesService} from "./services/stories.service";
+import {SortService} from "./components/sortable-table/sort.service";
+import {SortableColumnComponent} from "./components/sortable-table/sortable-column.component";
+import {SortableTableDirective} from "./components/sortable-table/sortable-table.directive";
+import {OrderModule} from "ngx-order-pipe";
 import { StoriesEditComponent } from './components/stories-edit/stories-edit.component';
 import { StoriesDeleteComponent } from './components/stories-delete/stories-delete.component';
 
@@ -24,7 +27,9 @@ import { StoriesDeleteComponent } from './components/stories-delete/stories-dele
         StoriesComponent,
         StoriesDetailComponent,
         StoriesEditComponent,
-        StoriesDeleteComponent
+        StoriesDeleteComponent,
+        SortableColumnComponent,
+        SortableTableDirective
     ],
     imports: [
         BrowserModule,
@@ -37,6 +42,7 @@ import { StoriesDeleteComponent } from './components/stories-delete/stories-dele
     providers: [
         InserateService,
         StoriesService,
+        SortService,
         {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     bootstrap: [AppComponent],
