@@ -29,8 +29,20 @@ export class InserateEditComponent implements OnInit {
         this.rassen = this.breedService.loadAll();
     }
 
-    onSubmit(){
+    onSubmit() {
         this.inserateService.update(this.inserat)
             .subscribe(result => this.router.navigate(['/inserate']));
+    }
+
+    // TODO: auslagern
+    get schulterhoehen(): string[] {
+        return [
+            '<20cm',
+            '21-35cm',
+            '51-75cm',
+            '76-85cm',
+            '86-100cm',
+            '>100cm',
+        ];
     }
 }

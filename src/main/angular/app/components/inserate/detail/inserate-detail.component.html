@@ -1,17 +1,103 @@
 <div class="container">
-    <h4 class="mb-3">Inserat</h4>
+    <h2 class="mb-3">Inserat "{{inserat?.rufname}}"</h2>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <div><span>Rasse: </span>{{inserat.rasse}}</div>
+            <div><span>Rasse: </span>{{inserat?.rasse}}</div>
         </div>
         <div class="col-md-6 mb-3">
-            <div><span>Sonstige Informationen: </span>{{inserat.rassenFreitext || 'Keine'}}</div>
+            <div><span>Sonstige Informationen: </span>{{inserat?.rassenFreitext || 'Keine'}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div><span>Geburtsdatum: </span>{{inserat?.geburtsdatum}}</div>
+        </div>
+        <div class="col-md-3 mb-1">
+            <div><span>Größe (aktuell): </span>{{inserat?.schulterhoehe}}</div>
+        </div>
+        <div class="col-md-3 mb-1">
+            <div><span>Größe (vorauss.): </span>{{inserat?.voraussichtlicheSchulterhoehe}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div><span>Rufname: </span>{{inserat?.rufname}}</div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div><span>Geschlecht: </span>{{inserat?.geschlecht === 'M' ? 'männlich' : 'weiblich'}}</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-1">
+            <span>Eigenschaften:</span>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.geimpft" /> geimpft</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <span>Zielgruppe:</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.kastriert" /> kastriert</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.gechipt" /> gechipt</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeAnfaenger" /> Anfänger</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.stubenrein" /> stubenrein</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <span>verträgt sich mit:</span>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeSenioren" /> Senioren</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.leinenfuehrigkeit" /> leinenführig</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.vertraeglichkeitHunde" /> anderen Hunden</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeErfahren" /> Erfahrene</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.autofahren" /> Auto fahren</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.vertraeglichkeitKatzen" /> Katzen</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeFamilien" /> Familien</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.zutraulich" /> zutraulich</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.vertraeglichkeitKinder" /> Kindern</div>
+        </div>
+        <div class="col-md-4 mb-1">
+            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeGarten" /> Gartenbesitzer</div>
         </div>
     </div>
 
     <div class="row">
         <button class="btn btn-success" (click)="goBack()">zurück</button>
-        <button class="btn" [routerLink]="['/inserate/edit',inserat.id]">editieren</button>
+        <button class="btn" [routerLink]="['/inserat?e/edit',inserat?.id]">editieren</button>
     </div>
 
     <!-- TODO: Weitere Felder anzeigen -->
