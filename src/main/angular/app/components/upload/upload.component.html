@@ -1,0 +1,9 @@
+<div class="card">
+    <img class="card-img"
+         (click)="fileInput.click()"
+         style="height: 180px; width: 180px; display: block;"
+         [src]="(imageSource || '') | safeUrl">
+    <input type="file" accept="*"
+           (change)="handleFileInput($event.target.files)"
+           #fileInput />
+</div>

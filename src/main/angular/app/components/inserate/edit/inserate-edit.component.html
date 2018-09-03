@@ -223,8 +223,10 @@
                 name="beschreibung"></textarea>
         </div>
 
-        <div class="row">
-            <span>TODO: Bilder</span>
+        <div class="row mt-3">
+            <div class="card-columns">
+                <app-upload [inseratId]="inserat.id"></app-upload>
+            </div>
         </div>
 
         <button class="btn" (click)="backToWizardOne()">Zurück</button>

@@ -37,4 +37,15 @@ export class InserateService {
     public publish(inserat: Inserat): Observable<Inserat> {
         return this.httpClient.put<Inserat>(`/api/inserate/${inserat.id}/publish`, inserat);
     }
+
+    public uploadImage(inseratId: number, file: File): Observable<string> {
+        const formData: FormData = new FormData();
+        formData.append('file', file);
+
+        return this.httpClient
+            .post<any>(`/api/inserate/${inseratId}/images`, formData)
+            .pipe(
+                map(result => result.downloadLink)
+            );
+    }
 }

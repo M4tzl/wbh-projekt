@@ -28,17 +28,21 @@ import {
     MatTableModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {UploadComponent} from "./components/upload/upload.component";
+import {SafeUrlPipe} from "./infrastructure/safe-url.pipe";
 
 @NgModule({
     declarations: [
         AppComponent,
+        UploadComponent,
         InserateUebersichtComponent,
         InserateDetailComponent,
         InserateEditComponent,
         StoriesComponent,
         StoriesDetailComponent,
         StoriesEditComponent,
-        StoriesDeleteComponent
+        StoriesDeleteComponent,
+        SafeUrlPipe
     ],
     imports: [
         BrowserModule,
