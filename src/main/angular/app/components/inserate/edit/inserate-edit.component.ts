@@ -4,7 +4,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Inserat} from "../../../model/inserat";
 import {Observable} from "rxjs";
 import {BreedService} from "../../../services/breed.service";
+import {InseratBild} from "../../../model/inserat-bild";
+import {map, mergeMap, tap} from "rxjs/operators";
 
+// TODO: Die Logik in dieser Komponente ist mittlerweile leicht verworren. Tests und ein Refactoring wären gut...
 @Component({
     selector: 'app-inserate-detail',
     templateUrl: './inserate-edit.component.html',
@@ -13,6 +16,7 @@ import {BreedService} from "../../../services/breed.service";
 export class InserateEditComponent implements OnInit {
     inserat: Inserat = <Inserat>{};
     rassen: Observable<string[]>;
+    images: InseratBild[] = [];
 
     constructor(private inserateService: InserateService,
                 private breedService: BreedService,
@@ -25,7 +29,15 @@ export class InserateEditComponent implements OnInit {
         const id = this.route.snapshot.params['id'];
         if(id) {
             this.inserateService.load(id)
-                .subscribe(result => this.inserat = result);
+                .pipe(
+                    tap(result => this.inserat = result),
+                    map(inserat => inserat.id),
+                    mergeMap(inseratId => this.inserateService.loadImages(inseratId))
+                )
+                .subscribe(result => {
+                    this.images = result;
+                    this.images.push(this.placeholderInseratBild(this.inserat));
+                });
         }
 
         this.rassen = this.breedService.loadAll();
@@ -33,6 +45,14 @@ export class InserateEditComponent implements OnInit {
 
     onWeiter() {
         this.inserateService.save(this.inserat)
+            .pipe(
+                tap(inserat => this.inserat = inserat),
+                tap(inserat => {
+                    if(this.images.length === 0){
+                        this.images = [this.placeholderInseratBild(inserat)]
+                    }
+                })
+            )
             .subscribe(result => this.router.navigate([], {
                 relativeTo: this.route,
                 queryParams: {
@@ -40,6 +60,10 @@ export class InserateEditComponent implements OnInit {
                     wizard: '2',
                 }
             }));
+    }
+
+    private placeholderInseratBild(inserat) {
+        return <InseratBild> {inseratId: inserat.id};
     }
 
     onSubmit() {
@@ -71,5 +95,9 @@ export class InserateEditComponent implements OnInit {
                 wizard: '1',
             }
         });
+    }
+
+    addImage() {
+        this.images.push(this.placeholderInseratBild(this.inserat));
     }
 }

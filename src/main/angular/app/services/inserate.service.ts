@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {Inserat} from "../model/inserat";
 import {InseratUebersichtResult} from "../model/inserat-uebersicht-result";
+import {InseratBild} from "../model/inserat-bild";
 
 @Injectable()
 export class InserateService {
@@ -38,14 +39,20 @@ export class InserateService {
         return this.httpClient.put<Inserat>(`/api/inserate/${inserat.id}/publish`, inserat);
     }
 
-    public uploadImage(inseratId: number, file: File): Observable<string> {
+    public uploadImage(inseratBild: InseratBild, file: File): Observable<InseratBild> {
         const formData: FormData = new FormData();
         formData.append('file', file);
 
+        if(inseratBild.id){
+            return this.httpClient
+                .put<InseratBild>(`/api/inserate/${inseratBild.inseratId}/images/${inseratBild.id}`, formData);
+        }
+
         return this.httpClient
-            .post<any>(`/api/inserate/${inseratId}/images`, formData)
-            .pipe(
-                map(result => result.downloadLink)
-            );
+            .post<InseratBild>(`/api/inserate/${inseratBild.inseratId}/images`, formData);
+    }
+
+    public loadImages(inseratId: number): Observable<InseratBild[]> {
+        return this.httpClient.get<InseratBild[]>(`/api/inserate/${inseratId}/images`);
     }
 }

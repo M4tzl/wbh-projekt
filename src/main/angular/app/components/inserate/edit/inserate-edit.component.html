@@ -225,7 +225,9 @@
 
         <div class="row mt-3">
             <div class="card-columns">
-                <app-upload [inseratId]="inserat.id"></app-upload>
+                <app-upload *ngFor="let image of images"
+                            [inseratBild]="image"
+                            (imageUploaded)="addImage()"></app-upload>
             </div>
         </div>
 

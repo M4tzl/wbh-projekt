@@ -32,6 +32,13 @@ CREATE TABLE "inserat" (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE "inserat_bild" (
+  id bigserial NOT NULL,
+  inserat_id bigserial NOT NULL,
+  bild_url varchar(max) NOT NULL,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE "story" (
     id bigserial NOT NULL,
     titel varchar(100) not null,
