@@ -1,13 +1,15 @@
 pipeline {
     agent any
+    
     tools {
         jdk 'jdk-8'
         maven 'default-maven'
-        docker 'default-docker'
     }
+    
     stages {
         stage('build') {
             steps {
+                sh 'java -version'
                 sh 'mvn clean install -Pbackend,frontend'
             }
         }

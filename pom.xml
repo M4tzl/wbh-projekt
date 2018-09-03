@@ -146,7 +146,7 @@
                                 <phase>generate-resources</phase>
                                 <!-- Optional configuration which provides for running any npm command -->
                                 <configuration>
-                                    <arguments>ci</arguments>
+                                    <arguments>install</arguments>
                                 </configuration>
                             </execution>
                             <!-- Build and minify static files -->
