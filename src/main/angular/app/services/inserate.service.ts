@@ -33,4 +33,8 @@ export class InserateService {
 
         return this.httpClient.post<Inserat>('/api/inserate', inserat);
     }
+
+    public publish(inserat: Inserat): Observable<Inserat> {
+        return this.httpClient.put<Inserat>(`/api/inserate/${inserat.id}/publish`, inserat);
+    }
 }

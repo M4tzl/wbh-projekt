@@ -18,7 +18,7 @@ public class InserateController {
         Inserat updatedInserat = inserat.toBuilder()
             .created(LocalDate.now())
             .lastUpdate(LocalDate.now())
-            .status(InseratStatus.AKTIV)
+            .status(InseratStatus.ENTWURF)
             .build();
 
         Inserat saved = repository.save(updatedInserat);
@@ -30,6 +30,18 @@ public class InserateController {
         Inserat updatedInserat = inserat.toBuilder()
             .id(id)
             .lastUpdate(LocalDate.now())
+            .build();
+
+        Inserat saved = repository.save(updatedInserat);
+        return ResponseEntity.ok(saved);
+    }
+
+    @PutMapping("/inserate/{id}/publish")
+    public @ResponseBody ResponseEntity<?> publishInserat(@PathVariable long id, @RequestBody Inserat inserat) {
+        Inserat updatedInserat = inserat.toBuilder()
+            .id(id)
+            .lastUpdate(LocalDate.now())
+            .status(InseratStatus.AKTIV)
             .build();
 
         Inserat saved = repository.save(updatedInserat);

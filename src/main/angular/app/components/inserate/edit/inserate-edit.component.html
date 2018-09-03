@@ -1,6 +1,7 @@
-<div class="container">
-    <form (ngSubmit)="onSubmit()" #inseratForm="ngForm" class="needs-validation" novalidate>
-        <h2 class="mb-3">Inserat {{inserat?.id ? 'editieren' : 'anlegen' }} {{inserat?.rufname ? '"' + inserat.rufname + '"' : ''}}</h2>
+<div class="container" *ngIf="wizardPage == 1">
+    <form (ngSubmit)="onWeiter()" #inseratForm="ngForm" class="needs-validation" novalidate>
+        <h2 class="mb-3">Inserat {{inserat?.id ? 'editieren' : 'anlegen' }} {{inserat?.rufname ? '"' + inserat.rufname +
+            '"' : ''}}</h2>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="rasse">Rasse</label>
@@ -73,7 +74,8 @@
                         [(ngModel)]="inserat.voraussichtlicheSchulterhoehe" name="groesseVorauss"
                         #groesseVorauss="ngModel">
                     <option *ngFor="let schulterhoehe of schulterhoehen"
-                            [value]="schulterhoehe" [selected]="schulterhoehe === inserat.voraussichtlicheSchulterhoehe">
+                            [value]="schulterhoehe"
+                            [selected]="schulterhoehe === inserat.voraussichtlicheSchulterhoehe">
                         {{schulterhoehe}}
                     </option>
                 </select>
@@ -122,7 +124,7 @@
                 <span>Eigenschaften:</span>
             </div>
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.geimpft" name="geimpft" /> geimpft</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.geimpft" name="geimpft"/> geimpft</div>
             </div>
             <div class="col-md-4 mb-1">
                 <span>Zielgruppe:</span>
@@ -130,60 +132,102 @@
         </div>
         <div class="row">
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.kastriert" name="kastriert" /> kastriert</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.kastriert" name="kastriert"/> kastriert</div>
             </div>
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.gechipt" name="gechipt" /> gechipt</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.gechipt" name="gechipt"/> gechipt</div>
             </div>
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeAnfaenger" name="zielgruppeAnfaenger" /> Anfänger</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeAnfaenger" name="zielgruppeAnfaenger"/>
+                    Anfänger
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.stubenrein" name="stubenrein" /> stubenrein</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.stubenrein" name="stubenrein"/> stubenrein</div>
             </div>
             <div class="col-md-4 mb-1">
                 <span>verträgt sich mit:</span>
             </div>
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeSenioren" name="zielgruppeSenioren" /> Senioren</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeSenioren" name="zielgruppeSenioren"/>
+                    Senioren
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.leinenfuehrigkeit" name="leinenfuehrigkeit" /> leinenführig</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.leinenfuehrigkeit" name="leinenfuehrigkeit"/>
+                    leinenführig
+                </div>
             </div>
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.vertraeglichkeitHunde" name="vertraeglichkeitHunde" /> anderen Hunden</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.vertraeglichkeitHunde" name="vertraeglichkeitHunde"/>
+                    anderen Hunden
+                </div>
             </div>
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeErfahren" name="zielgruppeErfahren" /> Erfahrene</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.autofahren" name="autofahren" /> Auto fahren</div>
-            </div>
-            <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.vertraeglichkeitKatzen" name="vertraeglichkeitKatzen" /> Katzen</div>
-            </div>
-            <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeFamilien" name="zielgruppeFamilien" /> Familien</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeErfahren" name="zielgruppeErfahren"/>
+                    Erfahrene
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.zutraulich" name="zutraulich" /> zutraulich</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.autofahren" name="autofahren"/> Auto fahren</div>
             </div>
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.vertraeglichkeitKinder" name="vertraeglichkeitKinder" /> Kindern</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.vertraeglichkeitKatzen" name="vertraeglichkeitKatzen"/>
+                    Katzen
+                </div>
             </div>
             <div class="col-md-4 mb-1">
-                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeGarten" name="zielgruppeGarten" /> Gartenbesitzer</div>
+                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeFamilien" name="zielgruppeFamilien"/>
+                    Familien
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-1">
+                <div><input type="checkbox" [(ngModel)]="inserat.zutraulich" name="zutraulich"/> zutraulich</div>
+            </div>
+            <div class="col-md-4 mb-1">
+                <div><input type="checkbox" [(ngModel)]="inserat.vertraeglichkeitKinder" name="vertraeglichkeitKinder"/>
+                    Kindern
+                </div>
+            </div>
+            <div class="col-md-4 mb-1">
+                <div><input type="checkbox" [(ngModel)]="inserat.zielgruppeGarten" name="zielgruppeGarten"/>
+                    Gartenbesitzer
+                </div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="!inseratForm.form.valid">Submit</button>
+        <button class="btn" routerLink="/inserate">Verwerfen</button>
+        <button type="submit" class="btn btn-success" [disabled]="!inseratForm.form.valid">Fortfahren</button>
+    </form>
+</div>
+
+
+<div class="container" *ngIf="wizardPage == 2">
+    <form (ngSubmit)="onSubmit()" #inseratForm2="ngForm" class="needs-validation" novalidate>
+        <h2 class="mb-3">Inserat {{inserat?.id ? 'editieren' : 'anlegen' }} {{inserat?.rufname ? '"' + inserat.rufname +
+            '"' : ''}}</h2>
+        <div class="row">
+            <label for="beschreibung">Beschreibung</label>
+            <textarea
+                id="beschreibung"
+                class="form-control"
+                [(ngModel)]="inserat.rassenFreitext"
+                name="beschreibung"></textarea>
+        </div>
+
+        <div class="row">
+            <span>TODO: Bilder</span>
+        </div>
+
+        <button class="btn" (click)="backToWizardOne()">Zurück</button>
+        <button type="submit" class="btn btn-success" [disabled]="!inseratForm2.form.valid">Veröffentlichen</button>
     </form>
 </div>

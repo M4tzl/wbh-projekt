@@ -31,9 +31,24 @@ export class InserateEditComponent implements OnInit {
         this.rassen = this.breedService.loadAll();
     }
 
-    onSubmit() {
+    onWeiter() {
         this.inserateService.save(this.inserat)
-            .subscribe(result => this.router.navigate(['/inserate']));
+            .subscribe(result => this.router.navigate([], {
+                relativeTo: this.route,
+                queryParams: {
+                    ...this.route.snapshot.queryParams,
+                    wizard: '2',
+                }
+            }));
+    }
+
+    onSubmit() {
+        this.inserateService.publish(this.inserat)
+            .subscribe(result => this.router.navigate(["/inserate"]));
+    }
+
+    get wizardPage(): number {
+        return this.route.snapshot.queryParams['wizard'] || 1;
     }
 
     // TODO: auslagern
@@ -46,5 +61,15 @@ export class InserateEditComponent implements OnInit {
             '86-100cm',
             '>100cm',
         ];
+    }
+
+    backToWizardOne() {
+        this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: {
+                ...this.route.snapshot.queryParams,
+                wizard: '1',
+            }
+        });
     }
 }
