@@ -21,5 +21,5 @@ public class InseratBild {
     private Long id;
 
     private Long inseratId;
-    private String bildUrl;
+    private String bildKey;
 }

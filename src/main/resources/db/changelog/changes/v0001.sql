@@ -35,7 +35,7 @@ CREATE TABLE "inserat" (
 CREATE TABLE "inserat_bild" (
   id bigserial NOT NULL,
   inserat_id bigserial NOT NULL,
-  bild_url varchar(200) NOT NULL,
+  bild_key varchar(200) NOT NULL,
   PRIMARY KEY (id)
 );
 
