@@ -22,6 +22,9 @@ import java.util.UUID;
 @Profile("prod")
 @Service
 public class S3UploadService implements UploadService {
+    private static final String CONTENT_TYPE = "content-type";
+    private static final String FILE_NAME = "fileName";
+
     @Autowired
     private AmazonS3 amazonS3Client;
 
@@ -32,16 +35,19 @@ public class S3UploadService implements UploadService {
     @Override
     @SneakyThrows
     public String upload(MultipartFile multipartFile) {
-        if(!StringUtils.isEmpty(multipartFile.getOriginalFilename())){
-            try (InputStream inputStream = multipartFile.getInputStream()) {
-                String key = UUID.randomUUID().toString();
-                PutObjectRequest putObjectRequest = new PutObjectRequest(bucket,
-                    key, inputStream, new ObjectMetadata());
-                putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead);
+        if (!StringUtils.isEmpty(multipartFile.getOriginalFilename())) {
+            @Cleanup InputStream inputStream = multipartFile.getInputStream();
 
-                amazonS3Client.putObject(putObjectRequest);
-                return key;
-            }
+            String key = UUID.randomUUID().toString();
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.addUserMetadata(CONTENT_TYPE, multipartFile.getContentType());
+            metadata.addUserMetadata(FILE_NAME, multipartFile.getOriginalFilename());
+            PutObjectRequest putObjectRequest = new PutObjectRequest(bucket,
+                key, inputStream, metadata);
+            putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead);
+
+            amazonS3Client.putObject(putObjectRequest);
+            return key;
         }
 
         return null;
@@ -54,12 +60,19 @@ public class S3UploadService implements UploadService {
         @Cleanup S3Object s3Object = amazonS3Client.getObject(getObjectRequest);
         @Cleanup S3ObjectInputStream objectInputStream = s3Object.getObjectContent();
 
+        ObjectMetadata objectMetadata = s3Object.getObjectMetadata();
+
         byte[] bytes = IOUtils.toByteArray(objectInputStream);
 
+        Object metadataContentType = objectMetadata.getRawMetadataValue(CONTENT_TYPE);
+        MediaType contentType = metadataContentType == null
+            ? MediaType.APPLICATION_OCTET_STREAM
+            : MediaType.parseMediaType((String) metadataContentType);
+
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        httpHeaders.setContentType(contentType);
         httpHeaders.setContentLength(bytes.length);
-        httpHeaders.setContentDispositionFormData("inline", null);
+        httpHeaders.setContentDispositionFormData("inline", (String) objectMetadata.getRawMetadataValue(FILE_NAME));
 
         return new ResponseEntity<>(bytes, httpHeaders, HttpStatus.OK);
     }
