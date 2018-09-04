@@ -36,7 +36,8 @@ CREATE TABLE "inserat_bild" (
   id bigserial NOT NULL,
   inserat_id bigserial NOT NULL,
   bild_key varchar(200) NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FOREIGN KEY(inserat_id) REFERENCES inserat(id)
 );
 
 CREATE TABLE "story" (

@@ -8,10 +8,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,15 +61,17 @@ public class S3UploadService implements UploadService {
 
         byte[] bytes = IOUtils.toByteArray(objectInputStream);
 
-        Object metadataContentType = objectMetadata.getRawMetadataValue(CONTENT_TYPE);
+        String metadataContentType = objectMetadata.getUserMetaDataOf(CONTENT_TYPE);
         MediaType contentType = metadataContentType == null
             ? MediaType.APPLICATION_OCTET_STREAM
-            : MediaType.parseMediaType((String) metadataContentType);
+            : MediaType.parseMediaType(metadataContentType);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(contentType);
         httpHeaders.setContentLength(bytes.length);
-        httpHeaders.setContentDispositionFormData("inline", (String) objectMetadata.getRawMetadataValue(FILE_NAME));
+        httpHeaders.setContentDisposition(ContentDisposition.builder("inline")
+            .filename(objectMetadata.getUserMetaDataOf(FILE_NAME))
+            .build());
 
         return new ResponseEntity<>(bytes, httpHeaders, HttpStatus.OK);
     }
