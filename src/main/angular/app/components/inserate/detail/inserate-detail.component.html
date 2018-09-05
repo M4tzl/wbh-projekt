@@ -99,6 +99,15 @@
         </div>
     </div>
 
+    <div class="row mt-3">
+        <div class="card-columns">
+            <img *ngFor="let image of images"
+                 class="card-img"
+                 style="height: 180px; width: 180px; display: block;"
+                 [src]="image.imageUrl">
+        </div>
+    </div>
+
     <div class="row">
         <button class="btn btn-success" (click)="goBack()">zurück</button>
         <button class="btn" [routerLink]="['/inserate/edit',inserat?.id]">editieren</button>

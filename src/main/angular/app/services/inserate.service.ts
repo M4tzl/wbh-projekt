@@ -69,7 +69,8 @@ export class InserateService {
         return <BildMetadaten> {
             id: inseratBild.id,
             entityId: inseratBild.inseratId,
-            bildKey: inseratBild.bildKey
+            bildKey: inseratBild.bildKey,
+            imageUrl: `/api/inserate/${inseratBild.inseratId}/images/${inseratBild.bildKey}`
         }
     }
 }
