@@ -28,7 +28,7 @@ export class InserateEditComponent implements OnInit {
 
     ngOnInit(): void {
         const id = this.route.snapshot.params['id'];
-        if(id) {
+        if (id) {
             this.inserateService.load(id)
                 .pipe(
                     tap(result => this.inserat = result),
@@ -44,23 +44,25 @@ export class InserateEditComponent implements OnInit {
         this.rassen = this.breedService.loadAll();
     }
 
-    onWeiter() {
-        this.inserateService.save(this.inserat)
-            .pipe(
-                tap(inserat => this.inserat = inserat),
-                tap(inserat => {
-                    if(this.images.length === 0){
-                        this.images = [this.placeholderInseratBild(inserat)]
+    onWeiter(form) {
+        if (form.valid) {
+            this.inserateService.save(this.inserat)
+                .pipe(
+                    tap(inserat => this.inserat = inserat),
+                    tap(inserat => {
+                        if (this.images.length === 0) {
+                            this.images = [this.placeholderInseratBild(inserat)]
+                        }
+                    })
+                )
+                .subscribe(result => this.router.navigate([], {
+                    relativeTo: this.route,
+                    queryParams: {
+                        ...this.route.snapshot.queryParams,
+                        wizard: '2',
                     }
-                })
-            )
-            .subscribe(result => this.router.navigate([], {
-                relativeTo: this.route,
-                queryParams: {
-                    ...this.route.snapshot.queryParams,
-                    wizard: '2',
-                }
-            }));
+                }));
+        }
     }
 
     private placeholderInseratBild(inserat) {
@@ -99,7 +101,7 @@ export class InserateEditComponent implements OnInit {
     }
 
     onImageUploaded(event: ImageUploadResult) {
-        if(!event.oldImage.id) {
+        if (!event.oldImage.id) {
             this.images.push(this.placeholderInseratBild(this.inserat));
         }
     }
