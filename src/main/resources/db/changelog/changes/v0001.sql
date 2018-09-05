@@ -46,3 +46,11 @@ CREATE TABLE "story" (
     beschreibung varchar(500) null,
     primary key (id)
 );
+
+CREATE TABLE "story_bild" (
+  id bigserial NOT NULL,
+  story_id bigserial NOT NULL,
+  bild_key varchar(200) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY(story_id) REFERENCES story(id)
+);

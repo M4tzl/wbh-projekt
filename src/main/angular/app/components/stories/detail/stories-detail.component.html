@@ -13,15 +13,13 @@
                 {{story.beschreibung}}
             </p>
         </div>
-
-            <div class="col-sm-6 ">
-                <img src="assets/imgupload/20171210_145126.jpg" alt="..." class="img-thumbnail">
+         <div class="col-sm-6 ">
+            <div class="card-columns">
+                <img *ngFor="let image of images"
+                     class="card-img"
+                     style="height: 180px; width: 180px; display: block;"
+                     [src]="image.imageUrl">
             </div>
-            <div class="col-sm-6 ">
-                <img src="assets/imgupload/20171210_145126.jpg" alt="..." class="img-thumbnail">
-             </div>
-             <div class="col-sm-6 ">
-                 <img src="assets/imgupload/20171210_145126.jpg" alt="..." class="img-thumbnail">
-            </div>
+        </div>
     </div>
 </div>

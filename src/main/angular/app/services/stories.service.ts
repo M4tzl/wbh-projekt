@@ -4,6 +4,7 @@ import {Story} from "../model/story";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {StoriesResult} from "../model/stories-result";
+import {BildMetadaten} from "../model/bild-metadaten";
 
 @Injectable()
 export class StoriesService {
@@ -30,5 +31,38 @@ export class StoriesService {
     }
     public update(story: Story): Observable<Story> {
         return this.httpClient.put<Story>(`/api/stories/${story.id}`, story);
+    }
+    public uploadImage(storyBild: BildMetadaten, file: File): Observable<BildMetadaten> {
+        const formData: FormData = new FormData();
+        formData.append('file', file);
+
+        if(storyBild.id){
+            return this.httpClient
+                .put<BildMetadaten>(`/api/stories/${storyBild.entityId}/images/${storyBild.id}`, formData)
+                .pipe(
+                    map(this.mapStoryBildToBildMetadaten)
+                );
+        }
+
+        return this.httpClient
+            .post<BildMetadaten>(`/api/stories/${storyBild.entityId}/images`, formData)
+            .pipe(
+                map(this.mapStoryBildToBildMetadaten)
+            );
+    }
+    public loadImages(storyId: number): Observable<BildMetadaten[]> {
+        return this.httpClient.get<BildMetadaten[]>(`/api/stories/${storyId}/images`)
+            .pipe(
+                map(result => result.map(this.mapStoryBildToBildMetadaten))
+            );
+    }
+
+    private mapStoryBildToBildMetadaten(storyBild) : BildMetadaten{
+        return <BildMetadaten> {
+            id: storyBild.id,
+            entityId: storyBild.storyId,
+            bildKey: storyBild.bildKey,
+            imageUrl: `/api/stories/${storyBild.storyId}/images/${storyBild.bildKey}`
+        }
     }
 }

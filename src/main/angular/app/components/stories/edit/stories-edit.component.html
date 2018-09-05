@@ -29,6 +29,13 @@
                             <button type="submit" class="btn btn-success" [disabled]="!storyForm.form.valid">Speichern</button>
                     </div>
             </div>
+            <div class="row">
+                <div class="card-columns">
+                    <app-upload *ngFor="let image of images"
+                                [bildMetadaten]="image"
+                                (imageUploaded)="onImageUploaded($event)"></app-upload>
+                </div>
+        </div>
         </form>
 
         <!-- TODO: Weitere Felder anzeigen -->

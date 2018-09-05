@@ -3,6 +3,8 @@ import {Location} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import { Story } from '../../../model/story';
 import { StoriesService } from '../../../services/stories.service';
+import {finalize, map, mergeMap, tap} from "rxjs/operators";
+import {BildMetadaten} from "../../../model/bild-metadaten";
 
 
 @Component({
@@ -12,10 +14,22 @@ import { StoriesService } from '../../../services/stories.service';
 })
 export class StoriesDetailComponent implements OnInit{
     story:Story;
-    constructor(private location: Location, private route:ActivatedRoute, private service:StoriesService) {
+    loading: boolean = true;
+    images: BildMetadaten[] = [];
+    constructor(private location: Location, private route:ActivatedRoute, private storyService:StoriesService) {
     }
     ngOnInit(){
-        this.service.load(this.route.snapshot.params['id']).subscribe(result => this.story = result);
+        this.loading = true;
+        this.story = <Story> {};
+        const id = this.route.snapshot.params['id'];
+        this.storyService.load(id)
+            .pipe(
+                tap(result => this.story = result),
+                map(story => story.id),
+                mergeMap(storyId => this.storyService.loadImages(storyId)),
+                finalize(() => this.loading = false)
+            )
+            .subscribe(result => this.images = result);
     }
     goBack(): void {
         this.location.back();
