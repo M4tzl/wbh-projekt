@@ -3,7 +3,7 @@
          (click)="fileInput.click()"
          style="height: 180px; width: 180px; display: block;"
          [src]="(imageSource || '') | safeUrl">
-    <input type="file" accept="*"
+    <input type="file" accept="image/*"
            (change)="handleFileInput($event.target.files)"
            #fileInput />
 </div>
