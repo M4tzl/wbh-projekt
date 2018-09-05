@@ -5,9 +5,10 @@ import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {StoriesResult} from "../model/stories-result";
 import {BildMetadaten} from "../model/bild-metadaten";
+import {UploadService} from "./upload.service";
 
 @Injectable()
-export class StoriesService {
+export class StoriesService implements UploadService {
     constructor(private httpClient: HttpClient){
     }
 

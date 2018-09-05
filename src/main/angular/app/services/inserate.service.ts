@@ -5,9 +5,10 @@ import {map} from "rxjs/operators";
 import {Inserat} from "../model/inserat";
 import {InseratUebersichtResult} from "../model/inserat-uebersicht-result";
 import {BildMetadaten} from "../model/bild-metadaten";
+import {UploadService} from "./upload.service";
 
 @Injectable()
-export class InserateService {
+export class InserateService implements UploadService {
     constructor(private httpClient: HttpClient) {
     }
 

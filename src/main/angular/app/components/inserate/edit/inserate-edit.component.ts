@@ -19,7 +19,7 @@ export class InserateEditComponent implements OnInit {
     rassen: Observable<string[]>;
     images: BildMetadaten[] = [];
 
-    constructor(private inserateService: InserateService,
+    constructor(public inserateService: InserateService,
                 private breedService: BreedService,
                 private route: ActivatedRoute,
                 private router: Router) {

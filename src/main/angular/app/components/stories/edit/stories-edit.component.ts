@@ -17,10 +17,9 @@ export class StoriesEditComponent implements OnInit {
     story: Story = <Story>{};
     images: BildMetadaten[] = [];
 
-    constructor(private storyService: StoriesService,
+    constructor(public storyService: StoriesService,
                 private route: ActivatedRoute,
-                private router: Router,
-                private location: Location) {
+                private router: Router) {
     }
     private placeholderStoryBild(story) {
         return <BildMetadaten> {entityId: story.id};
