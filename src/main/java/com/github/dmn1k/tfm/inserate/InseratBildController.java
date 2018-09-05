@@ -37,7 +37,8 @@ public class InseratBildController {
         String key = uploadService.upload(file);
         inseratBild.setBildKey(key);
 
-        return ResponseEntity.ok(inseratBild);
+        InseratBild updated = inseratBildRepository.save(inseratBild);
+        return ResponseEntity.ok(updated);
     }
 
     @SneakyThrows

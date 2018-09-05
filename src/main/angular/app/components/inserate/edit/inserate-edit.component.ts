@@ -4,8 +4,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Inserat} from "../../../model/inserat";
 import {Observable} from "rxjs";
 import {BreedService} from "../../../services/breed.service";
-import {InseratBild} from "../../../model/inserat-bild";
+import {BildMetadaten} from "../../../model/bild-metadaten";
 import {map, mergeMap, tap} from "rxjs/operators";
+import {ImageUploadResult} from "../../upload/image-upload-result";
 
 // TODO: Die Logik in dieser Komponente ist mittlerweile leicht verworren. Tests und ein Refactoring wären gut...
 @Component({
@@ -16,7 +17,7 @@ import {map, mergeMap, tap} from "rxjs/operators";
 export class InserateEditComponent implements OnInit {
     inserat: Inserat = <Inserat>{};
     rassen: Observable<string[]>;
-    images: InseratBild[] = [];
+    images: BildMetadaten[] = [];
 
     constructor(private inserateService: InserateService,
                 private breedService: BreedService,
@@ -63,7 +64,7 @@ export class InserateEditComponent implements OnInit {
     }
 
     private placeholderInseratBild(inserat) {
-        return <InseratBild> {inseratId: inserat.id};
+        return <BildMetadaten> {entityId: inserat.id};
     }
 
     onSubmit() {
@@ -97,7 +98,9 @@ export class InserateEditComponent implements OnInit {
         });
     }
 
-    addImage() {
-        this.images.push(this.placeholderInseratBild(this.inserat));
+    onImageUploaded(event: ImageUploadResult) {
+        if(!event.oldImage.id) {
+            this.images.push(this.placeholderInseratBild(this.inserat));
+        }
     }
 }

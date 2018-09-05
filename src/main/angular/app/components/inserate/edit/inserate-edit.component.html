@@ -227,7 +227,7 @@
             <div class="card-columns">
                 <app-upload *ngFor="let image of images"
                             [inseratBild]="image"
-                            (imageUploaded)="addImage()"></app-upload>
+                            (imageUploaded)="onImageUploaded($event)"></app-upload>
             </div>
         </div>
 

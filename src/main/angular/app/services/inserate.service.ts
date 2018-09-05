@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {Inserat} from "../model/inserat";
 import {InseratUebersichtResult} from "../model/inserat-uebersicht-result";
-import {InseratBild} from "../model/inserat-bild";
+import {BildMetadaten} from "../model/bild-metadaten";
 
 @Injectable()
 export class InserateService {
@@ -39,20 +39,37 @@ export class InserateService {
         return this.httpClient.put<Inserat>(`/api/inserate/${inserat.id}/publish`, inserat);
     }
 
-    public uploadImage(inseratBild: InseratBild, file: File): Observable<InseratBild> {
+    public uploadImage(inseratBild: BildMetadaten, file: File): Observable<BildMetadaten> {
         const formData: FormData = new FormData();
         formData.append('file', file);
 
         if(inseratBild.id){
             return this.httpClient
-                .put<InseratBild>(`/api/inserate/${inseratBild.inseratId}/images/${inseratBild.id}`, formData);
+                .put<BildMetadaten>(`/api/inserate/${inseratBild.entityId}/images/${inseratBild.id}`, formData)
+                .pipe(
+                    map(this.mapInseratBildToBildMetadaten)
+                );
         }
 
         return this.httpClient
-            .post<InseratBild>(`/api/inserate/${inseratBild.inseratId}/images`, formData);
+            .post<BildMetadaten>(`/api/inserate/${inseratBild.entityId}/images`, formData)
+            .pipe(
+                map(this.mapInseratBildToBildMetadaten)
+            );
     }
 
-    public loadImages(inseratId: number): Observable<InseratBild[]> {
-        return this.httpClient.get<InseratBild[]>(`/api/inserate/${inseratId}/images`);
+    public loadImages(inseratId: number): Observable<BildMetadaten[]> {
+        return this.httpClient.get<BildMetadaten[]>(`/api/inserate/${inseratId}/images`)
+            .pipe(
+                map(result => result.map(this.mapInseratBildToBildMetadaten))
+            );
+    }
+
+    private mapInseratBildToBildMetadaten(inseratBild) : BildMetadaten{
+        return <BildMetadaten> {
+            id: inseratBild.id,
+            entityId: inseratBild.inseratId,
+            bildKey: inseratBild.bildKey
+        }
     }
 }
