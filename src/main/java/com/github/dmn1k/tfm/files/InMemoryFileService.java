@@ -1,4 +1,4 @@
-package com.github.dmn1k.tfm.infrastructure;
+package com.github.dmn1k.tfm.files;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Profile("!prod")
 @Service
-public class InMemoryUploadService implements UploadService {
+public class InMemoryFileService implements FileService {
     private static Map<String, UploadedFile> IMAGE_STORE = new ConcurrentHashMap<>();
 
     @Override

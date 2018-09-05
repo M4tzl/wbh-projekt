@@ -1,4 +1,4 @@
-package com.github.dmn1k.tfm.infrastructure;
+package com.github.dmn1k.tfm.files;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Profile("prod")
 @Service
-public class S3UploadService implements UploadService {
+public class S3FileService implements FileService {
     private static final String CONTENT_TYPE = "content-type";
     private static final String FILE_NAME = "fileName";
 
