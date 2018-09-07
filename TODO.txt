@@ -1,13 +1,13 @@
 MUST:
 - Authentication und Rollen -> Tierheim und Interessent, inkl. Mailversand (schwer)
     - Tierheim darf nur seine Inserate bearbeiten können, Interessent nur seine Stories
-- Image-Upload in Stories (leicht)
 - Inseratssuche (mittel, siehe bspw https://spring.io/blog/2015/09/04/what-s-new-in-spring-data-release-gosling#querydsl-support)
 - Story-Schreiber zuweisen => Mailversand mit Registrierungslink (leicht, am besten nach Authentifizierung zu machen)
 - Kontaktformular (leicht, nach Auth.)
 - STYLING!!!
 - Zustandsübergänge (vermittelt, bereit zur abrechnung) (leicht)
 - IFrame-Einbindung
+- Validation
 
 Nice2have:
 - Upload-Progressanzeige

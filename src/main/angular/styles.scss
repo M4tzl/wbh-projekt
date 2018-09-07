@@ -81,3 +81,22 @@ h5{
 h6{
     color: #ff6600 !important;
 }
+
+.textwithline:before {
+    content: "";
+    display: block;
+    border-top: solid 1px #ccc;
+    width: 95%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+  }
+
+.textwithline span {
+    background: #fff;
+    padding: 0 20px;
+    position: relative;
+    z-index: 5;
+    color: #999 !important;
+  }

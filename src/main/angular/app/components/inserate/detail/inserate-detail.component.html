@@ -2,114 +2,139 @@
     <mat-spinner></mat-spinner>
 </div>
 
-<div class="container">
-    <h2 class="mb-3">Inserat {{inserat?.rufname ? '"' + inserat.rufname + '"' : ''}}</h2>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <div><span>Rasse: </span>{{inserat?.rasse}}</div>
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Inserat {{inserat?.rufname ? '"' + inserat.rufname + '"' : ''}}</h3>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 mb-3">
-            <div><span>Sonstige Informationen: </span>{{inserat?.rassenFreitext || 'Keine'}}</div>
-        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4 col-md-3 text-left">Rasse:</div>
+                <div class="col-sm-8 col-md-3 text-left font-weight-bold font-italic">{{inserat?.rasse}}</div>
+                <div class="col-sm-4 col-md-3 text-left">Zusatz (Rasse): </div>
+                <div class="col-sm-8 col-md-3 text-left font-weight-bold font-italic">{{inserat?.rassenFreitext || 'Keine'}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-3 text-left">Größe (aktuell):</div>
+                <div class="col-sm-8 col-md-3 text-left  font-weight-bold font-italic">{{inserat?.schulterhoehe}}</div>
+                <div class="col-sm-4 col-md-3 text-left">Größe (vorauss.):</div>
+                <div class="col-sm-8 col-md-3 text-left  font-weight-bold font-italic">{{inserat?.voraussichtlicheSchulterhoehe}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-3 text-left">Geburtsdatum:</div>
+                <div class="col-sm-8 col-md-3 text-left  font-weight-bold font-italic">{{inserat?.geburtsdatum | date:'dd.MM.yyyy'}}</div>
+                <div class="col-sm-4 col-md-3 text-left">Geschlecht:</div>
+                <div class="col-sm-8 col-md-3 text-left  font-weight-bold font-italic">{{inserat?.geschlecht === 'M' ? 'männlich' : 'weiblich'}}</div>
+            </div>
+            <div class="row">
+                 <div class="col-sm-4 col-md-3 text-left">Rufname:</div>
+                 <div class="col-sm-8 col-md-3 text-left  font-weight-bold font-italic">{{inserat?.rufname}}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 textwithline"><span>Eigenschaften</span></div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.geimpft" id="geimpft" />&nbsp;
+                    <label for="geimpft" class="{{inserat?.geimpft ? 'font-weight-bold' : 'font-weight-light'}}">geimpft</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.gechipt" id="gechipt" />&nbsp;
+                    <label for="gechipt" class="{{inserat?.gechipt ? 'font-weight-bold' : 'font-weight-light'}}">gechipt</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.kastriert" id="kastriert" />&nbsp;
+                    <label for="kastriert" class="{{inserat?.kastriert ? 'font-weight-bold' : 'font-weight-light'}}">kastriert</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.stubenrein" id="stubenrein" />&nbsp;
+                    <label for="stubenrein" class="{{inserat?.stubenrein ? 'font-weight-bold' : 'font-weight-light'}}">stubenrein</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.leinenfuehrigkeit" id="leinenfuehrigkeit" />&nbsp;
+                    <label for="leinenfuehrigkeit" class="{{inserat?.leinenfuehrigkeit ? 'font-weight-bold' : 'font-weight-light'}}">leinenführig</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.zutraulich" id="zutraulich" />&nbsp;
+                    <label for="zutraulich" class="{{inserat?.zutraulich ? 'font-weight-bold' : 'font-weight-light'}}">zutraulich</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.autofahren" id="autofahren" />&nbsp;
+                    <label for="autofahren" class="{{inserat?.autofahren ? 'font-weight-bold' : 'font-weight-light'}}">Auto fahren</label>
+                </div>
+            </div>
+            <div class="row mb-2">
+                    <div class="col-12 textwithline"><span>verträgt sich mit</span></div>
+                </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.vertraeglichkeitKatzen" id="vertraeglichkeitKatzen" />&nbsp;
+                    <label for="vertraeglichkeitKatzen" class="{{inserat?.vertraeglichkeitKatzen ? 'font-weight-bold' : 'font-weight-light'}}">Katzen</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.vertraeglichkeitHunde" id="vertraeglichkeitHunde" />&nbsp;
+                    <label for="vertraeglichkeitHunde" class="{{inserat?.vertraeglichkeitHunde ? 'font-weight-bold' : 'font-weight-light'}}">anderen Hunden</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.vertraeglichkeitKinder" id="vertraeglichkeitKinder" />&nbsp;
+                    <label for="vertraeglichkeitKinder" class="{{inserat?.vertraeglichkeitKinder ? 'font-weight-bold' : 'font-weight-light'}}">Kindern</label>
+                </div>
+            </div>
+            <div class="row mb-2">
+                    <div class="col-12 textwithline"><span>Zielgruppe</span></div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.zielgruppeAnfaenger" id="zielgruppeAnfaenger" />&nbsp;
+                    <label for="zielgruppeAnfaenger" class="{{inserat?.zielgruppeAnfaenger ? 'font-weight-bold' : 'font-weight-light'}}">Anfänger</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.zielgruppeErfahren" id="zielgruppeErfahren" />&nbsp;
+                    <label for="zielgruppeErfahren" class="{{inserat?.zielgruppeErfahren ? 'font-weight-bold' : 'font-weight-light'}}">Erfahrene</label>
+                 </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" disabled [checked]="inserat?.zielgruppeSenioren" id="zielgruppeSenioren" />&nbsp;
+                    <label for="zielgruppeSenioren" class="{{inserat?.zielgruppeSenioren ? 'font-weight-bold' : 'font-weight-light'}}">Senioren</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                        <input type="checkbox" disabled [checked]="inserat?.zielgruppeFamilien" id="zielgruppeFamilien" />&nbsp;
+                        <label for="zielgruppeFamilien" class="{{inserat?.zielgruppeFamilien ? 'font-weight-bold' : 'font-weight-light'}}">Familien</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                        <input type="checkbox" disabled [checked]="inserat?.zielgruppeGarten" id="zielgruppeGarten" />&nbsp;
+                        <label for="zielgruppeGarten" class="{{inserat?.zielgruppeGarten ? 'font-weight-bold' : 'font-weight-light'}}">Gartenbesitzer</label>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 textwithline"><span>Beschreibung</span></div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="text-left font-italic">{{inserat?.kurzbeschreibung}}</p>
+                </div>
+            </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <div><span>Geburtsdatum: </span>{{inserat?.geburtsdatum | date:'dd.MM.yyyy'}}</div>
+    <div class="card-footer">
+        <div class="col-12">
+            <div class="card-columns">
+                <img *ngFor="let image of images"
+                    class="img-thumbnail m-1"
+                    style="max-width:200px;"
+                    [src]="image.imageUrl">
+            </div>
         </div>
-        <div class="col-md-3 mb-1">
-            <div><span>Größe (aktuell): </span>{{inserat?.schulterhoehe}}</div>
-        </div>
-        <div class="col-md-3 mb-1">
-            <div><span>Größe (vorauss.): </span>{{inserat?.voraussichtlicheSchulterhoehe}}</div>
-        </div>
+        <div class="row">
+                <div class="col-6 text-left">
+                    <button class="btn btn-warning" (click)="goBack()">zurück</button>
+                </div>
+                <div class="col-6 text-right">
+                        <button class="btn btn-success" [routerLink]="['/inserate/edit',inserat?.id]">editieren</button>
+                    </div>
+            </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <div><span>Rufname: </span>{{inserat?.rufname}}</div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div><span>Geschlecht: </span>{{inserat?.geschlecht === 'M' ? 'männlich' : 'weiblich'}}</div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4 mb-1">
-            <span>Eigenschaften:</span>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.geimpft" /> geimpft</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <span>Zielgruppe:</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.kastriert" /> kastriert</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.gechipt" /> gechipt</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeAnfaenger" /> Anfänger</div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.stubenrein" /> stubenrein</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <span>verträgt sich mit:</span>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeSenioren" /> Senioren</div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.leinenfuehrigkeit" /> leinenführig</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.vertraeglichkeitHunde" /> anderen Hunden</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeErfahren" /> Erfahrene</div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.autofahren" /> Auto fahren</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.vertraeglichkeitKatzen" /> Katzen</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeFamilien" /> Familien</div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.zutraulich" /> zutraulich</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.vertraeglichkeitKinder" /> Kindern</div>
-        </div>
-        <div class="col-md-4 mb-1">
-            <div><input type="checkbox" disabled [checked]="inserat?.zielgruppeGarten" /> Gartenbesitzer</div>
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="card-columns">
-            <img *ngFor="let image of images"
-                 class="card-img"
-                 style="height: 180px; width: 180px; display: block;"
-                 [src]="image.imageUrl">
-        </div>
-    </div>
-
-    <div class="row">
-        <button class="btn btn-success" (click)="goBack()">zurück</button>
-        <button class="btn" [routerLink]="['/inserate/edit',inserat?.id]">editieren</button>
-    </div>
+</div>
 </div>
