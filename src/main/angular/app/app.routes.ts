@@ -6,7 +6,7 @@ import { StoriesDeleteComponent } from "./components/stories/delete/stories-dele
 import {InserateDetailComponent} from "./components/inserate/detail/inserate-detail.component";
 import {InserateEditComponent} from "./components/inserate/edit/inserate-edit.component";
 import { StoriesEditComponent } from "./components/stories/edit/stories-edit.component";
-import { StartpageComponent } from "./components/startpage/startpage.component";
+import { StartpageComponent } from "./components/allgemein/startpage/startpage.component";
 
 
 export const AppRoutes: Routes = [
