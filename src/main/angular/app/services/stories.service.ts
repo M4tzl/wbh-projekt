@@ -6,6 +6,7 @@ import {map} from "rxjs/operators";
 import {StoriesResult} from "../model/stories-result";
 import {BildMetadaten} from "../model/bild-metadaten";
 import {UploadService} from "./upload.service";
+import {MatPaginatorIntl} from "@angular/material";
 
 @Injectable()
 export class StoriesService implements UploadService {
@@ -65,5 +66,14 @@ export class StoriesService implements UploadService {
             bildKey: storyBild.bildKey,
             imageUrl: `/api/stories/${storyBild.storyId}/images/${storyBild.bildKey}`
         }
+    }
+}
+export class MatPaginatorIntlGerman extends MatPaginatorIntl {
+    itemsPerPageLabel = 'Pro Seite: ';
+    nextPageLabel = 'Nächste Seite';
+    previousPageLabel = 'Vorherige Seite';
+
+    getRangeLabel = (page: number, pageSize: number, length: number) => {
+        return ((page * pageSize) + 1) + ' - ' + ((page * pageSize) + pageSize) + ' von ' + length;
     }
 }

@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, forwardRef} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
@@ -11,7 +11,7 @@ import {StoriesDetailComponent} from './components/stories/detail/stories-detail
 import {RouterModule} from "@angular/router";
 import {AppRoutes} from "./app.routes";
 import {InserateService} from "./services/inserate.service";
-import {StoriesService} from "./services/stories.service";
+import {StoriesService, MatPaginatorIntlGerman} from "./services/stories.service";
 import {StoriesEditComponent} from './components/stories/edit/stories-edit.component';
 import {StoriesDeleteComponent} from './components/stories/delete/stories-delete.component';
 import {InserateDetailComponent} from "./components/inserate/detail/inserate-detail.component";
@@ -25,7 +25,8 @@ import {
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorIntl
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UploadComponent} from "./components/upload/upload.component";
@@ -71,7 +72,11 @@ import { ImpressumComponent } from './components/allgemein/impressum/impressum/i
         BreedService,
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: NgbDateParserFormatter, useClass: CustomNgbDateParserFormatter},
-        {provide: NgbDateAdapter, useClass: CustomNgbDateAdapter}
+        {provide: NgbDateAdapter, useClass: CustomNgbDateAdapter},
+        {
+            provide: MatPaginatorIntl,
+            useClass: forwardRef(() => MatPaginatorIntlGerman)
+        }
     ],
     bootstrap: [AppComponent],
 

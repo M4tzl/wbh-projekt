@@ -11,6 +11,7 @@ import {StoriesDataSource} from "../../../services/stories.dataSource";
   templateUrl: './stories.component.html',
   styleUrls: ['./stories.component.scss']
 })
+
 export class StoriesComponent implements OnInit, AfterViewInit {
 
     dataSource: StoriesDataSource;
