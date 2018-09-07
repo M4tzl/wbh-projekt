@@ -11,7 +11,7 @@ import {StoriesDetailComponent} from './components/stories/detail/stories-detail
 import {RouterModule} from "@angular/router";
 import {AppRoutes} from "./app.routes";
 import {InserateService} from "./services/inserate.service";
-import {StoriesService, MatPaginatorIntlGerman} from "./services/stories.service";
+import {StoriesService} from "./services/stories.service";
 import {StoriesEditComponent} from './components/stories/edit/stories-edit.component';
 import {StoriesDeleteComponent} from './components/stories/delete/stories-delete.component';
 import {InserateDetailComponent} from "./components/inserate/detail/inserate-detail.component";
@@ -35,6 +35,7 @@ import { StartpageComponent } from './components/allgemein/startpage/startpage.c
 import { DatenschutzComponent } from './components/allgemein/datenschutz/datenschutz/datenschutz.component';
 import { FaqComponent } from './components/allgemein/faq/faq/faq.component';
 import { ImpressumComponent } from './components/allgemein/impressum/impressum/impressum.component';
+import { MatPaginatorIntlGerman } from './services/paginator.service';
 
 @NgModule({
     declarations: [
