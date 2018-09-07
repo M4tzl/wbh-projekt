@@ -7,6 +7,9 @@ import {InserateDetailComponent} from "./components/inserate/detail/inserate-det
 import {InserateEditComponent} from "./components/inserate/edit/inserate-edit.component";
 import { StoriesEditComponent } from "./components/stories/edit/stories-edit.component";
 import { StartpageComponent } from "./components/allgemein/startpage/startpage.component";
+import { FaqComponent } from "./components/allgemein/faq/faq/faq.component";
+import { ImpressumComponent } from "./components/allgemein/impressum/impressum/impressum.component";
+import { DatenschutzComponent } from "./components/allgemein/datenschutz/datenschutz/datenschutz.component";
 
 
 export const AppRoutes: Routes = [
@@ -18,5 +21,9 @@ export const AppRoutes: Routes = [
     { path: 'stories', component: StoriesComponent },
     { path: 'stories/detail/:id', component: StoriesDetailComponent },
     { path: 'stories/delete/:id', component: StoriesDeleteComponent },
-    { path: 'stories/edit/:id', component: StoriesEditComponent }
+    { path: 'stories/edit/:id', component: StoriesEditComponent },
+    { path: 'faq', component: FaqComponent },
+    { path: 'impressum', component: ImpressumComponent },
+    { path: 'datenschutz', component: DatenschutzComponent }
+
 ];

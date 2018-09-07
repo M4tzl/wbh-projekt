@@ -1,25 +1,29 @@
-<div class="container-fluid" *ngIf="story">
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <button class="btn btn-success" (click)="goBack()">zurück</button>
-        </div>
-    </div>
-    <div class="row border rounded ">
-        <div class="col-sm-12 text-left bg-info font-weight-bold"><h3>{{story.titel}}</h3></div>
-    </div>
-    <div class="row border rounded ">
-        <div class="col-sm-12 ">
-            <p class="text-justify">
-                {{story.beschreibung}}
-            </p>
-        </div>
-         <div class="col-sm-12 ">
-            <div class="card-columns">
-                <img *ngFor="let image of images"
-                     class="card-img"
-                     style="height: 180px; width: 180px; display: block;"
-                     [src]="image.imageUrl">
+<div class="container mt-2">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-12 col-md-9">
+                         <h3>{{story.titel}}</h3>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <button class="btn btn-success" (click)="goBack()">zurück</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                    <div class="col-12">
+                            <img *ngFor="let image of images"
+                                class="img-thumbnail m-1"
+                                style="max-width:200px;"
+                                [src]="image.imageUrl">
+                    </div>
+            </div>
+            <div class="card-footer ">
+                    <p class="text-left"> {{story.beschreibung}}</p>
             </div>
         </div>
-    </div>
+        <div class="row">
+
+        </div>
 </div>

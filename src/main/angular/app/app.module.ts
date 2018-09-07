@@ -31,6 +31,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UploadComponent} from "./components/upload/upload.component";
 import {SafeUrlPipe} from "./infrastructure/safe-url.pipe";
 import { StartpageComponent } from './components/allgemein/startpage/startpage.component';
+import { DatenschutzComponent } from './components/allgemein/datenschutz/datenschutz/datenschutz.component';
+import { FaqComponent } from './components/allgemein/faq/faq/faq.component';
+import { ImpressumComponent } from './components/allgemein/impressum/impressum/impressum.component';
 
 @NgModule({
     declarations: [
@@ -44,7 +47,10 @@ import { StartpageComponent } from './components/allgemein/startpage/startpage.c
         StoriesEditComponent,
         StoriesDeleteComponent,
         SafeUrlPipe,
-        StartpageComponent
+        StartpageComponent,
+        DatenschutzComponent,
+        FaqComponent,
+        ImpressumComponent
     ],
     imports: [
         BrowserModule,
