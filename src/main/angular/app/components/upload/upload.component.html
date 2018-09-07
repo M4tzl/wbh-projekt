@@ -1,7 +1,8 @@
-<div class="card">
+<div class="card mb-2" style="width:200px;height:216px;">
     <img class="card-img"
          (click)="fileInput.click()"
-         style="height: 180px; width: 180px; display: block;"
+         class="m-1"
+         style="max-width:200px;"
          [src]="(imageSource || '') | safeUrl">
     <input type="file" accept="image/*"
            (change)="handleFileInput($event.target.files)"

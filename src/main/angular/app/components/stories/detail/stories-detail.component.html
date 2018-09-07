@@ -3,27 +3,26 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-12 col-md-9">
+                    <div class="col-12">
                          <h3>{{story.titel}}</h3>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <button class="btn btn-success" (click)="goBack()">zurück</button>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                    <div class="col-12">
-                            <img *ngFor="let image of images"
-                                class="img-thumbnail m-1"
-                                style="max-width:200px;"
-                                [src]="image.imageUrl">
-                    </div>
-            </div>
-            <div class="card-footer ">
+            <div class="card-body ">
                     <p class="text-left"> {{story.beschreibung}}</p>
             </div>
-        </div>
-        <div class="row">
-
+            <div class="card-footer">
+                <div class="col-12">
+                    <img *ngFor="let image of images"
+                            class="img-thumbnail m-1"
+                            style="max-width:200px;"
+                            [src]="image.imageUrl">
+                </div>
+                <div class="row">
+                    <div class="col-6 text-left">
+                        <button class="btn btn-warning" (click)="goBack()">zurück</button>
+                    </div>
+                </div>
+            </div>
         </div>
 </div>
