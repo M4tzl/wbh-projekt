@@ -39,6 +39,7 @@
     border: 0;
     border-radius: 0;
     letter-spacing: 4px;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.2);
 }
 
 .navbar li a, .navbar .navbar-brand {
@@ -64,5 +65,11 @@
 }
 .page-footer li a, .page-footer  {
     color: #fff !important;
+}
+.mat-header-row, .mat-row {
+    min-width: 300px;
+}
+.navbar-toggler{
+    background-color: #fff !important;
 }
 

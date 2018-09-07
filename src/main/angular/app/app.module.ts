@@ -30,6 +30,7 @@ import {
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UploadComponent} from "./components/upload/upload.component";
 import {SafeUrlPipe} from "./infrastructure/safe-url.pipe";
+import { StartpageComponent } from './components/startpage/startpage.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import {SafeUrlPipe} from "./infrastructure/safe-url.pipe";
         StoriesDetailComponent,
         StoriesEditComponent,
         StoriesDeleteComponent,
-        SafeUrlPipe
+        SafeUrlPipe,
+        StartpageComponent
     ],
     imports: [
         BrowserModule,

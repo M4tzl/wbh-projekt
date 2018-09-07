@@ -1,4 +1,6 @@
+
 <nav class="navbar navbar-expand-md navbar-light fixed-top tfm" >
+
     <a class="navbar-brand" href="#"><img src="assets/img/logo2-64px.png"><span class="sr-only">(current)</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +16,7 @@
             </li>
         </ul>
     </div>
-    <div class="collapse navbar-collapse navbar-right" id="navbarsExampleDefault2">
+    <div class="collapse navbar-collapse navbar-right " id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto ">
             <li class="nav-item "><a class="nav-link" >Registrieren</a></li>
             <li class="nav-item "><a class="nav-link" >Anmelden</a></li>
@@ -22,7 +24,7 @@
     </div>
 </nav>
 
-<main role="main" class="container" style="padding-top:50px;">
+<main role="main" class="container-fluid p-0 pt-5 pb-6">
 
     <div class="starter-template">
         <router-outlet></router-outlet>
@@ -32,7 +34,39 @@
 </main><!-- /.container -->
 
 <!-- Footer -->
-<footer class="page-footer font-small">
-    <div class="footer-copyright text-center py-2">&copy; 2018 Copyright: TFM &nbsp;</div>
+<footer class="page-footer font-small bg-secondary fixed-bottom">
+     <!-- Footer Links -->
+     <div class="container text-center ">
+            <!-- Grid row -->
+            <div class="row ">
+              <span class="clearfix w-100"></span>
+              <!-- Grid column -->
+                <div class="col-4 col-md-4 ">
+                <ul class="m-0 p-0 list-unstyled">
+                  <li>
+                    <a href="#!">FAQ</a>
+                  </li>
+                </ul>
+                </div>
+                <div class="col-4 col-md-4 ">
+                        <ul class="m-0 p-0 list-unstyled">
+                      <li>
+                        <a href="#!">Datenschutz</a>
+                      </li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-4">
+                    <ul class="m-0 p-0 list-unstyled">
+                        <li>
+                            <a href="#!">Impressum</a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+            <!-- Grid row -->
+          </div>
+          <!-- Footer Links -->
+    <div class="footer-copyright text-center">&copy; 2018 Copyright: TFM &nbsp;</div>
   </footer>
   <!-- Footer -->
+
