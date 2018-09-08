@@ -7,7 +7,6 @@ MUST:
 - STYLING!!!
 - Zustandsübergänge (vermittelt, bereit zur abrechnung) (leicht)
 - IFrame-Einbindung
-- Validation
 
 Nice2have:
 - Upload-Progressanzeige

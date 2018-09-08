@@ -41,10 +41,12 @@ export class StoriesEditComponent implements OnInit {
         }
     }
 
-    onSubmit(){
+    onSubmit(form){
+        if (form.valid) {
         const id = this.route.snapshot.params['id'];
         this.storyService.update(this.story)
             .subscribe(result => this.router.navigate(['/stories/edit/'+id]));
+        }
     }
     goBack(): void {
         this.router.navigate(['/stories/']);
