@@ -10,12 +10,22 @@ import { StartpageComponent } from "./components/allgemein/startpage/startpage.c
 import { FaqComponent } from "./components/allgemein/faq/faq/faq.component";
 import { ImpressumComponent } from "./components/allgemein/impressum/impressum/impressum.component";
 import { DatenschutzComponent } from "./components/allgemein/datenschutz/datenschutz/datenschutz.component";
+import { InseratKontaktComponent } from "./components/inserate/kontakt/inserat-kontakt.component";
+import { UserLoginComponent } from "./components/login/user-login.component";
+import { InteressentenRegistryComponent } from "./components/interessenten/registry/interessenten-registry.component";
+import { VermittlerRegistryComponent } from "./components/vermittler/registry/vermittler-registry.component";
+
+
 
 
 export const AppRoutes: Routes = [
     { path: '', component: StartpageComponent },
+    { path: 'login', component: UserLoginComponent },
+    { path: 'interessent/registry', component: InteressentenRegistryComponent },
+    { path: 'vermittler/registry', component: VermittlerRegistryComponent },
     { path: 'inserate', component: InserateUebersichtComponent },
     { path: 'inserate/detail/:id', component: InserateDetailComponent },
+    { path: 'inserate/kontakt/:id', component: InseratKontaktComponent },
     { path: 'inserate/edit/:id', component: InserateEditComponent },
     { path: 'inserate/create', component: InserateEditComponent },
     { path: 'stories', component: StoriesComponent },

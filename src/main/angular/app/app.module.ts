@@ -36,6 +36,13 @@ import { DatenschutzComponent } from './components/allgemein/datenschutz/datensc
 import { FaqComponent } from './components/allgemein/faq/faq/faq.component';
 import { ImpressumComponent } from './components/allgemein/impressum/impressum/impressum.component';
 import { MatPaginatorIntlGerman } from './services/paginator.service';
+import { InseratSucheComponent } from './components/inserate/suche/inserat-suche.component';
+import { InseratKontaktComponent } from './components/inserate/kontakt/inserat-kontakt.component';
+import { UserLoginComponent } from './components/login/user-login.component';
+import { InteressentenRegistryComponent } from './components/interessenten/registry/interessenten-registry.component';
+import { VermittlerRegistryComponent } from './components/vermittler/registry/vermittler-registry.component';
+
+
 
 @NgModule({
     declarations: [
@@ -52,7 +59,12 @@ import { MatPaginatorIntlGerman } from './services/paginator.service';
         StartpageComponent,
         DatenschutzComponent,
         FaqComponent,
-        ImpressumComponent
+        ImpressumComponent,
+        InseratSucheComponent,
+        InseratKontaktComponent,
+        UserLoginComponent,
+        InteressentenRegistryComponent,
+        VermittlerRegistryComponent
     ],
     imports: [
         BrowserModule,

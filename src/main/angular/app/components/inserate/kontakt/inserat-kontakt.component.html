@@ -1,0 +1,74 @@
+<div class="container mt-2">
+    <form (ngSubmit)="onSubmit(kontaktForm)" #kontaktForm="ngForm" class="needs-validation" novalidate>
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Kontaktaufnahme {{inserat?.rufname ? '"' + inserat.rufname + '"' : ''}}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"  for="rufname">Eine Nachricht an //Organisation// senden</label>
+                    <div class="col-sm-8">
+                        <textarea
+                            id="nachricht"
+                            class="form-control"
+                            [(ngModel)]="data.nachricht"
+                            #nachricht="ngModel"
+                             name="nachricht" rows="8" required></textarea>
+                    <div *ngIf="nachricht.invalid && (nachricht.dirty || nachricht.touched)" class="alert alert-danger">
+                             Nachricht ist ein Pflichtfeld
+                    </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12 textwithline"><span>allgemeine freiwillige Angaben</span></div>
+                 </div>
+                 <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 text-left">
+                        <input type="checkbox"  [(ngModel)]="efahrungHund" name="efahrungHund" id="efahrungHund"/>&nbsp;
+                        <label for="efahrungHund" class="{{efahrungHund ? 'font-weight-bold' : 'font-weight-light'}}">bereits Erfahrung mit Hunden?</label>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 text-left">
+                        <input type="checkbox"  [(ngModel)]="weitereTiere" name="weitereTiere" id="weitereTiere"/>&nbsp;
+                        <label for="weitereTiere" class="{{weitereTiere ? 'font-weight-bold' : 'font-weight-light'}}">Weitere Tiere im Haushalt?</label>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 text-left">
+                        <input type="checkbox"  [(ngModel)]="kinderHaushalt" name="kinderHaushalt" id="kinderHaushalt"/>&nbsp;
+                        <label for="kinderHaushalt" class="{{kinderHaushalt ? 'font-weight-bold' : 'font-weight-light'}}">Kinder im Haushalt?</label>
+                    </div>
+
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12 textwithline"><span>freiwillige Angaben zur Wohnsituation</span></div>
+                </div>
+                <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 text-left">
+                            <input type="checkbox"  [(ngModel)]="Haus" name="Haus" id="Haus"/>&nbsp;
+                            <label for="Haus" class="{{Haus ? 'font-weight-bold' : 'font-weight-light'}}">Haus?</label>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 text-left">
+                            <input type="checkbox"  [(ngModel)]="Wohnung" name="Wohnung" id="Wohnung"/>&nbsp;
+                            <label for="Wohnung" class="{{Wohnung ? 'font-weight-bold' : 'font-weight-light'}}">Wohnung?</label>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 text-left">
+                            <input type="checkbox"  [(ngModel)]="tierhaltung" name="tierhaltung" id="tierhaltung"/>&nbsp;
+                            <label for="tierhaltung" class="{{tierhaltung ? 'font-weight-bold' : 'font-weight-light'}}">Tierhaltung erlaubt (z.B. vom Vermieter)?</label>
+                        </div>
+                 </div>
+            </div>
+            <div class="card-footer">
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <button class="btn btn-warning" (click)="goBack()">Zurück</button>
+                        </div>
+                        <div class="col-6 text-right">
+                                <button type="submit" class="btn btn-success" [disabled]="!kontaktForm.form.valid">Nachricht versenden</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </form>
+</div>

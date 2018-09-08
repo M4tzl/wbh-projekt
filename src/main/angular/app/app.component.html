@@ -18,8 +18,17 @@
     </div>
     <div class="collapse navbar-collapse navbar-right " id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto ">
-            <li class="nav-item "><a class="nav-link" >Registrieren</a></li>
-            <li class="nav-item "><a class="nav-link" >Anmelden</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Registrierung</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" routerLink="/interessent/registry">für Interessenten</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" routerLink="/vermittler/registry">für Vermittler</a>
+                </div>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" routerLink="/login">Anmelden</a>
+            </li>
           </ul>
     </div>
 </nav>
