@@ -14,8 +14,8 @@
                    matSort matSortActive="titel" matSortDirection="asc" matSortDisableClear >
 
             <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-                <mat-cell *matCellDef="let story">{{story.id}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef style="max-width:60px;">ID</mat-header-cell>
+                <mat-cell *matCellDef="let story" style="max-width:60px;">{{story.id}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="titel">

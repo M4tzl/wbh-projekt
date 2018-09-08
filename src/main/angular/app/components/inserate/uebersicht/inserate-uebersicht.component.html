@@ -14,8 +14,8 @@
                    matSort matSortActive="lastUpdate" matSortDirection="desc" matSortDisableClear>
 
             <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-                <mat-cell *matCellDef="let inserat">{{inserat.id}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef style="max-width:60px;">ID</mat-header-cell>
+                <mat-cell *matCellDef="let inserat" style="max-width:60px;">{{inserat.id}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="lastUpdate">
