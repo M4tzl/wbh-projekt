@@ -5,6 +5,7 @@ import {catchError, finalize, map} from "rxjs/operators";
 import {CollectionViewer} from "@angular/cdk/collections";
 import {InseratUebersichtResult} from "../model/inserat-uebersicht-result";
 import {InseratUebersicht} from "../model/inserat-uebersicht";
+import {Inserat} from "../model/inserat";
 
 export class InserateDataSource implements DataSource<InseratUebersicht> {
     private inserateSubject = new BehaviorSubject<InseratUebersichtResult>(<InseratUebersichtResult>{});
@@ -15,7 +16,7 @@ export class InserateDataSource implements DataSource<InseratUebersicht> {
     constructor(private inserateService: InserateService) {
     }
 
-    loadInserate(filter:string,
+    loadInserate(filter:{key: keyof Inserat, value: string}[],
                 sortBy:string,
                 sortDirection:string,
                 pageIndex:number,

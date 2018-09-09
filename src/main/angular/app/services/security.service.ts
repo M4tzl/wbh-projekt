@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {map, switchMap, tap} from "rxjs/operators";
 import {CurrentUser} from "../model/current-user";
+import {Vermittler} from "../model/vermittler";
 
 @Injectable()
 export class SecurityService {
@@ -39,8 +40,8 @@ export class SecurityService {
                 switchMap(user => this.authenticate({username, password}))
             );
     }
-    registerVermittler(username: string, password: string): Observable<CurrentUser> {
-        return this.http.post<any>('/api/register/vermittler', {username, password})
+    registerVermittler(username: string, password: string, vermittler: Vermittler): Observable<CurrentUser> {
+        return this.http.post<any>('/api/register/vermittler', {username, password, vermittler})
             .pipe(
                 switchMap(user => this.authenticate({username, password}))
             );

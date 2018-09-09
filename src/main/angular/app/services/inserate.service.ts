@@ -12,10 +12,13 @@ export class InserateService implements UploadService {
     constructor(private httpClient: HttpClient) {
     }
 
-    public loadAll(rufnameFilter: string,
+    public loadAll(filter: {key: keyof Inserat, value: string}[],
                    sort: string, sortDirection: string,
                    page: number, pageSize: number): Observable<InseratUebersichtResult> {
-        return this.httpClient.get<any>(`/api/inserate?rufname=${rufnameFilter}&sort=${sort},${sortDirection}&page=${page}&size=${pageSize}`)
+        const filterString = filter.map(entry => `${entry.key}=${entry.value}`)
+            .join('&');
+
+        return this.httpClient.get<any>(`/api/inserate?${filterString}&sort=${sort},${sortDirection}&page=${page}&size=${pageSize}`)
             .pipe(
                 map(result => <InseratUebersichtResult> {
                         inserate: result.content,

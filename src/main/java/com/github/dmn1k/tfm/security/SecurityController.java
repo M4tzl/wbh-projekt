@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SecurityController {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final VermittlerRepository vermittlerRepository;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/api/user")
@@ -39,6 +40,21 @@ public class SecurityController {
             .build();
 
         userRepository.save(user);
+
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/api/register/vermittler")
+    public ResponseEntity<?> register(@RequestBody VermittlerRegistrationData regData) {
+        Role role = roleRepository.findByName("VERMITTLER");
+        User user = User.builder()
+            .username(regData.getUsername())
+            .password(passwordEncoder.encode(regData.getPassword()))
+            .role(role)
+            .build();
+
+        userRepository.save(user);
+        vermittlerRepository.save(regData.getVermittler());
 
         return ResponseEntity.ok(user);
     }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { SecurityService } from '../../../services/security.service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {SecurityService} from '../../../services/security.service';
+import {Router} from '@angular/router';
+import {Vermittler} from "../../../model/vermittler";
 
 @Component({
   selector: 'app-vermittler-registry',
@@ -8,15 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./vermittler-register.component.css']
 })
 export class VermittlerRegisterComponent {
-    data: any = {};
+    data:any = {};
+    vermittler: Vermittler = <Vermittler>{};
     registrationFailed: boolean = false;
 
     constructor(private securityService: SecurityService,
                 private router: Router) {
     }
 
-    onSubmit() {
-        this.securityService.registerVermittler(this.data.email, this.data.password)
+    onSubmit(){
+        this.securityService.registerVermittler(this.vermittler.username, this.data.password, this.vermittler)
             .subscribe(res => this.router.navigateByUrl("/"),
                 err => this.registrationFailed = true);
     }

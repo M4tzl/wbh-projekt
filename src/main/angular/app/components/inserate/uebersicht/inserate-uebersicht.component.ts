@@ -19,7 +19,7 @@ import {update} from "../../../infrastructure/immutable-update";
 export class InserateUebersichtComponent implements OnInit, AfterViewInit {
     currentUser: CurrentUser;
     dataSource: InserateDataSource;
-    displayedColumns= ["id", "lastUpdate", "rufname", "status", "actions"];
+    displayedColumns = ["id", "lastUpdate", "rufname", "status", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
 
@@ -38,14 +38,16 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.dataSource = new InserateDataSource(this.inserateService);
 
-        this.dataSource.loadInserate('', 'lastUpdate', 'desc', 0, this.initialPageSize);
+        this.dataSource.loadInserate([
+            {key: "vermittler", value: this.currentUser.userName}
+        ], 'lastUpdate', 'desc', 0, this.initialPageSize);
     }
 
     ngAfterViewInit() {
 
         this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
-        fromEvent(this.searchField.nativeElement,'keyup')
+        fromEvent(this.searchField.nativeElement, 'keyup')
             .pipe(
                 debounceTime(150),
                 distinctUntilChanged(),
@@ -67,7 +69,10 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
 
     loadInseratePage() {
         this.dataSource.loadInserate(
-            this.searchField.nativeElement.value,
+            [
+                {key: "rufname", value: this.searchField.nativeElement.value},
+                {key: "vermittler", value: this.currentUser.userName}
+            ],
             'lastUpdate',
             this.sort.direction,
             this.paginator.pageIndex,

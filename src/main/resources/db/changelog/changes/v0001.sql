@@ -6,7 +6,22 @@ CREATE TABLE "user" (
   username varchar(255) not null,
   password varchar(255) not null,
   PRIMARY KEY (id),
-  CONSTRAINT UC_Username UNIQUE (username)
+  CONSTRAINT UC_User_Username UNIQUE (username)
+);
+
+CREATE TABLE "vermittler" (
+  id bigserial NOT NULL,
+  username varchar(255) not null,
+  organisation varchar(255) not null,
+  ansprechpartner varchar(255) not null,
+  strasse_hs_nr varchar(255) not null,
+  plz varchar(255) not null,
+  ort varchar(255) not null,
+  bundesland varchar(255) not null,
+  telefon varchar(255) not null,
+  PRIMARY KEY (id),
+  CONSTRAINT UC_Vermittler_Username UNIQUE (username),
+  FOREIGN KEY(username) REFERENCES user(username)
 );
 
 CREATE TABLE "role" (
