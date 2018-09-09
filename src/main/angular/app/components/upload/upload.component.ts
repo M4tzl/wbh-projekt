@@ -1,10 +1,7 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {InserateService} from "../../services/inserate.service";
 import {BildMetadaten} from "../../model/bild-metadaten";
 import {tap} from "rxjs/operators";
 import {ImageUploadResult} from "./image-upload-result";
-import {StoriesService} from "../../services/stories.service";
-import {ActivatedRoute} from '@angular/router';
 import {UploadService} from "../../services/upload.service";
 
 @Component({
