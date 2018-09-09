@@ -22,6 +22,7 @@ public class AwsConfiguration {
     @Bean
     public AmazonSimpleEmailService amazonSimpleEmailService() {
         return AmazonSimpleEmailServiceClientBuilder.standard()
+            .withRegion("eu-west-1") // SES ist in eu-central nicht verfügbar
             .withCredentials(new ContainerCredentialsProvider())
             .build();
     }

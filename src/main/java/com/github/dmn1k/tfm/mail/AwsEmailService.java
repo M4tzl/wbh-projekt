@@ -23,7 +23,7 @@ public class AwsEmailService implements EmailService {
                         .withCharset("UTF-8").withData(email.getContent())))
                 .withSubject(new Content()
                     .withCharset("UTF-8").withData(email.getSubject())))
-            .withSource(email.getFromAddress());
+            .withSource("dominik.schlosser@gmail.com");
 
         simpleEmailService.sendEmail(request);
     }

@@ -2,7 +2,6 @@ package com.github.dmn1k.tfm;
 
 import com.github.dmn1k.tfm.inserate.Inserat;
 import com.github.dmn1k.tfm.inserate.InseratBild;
-import com.github.dmn1k.tfm.security.User;
 import com.github.dmn1k.tfm.stories.Story;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;

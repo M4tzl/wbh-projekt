@@ -1,6 +1,5 @@
 package com.github.dmn1k.tfm.inserate;
 
-import com.github.dmn1k.tfm.security.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

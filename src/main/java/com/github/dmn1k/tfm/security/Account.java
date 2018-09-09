@@ -12,8 +12,8 @@ import java.util.Set;
 @Builder
 @Data
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "account")
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,8 +23,8 @@ public class User {
 
     @Singular
     @ManyToMany
-    @JoinTable(name = "user_role",
-        joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "account_role",
+        joinColumns = @JoinColumn(name = "account_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 

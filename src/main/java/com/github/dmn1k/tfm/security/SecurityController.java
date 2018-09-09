@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +16,14 @@ import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Transactional
 @RequiredArgsConstructor
 @RestController
 public class SecurityController {
-    private final UserRepository userRepository;
+    private final AccountRepository userRepository;
     private final RoleRepository roleRepository;
     private final VermittlerRepository vermittlerRepository;
-    private final UserActivationRepository userActivationRepository;
+    private final AccountActivationRepository accountActivationRepository;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
 
@@ -33,26 +35,26 @@ public class SecurityController {
         }
 
         org.springframework.security.core.userdetails.User springUser = (org.springframework.security.core.userdetails.User) principal;
-        User user = userRepository.findByUsername(springUser.getUsername());
+        Account account = userRepository.findByUsername(springUser.getUsername());
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(account);
     }
 
     @PostMapping("/api/register/interessent")
     public ResponseEntity<?> register(@RequestBody InteressentRegistrationData regData,
                                       HttpServletRequest request) {
         Role role = roleRepository.findByName("INTERESSENT");
-        User user = User.builder()
+        Account account = Account.builder()
             .username(regData.getUsername())
             .password(passwordEncoder.encode(regData.getPassword()))
             .role(role)
             .build();
 
-        userRepository.save(user);
+        userRepository.save(account);
 
         handleActivation(regData.getUsername(), request);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(account);
     }
 
 
@@ -60,25 +62,25 @@ public class SecurityController {
     public ResponseEntity<?> register(@RequestBody VermittlerRegistrationData regData,
                                       HttpServletRequest request) {
         Role role = roleRepository.findByName("VERMITTLER");
-        User user = User.builder()
+        Account account = Account.builder()
             .username(regData.getUsername())
             .password(passwordEncoder.encode(regData.getPassword()))
             .role(role)
             .build();
 
-        userRepository.save(user);
+        userRepository.save(account);
         vermittlerRepository.save(regData.getVermittler());
 
         handleActivation(regData.getUsername(), request);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(account);
     }
 
     @SneakyThrows
     @GetMapping("/api/activate/{token}")
     public void activate(@PathVariable String token,
                          HttpServletResponse response) {
-        UserActivation activation = userActivationRepository.findByToken(token);
+        AccountActivation activation = accountActivationRepository.findByToken(token);
 
         if (activation == null) {
             throw new IllegalStateException("No activation record found for token");
@@ -89,28 +91,28 @@ public class SecurityController {
                 throw new IllegalStateException("Token expired");
             }
 
-            User user = userRepository.findByUsername(activation.getUsername());
-            user.setEnabled(true);
+            Account account = userRepository.findByUsername(activation.getUsername());
+            account.setEnabled(true);
 
-            userRepository.save(user);
+            userRepository.save(account);
 
             response.sendRedirect("/");
         } finally {
-            userActivationRepository.delete(activation);
+            accountActivationRepository.delete(activation);
         }
     }
 
     private void handleActivation(String username, HttpServletRequest request) {
-        UserActivation userActivation = UserActivation.builder()
+        AccountActivation accountActivation = AccountActivation.builder()
             .username(username)
             .token(UUID.randomUUID().toString())
             .valid(LocalDate.now().plusDays(14))
             .build();
 
-        userActivationRepository.save(userActivation);
+        accountActivationRepository.save(accountActivation);
 
         String activationurl = MessageFormat.format("{0}://{1}:{2}/api/activate/{3}", request.getScheme(),
-            request.getServerName(), String.valueOf(request.getServerPort()), userActivation.getToken());
+            request.getServerName(), String.valueOf(request.getServerPort()), accountActivation.getToken());
 
         emailService.send(Email.builder()
             .fromAddress("no-reply@tier-fair-mittlung.de")

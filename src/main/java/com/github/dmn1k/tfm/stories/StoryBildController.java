@@ -4,11 +4,13 @@ import com.github.dmn1k.tfm.files.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Transactional
 @RequiredArgsConstructor
 @RestController
 public class StoryBildController {

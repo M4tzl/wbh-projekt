@@ -3,8 +3,8 @@ package com.github.dmn1k.tfm;
 import com.github.dmn1k.tfm.inserate.*;
 import com.github.dmn1k.tfm.security.Role;
 import com.github.dmn1k.tfm.security.RoleRepository;
-import com.github.dmn1k.tfm.security.User;
-import com.github.dmn1k.tfm.security.UserRepository;
+import com.github.dmn1k.tfm.security.Account;
+import com.github.dmn1k.tfm.security.AccountRepository;
 import com.github.dmn1k.tfm.stories.StoriesRepository;
 import com.github.dmn1k.tfm.stories.Story;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Profile("!prod")
 @RequiredArgsConstructor
@@ -23,14 +22,14 @@ import java.util.List;
 public class TestdataRunner implements ApplicationRunner {
     private final InserateRepository inserateRepository;
     private final StoriesRepository storiesRepository;
-    private final UserRepository userRepository;
+    private final AccountRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(ApplicationArguments args) {
         Role vermittlerRole = roleRepository.findByName("VERMITTLER");
-        User vermittler = User.builder()
+        Account vermittler = Account.builder()
             .username("vermittler1@test.de")
             .password(passwordEncoder.encode("test123"))
             .role(vermittlerRole)

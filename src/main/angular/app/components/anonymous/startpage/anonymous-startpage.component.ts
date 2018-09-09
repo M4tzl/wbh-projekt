@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {SecurityService} from "../../../services/security.service";
+import {CurrentUser} from "../../../model/current-user";
 
 @Component({
-  selector: 'app-interessenten-startpage',
-  templateUrl: './anonymous-startpage.component.html',
-  styleUrls: ['./anonymous-startpage.component.css']
+    selector: 'app-interessenten-startpage',
+    templateUrl: './anonymous-startpage.component.html',
+    styleUrls: ['./anonymous-startpage.component.css']
 })
-export class AnonymousStartpageComponent implements OnInit {
+export class AnonymousStartpageComponent {
+    private currentUser: CurrentUser;
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+    constructor(private securityService: SecurityService) {
+        securityService.currentUser.subscribe(user => this.currentUser = user);
+    }
 }

@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @Builder
 @Data
 @Entity
-@Table(name = "user_activation")
-public class UserActivation {
+@Table(name = "account_activation")
+public class AccountActivation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

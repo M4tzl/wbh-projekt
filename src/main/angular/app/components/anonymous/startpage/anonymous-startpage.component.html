@@ -1,5 +1,8 @@
 <div class="container mt-2 pb-5">
-    <div class="row ">
+    <div class="row">
         <span>TODO: Anonymous start page (bitte einloggen/registrieren)</span>
+    </div>
+    <div class="row" *ngIf="currentUser?.loggedIn && !currentUser?.enabled">
+        <span>Checken Sie ihre Emails um ihre Registrierung zu bestätigen!</span>
     </div>
 </div>

@@ -34,6 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/index.html", "/",
                 "/health",
+                "/assets/**",
+                "/*.js",
+                "/*.html",
+                "/*.ico",
+                "/*.eot",
+                "/*.svg",
+                "/*.ttf",
+                "/*.woff",
+                "/*.woff2",
                 "/api/user", "/api/logout",
                 "/api/register/**").permitAll()
             .anyRequest().authenticated()

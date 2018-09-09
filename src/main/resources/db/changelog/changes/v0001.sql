@@ -1,7 +1,7 @@
 --liquibase formatted sql
 
 --changeset Dominik Schlosser:InitialSchemaCreation stripComments:true runOnChange:false splitStatements:true Comment:Adding Initial Schema logicalFilePath:com/github/dmn1k/wbhprojekt/db/changelog/changes/v0001.sql
-CREATE TABLE "user" (
+CREATE TABLE "account" (
   id bigserial NOT NULL,
   username varchar(255) not null,
   password varchar(255) not null,
@@ -22,7 +22,7 @@ CREATE TABLE "vermittler" (
   telefon varchar(255) not null,
   PRIMARY KEY (id),
   CONSTRAINT UC_Vermittler_Username UNIQUE (username),
-  FOREIGN KEY(username) REFERENCES user(username)
+  FOREIGN KEY(username) REFERENCES "account"(username)
 );
 
 CREATE TABLE "role" (
@@ -32,14 +32,14 @@ CREATE TABLE "role" (
   CONSTRAINT UC_Rolename UNIQUE (name)
 );
 
-CREATE TABLE "user_role" (
+CREATE TABLE "account_role" (
   id bigserial NOT NULL,
-  user_id bigserial not null,
+  account_id bigserial not null,
   role_id bigserial not null,
   PRIMARY KEY (id),
-  FOREIGN KEY(user_id) REFERENCES user(id),
-  FOREIGN KEY(role_id) REFERENCES role(id),
-  CONSTRAINT UC_User_Role UNIQUE (user_id, role_id)
+  FOREIGN KEY(account_id) REFERENCES "account"(id),
+  FOREIGN KEY(role_id) REFERENCES "role"(id),
+  CONSTRAINT UC_User_Role UNIQUE (account_id, role_id)
 );
 
 CREATE TABLE "inserat" (
@@ -73,7 +73,7 @@ CREATE TABLE "inserat" (
   zielgruppe_erfahren boolean not null,
   zielgruppe_familien boolean not null,
   PRIMARY KEY (id),
-  FOREIGN KEY (vermittler) REFERENCES user(username)
+  FOREIGN KEY (vermittler) REFERENCES "account"(username)
 );
 
 CREATE TABLE "inserat_bild" (
@@ -99,7 +99,7 @@ CREATE TABLE "story_bild" (
   FOREIGN KEY(story_id) REFERENCES story(id)
 );
 
-CREATE TABLE "user_activation" (
+CREATE TABLE "account_activation" (
   id bigserial NOT NULL,
   username varchar(255) not null,
   token varchar(500) not null,
