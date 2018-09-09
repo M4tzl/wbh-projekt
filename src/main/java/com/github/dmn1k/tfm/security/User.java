@@ -3,6 +3,7 @@ package com.github.dmn1k.tfm.security;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.Set;
 
 @EqualsAndHashCode(of = {"id"})
@@ -18,6 +19,7 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private boolean enabled;
 
     @Singular
     @ManyToMany
@@ -25,4 +27,12 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    public Set<Role> getRoles(){
+        if(!enabled){
+            return Collections.emptySet();
+        }
+
+        return roles;
+    }
 }

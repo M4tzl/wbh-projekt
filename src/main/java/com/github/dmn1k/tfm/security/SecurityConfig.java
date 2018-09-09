@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers("/index.html", "/",
-                "/health", "/user",
+                "/health",
                 "/api/user", "/api/logout",
                 "/api/register/**").permitAll()
             .anyRequest().authenticated()

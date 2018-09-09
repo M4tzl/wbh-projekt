@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable, ReplaySubject} from "rxjs";
+import {Observable, ReplaySubject} from "rxjs";
 import {map, switchMap, tap} from "rxjs/operators";
 import {CurrentUser} from "../model/current-user";
 import {Vermittler} from "../model/vermittler";
@@ -36,6 +36,7 @@ export class SecurityService {
                 switchMap(user => this.authenticate({username, password}))
             );
     }
+
     registerVermittler(username: string, password: string, vermittler: Vermittler): Observable<CurrentUser> {
         return this.http.post<any>('/api/register/vermittler', {username, password, vermittler})
             .pipe(
@@ -54,6 +55,7 @@ export class SecurityService {
         return resp ? <CurrentUser> {
                 loggedIn: true,
                 userName: resp.username,
+                enabled: resp.enabled,
                 isInteressent: resp.roles.map(r => r.name).indexOf('INTERESSENT') > -1,
                 isVermittler: resp.roles.map(r => r.name).indexOf('VERMITTLER') > -1
             }

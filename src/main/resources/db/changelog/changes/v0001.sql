@@ -5,6 +5,7 @@ CREATE TABLE "user" (
   id bigserial NOT NULL,
   username varchar(255) not null,
   password varchar(255) not null,
+  enabled boolean not null,
   PRIMARY KEY (id),
   CONSTRAINT UC_User_Username UNIQUE (username)
 );
@@ -96,4 +97,12 @@ CREATE TABLE "story_bild" (
   bild_key varchar(200) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY(story_id) REFERENCES story(id)
+);
+
+CREATE TABLE "user_activation" (
+  id bigserial NOT NULL,
+  username varchar(255) not null,
+  token varchar(500) not null,
+  valid date not null,
+  PRIMARY KEY (id)
 );
