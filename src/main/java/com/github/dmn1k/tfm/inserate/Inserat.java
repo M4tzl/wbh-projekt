@@ -1,5 +1,6 @@
 package com.github.dmn1k.tfm.inserate;
 
+import com.github.dmn1k.tfm.security.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,6 +42,7 @@ public class Inserat {
 
     private String schulterhoehe;
     private String voraussichtlicheSchulterhoehe;
+    private String storyschreiber;
 
     private boolean kastriert;
     private boolean gechipt;
@@ -58,4 +60,8 @@ public class Inserat {
     private boolean zielgruppeGarten;
     private boolean zielgruppeErfahren;
     private boolean zielgruppeFamilien;
+
+    @OneToOne
+    @JoinColumn(name = "vermittler_id")
+    private User vermittler;
 }

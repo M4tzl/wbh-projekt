@@ -29,14 +29,14 @@ public class TestdataRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        Role vermittler = roleRepository.findByName("VERMITTLER");
-        User user = User.builder()
+        Role vermittlerRole = roleRepository.findByName("VERMITTLER");
+        User vermittler = User.builder()
             .username("vermittler1@test.de")
             .password(passwordEncoder.encode("test123"))
-            .role(vermittler)
+            .role(vermittlerRole)
             .build();
 
-        userRepository.save(user);
+        userRepository.save(vermittler);
 
         inserateRepository.save(Inserat.builder()
             .lastUpdate(LocalDate.of(2018, 8, 10))
@@ -47,6 +47,7 @@ public class TestdataRunner implements ApplicationRunner {
             .schulterhoehe("<20cm")
             .voraussichtlicheSchulterhoehe("51-75cm")
             .geschlecht(Geschlecht.M)
+            .vermittler(vermittler)
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -58,6 +59,7 @@ public class TestdataRunner implements ApplicationRunner {
             .schulterhoehe("51-75cm")
             .voraussichtlicheSchulterhoehe("51-75cm")
             .geschlecht(Geschlecht.M)
+            .vermittler(vermittler)
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -70,6 +72,7 @@ public class TestdataRunner implements ApplicationRunner {
             .schulterhoehe("<20cm")
             .voraussichtlicheSchulterhoehe("<20cm")
             .geschlecht(Geschlecht.W)
+            .vermittler(vermittler)
             .build());
 
         storiesRepository.save(new Story(null, "Story 1", "Blablubb"));
