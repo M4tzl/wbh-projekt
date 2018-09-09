@@ -32,7 +32,7 @@ import {
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UploadComponent} from "./components/upload/upload.component";
 import {SafeUrlPipe} from "./infrastructure/safe-url.pipe";
-import {StartpageComponent} from './components/interessenten/startpage/startpage.component';
+import {InteressentenStartpageComponent} from './components/interessenten/startpage/interessenten-startpage.component';
 import {DatenschutzComponent} from './components/allgemein/datenschutz/datenschutz.component';
 import {FaqComponent} from './components/allgemein/faq/faq.component';
 import {ImpressumComponent} from './components/allgemein/impressum/impressum.component';
@@ -46,6 +46,9 @@ import {XhrInterceptor} from "./infrastructure/xhr.interceptor";
 import {InteressentenRegisterComponent} from "./components/interessenten/register/interessenten-register.component";
 import {VermittlerRegisterComponent} from "./components/vermittler/register/vermittler-register.component";
 import {EqualValidator} from "./validation/equal-validator";
+import {VermittlerStartpageComponent} from "./components/vermittler/startpage/vermittler-startpage.component";
+import {StartpageRoleGuard} from "./guards/startpage-role.guard";
+import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anonymous-startpage.component";
 
 
 @NgModule({
@@ -60,7 +63,9 @@ import {EqualValidator} from "./validation/equal-validator";
         StoriesEditComponent,
         StoriesDeleteComponent,
         SafeUrlPipe,
-        StartpageComponent,
+        InteressentenStartpageComponent,
+        VermittlerStartpageComponent,
+        AnonymousStartpageComponent,
         DatenschutzComponent,
         FaqComponent,
         ImpressumComponent,
@@ -91,6 +96,7 @@ import {EqualValidator} from "./validation/equal-validator";
         StoriesService,
         BreedService,
         SecurityService,
+        StartpageRoleGuard,
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: NgbDateParserFormatter, useClass: CustomNgbDateParserFormatter},
         {provide: NgbDateAdapter, useClass: CustomNgbDateAdapter},

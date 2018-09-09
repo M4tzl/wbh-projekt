@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, ReplaySubject} from "rxjs";
 import {map, switchMap, tap} from "rxjs/operators";
 import {CurrentUser} from "../model/current-user";
 import {Vermittler} from "../model/vermittler";
@@ -8,11 +8,7 @@ import {Vermittler} from "../model/vermittler";
 @Injectable()
 export class SecurityService {
 
-    private _currentUser = new BehaviorSubject<CurrentUser>(<CurrentUser> {
-        loggedIn: false,
-        isVermittler: false,
-        isInteressent: false
-    });
+    private _currentUser = new ReplaySubject<CurrentUser>(1);
 
     constructor(private http: HttpClient) {
         this.authenticate().subscribe();
