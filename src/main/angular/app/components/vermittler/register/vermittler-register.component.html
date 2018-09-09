@@ -1,3 +1,159 @@
-<p>
-  vermittler-registry works!
-</p>
+<div class="container mt-2">
+        <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm" class="needs-validation" novalidate>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Registrierung als Vermittler</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="organisation">Name der Organisation</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="organisation" class="form-control" [(ngModel)]="data.organisation" #organisation="ngModel"
+                                    (ngModelChange)="resetErrors()"
+                                    name="organisation" required />
+                            <div *ngIf="organisation.invalid && (organisation.dirty || organisation.touched)" class="alert alert-danger">
+                                Bitte eine Organisation angeben.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="ansprechpartner">Name des Ansprechpartners</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="ansprechpartner" class="form-control" [(ngModel)]="data.ansprechpartner" #ansprechpartner="ngModel"
+                                    (ngModelChange)="resetErrors()"
+                                    name="ansprechpartner" required />
+                            <div *ngIf="ansprechpartner.invalid && (ansprechpartner.dirty || ansprechpartner.touched)" class="alert alert-danger">
+                                Bitte den Ansprechpartner angeben.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="strasseHsNr">Strasse / Hausnummer</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="strasseHsNr" class="form-control" [(ngModel)]="data.strasseHsNr" #strasseHsNr="ngModel"
+                                    (ngModelChange)="resetErrors()"
+                                    name="strasseHsNr" required />
+                            <div *ngIf="strasseHsNr.invalid && (strasseHsNr.dirty || strasseHsNr.touched)" class="alert alert-danger">
+                                Bitte die Strase u. HsNr angeben.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-md-4 col-form-label font-weight-bold required" for="plz">PLZ</label>
+                        <div class="col-sm-8 col-md-2">
+                            <input type="text" id="plz" class="form-control" [(ngModel)]="data.plz" #plz="ngModel"
+                                    (ngModelChange)="resetErrors()"
+                                    name="plz" required />
+                            <div *ngIf="plz.invalid && (plz.dirty || plz.touched)" class="alert alert-danger">
+                                Bitte die PLZ angeben.
+                            </div>
+                        </div>
+                        <label class="col-sm-4 col-md-2 col-form-label font-weight-bold required" for="ort">Ort</label>
+                        <div class="col-sm-8 col-md-4">
+                            <input type="text" id="ort" class="form-control" [(ngModel)]="data.ort" #ort="ngModel"
+                                    (ngModelChange)="resetErrors()"
+                                    name="ort" required />
+                            <div *ngIf="ort.invalid && (ort.dirty || ort.touched)" class="alert alert-danger">
+                                Bitte den Ort angeben.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="strasseHsNr">Bundesland</label>
+                        <div class="col-sm-8">
+                                <select id="bundesland"
+                                required
+                                class="form-control"
+                                [(ngModel)]="data.bundesland" name="bundesland"
+                                #bundesland="ngModel">
+                                <option *ngFor="let bundesland of bundeslaender"
+                                    [value]="bundesland">
+                                {{bundesland}}
+                                </option>
+                            </select>
+
+                            <div *ngIf="bundesland.invalid && (bundesland.dirty || bundesland.touched)" class="alert alert-danger">
+                                Bitte das Bundesland angeben.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold" for="plz">Telefon</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="telefon" class="form-control" [(ngModel)]="data.ptelefonlz" #telefon="ngModel"
+                                    (ngModelChange)="resetErrors()"
+                                    name="telefon"  />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="email">Email-Adresse </label>
+                        <div class="col-sm-8">
+                            <input type="text" id="email" class="form-control" [(ngModel)]="data.email" #email="ngModel"
+                                   (ngModelChange)="resetErrors()"
+                                   name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                                Bitte eine Email-Adresse angeben.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="password">Passwort</label>
+                        <div class="col-sm-8">
+                            <input type="password" id="password" class="form-control" [(ngModel)]="data.password"
+                                   validateEqual="confirmPassword" reverse="true"
+                                   (ngModelChange)="resetErrors()"
+                                   #password="ngModel" name="password" required/>
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                 class="alert alert-danger">
+                                <div *ngIf="password.errors.required">
+                                    Passwort ist ein Pflichtfeld
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="confirmPassword">Passwort
+                            wiederholen</label>
+                        <div class="col-sm-8">
+                            <input type="password" id="confirmPassword" class="form-control"
+                                   [(ngModel)]="data.confirmPassword" #confirmPassword="ngModel" name="confirmPassword"
+                                   validateEqual="password" reverse="false"
+                                   (ngModelChange)="resetErrors()"
+                                   required/>
+                            <div
+                                *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="confirmPassword.errors.required">
+                                    Das Feld ist ein Pflichtfeld
+                                </div>
+                                <div *ngIf="confirmPassword.errors.validateEqual">
+                                    Die Inhalte der beiden Passwortfelder müssen identisch sein.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" role="alert" *ngIf="registrationFailed">
+                    Die Registrierung ist fehlgeschlagen!
+                </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <button class="btn btn-warning" routerLink="/">abbrechen</button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid">
+                                Registrieren
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>

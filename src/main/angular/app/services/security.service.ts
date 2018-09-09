@@ -39,6 +39,12 @@ export class SecurityService {
                 switchMap(user => this.authenticate({username, password}))
             );
     }
+    registerVermittler(username: string, password: string): Observable<CurrentUser> {
+        return this.http.post<any>('/api/register/vermittler', {username, password})
+            .pipe(
+                switchMap(user => this.authenticate({username, password}))
+            );
+    }
 
     logout(): Observable<any> {
         return this.http.post('/api/logout', {})
