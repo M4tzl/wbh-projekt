@@ -9,7 +9,6 @@ import lombok.Value;
 @Value
 public class Email {
     private String toAddress;
-    private String fromAddress;
     private String subject;
     private String content;
 }

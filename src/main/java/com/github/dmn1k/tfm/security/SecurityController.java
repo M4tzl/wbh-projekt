@@ -115,7 +115,6 @@ public class SecurityController {
             request.getServerName(), String.valueOf(request.getServerPort()), accountActivation.getToken());
 
         emailService.send(Email.builder()
-            .fromAddress("no-reply@tier-fair-mittlung.de")
             .toAddress(username)
             .subject("Registrierung bei Tier-Fair-Mittlung")
             .content(MessageFormat.format("<a href=\"{0}\">Bitte bestätigen Sie ihre Registrierung</a>", activationurl))
