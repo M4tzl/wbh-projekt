@@ -61,10 +61,7 @@ public class Inserat {
     private boolean zielgruppeGarten;
     private boolean zielgruppeErfahren;
     private boolean zielgruppeFamilien;
-
-    @OneToOne
-    @JoinColumn(name = "vermittler_id")
-    private User vermittler;
+    private String vermittler;
 
     @Transient
     public boolean isAktivierbar() {

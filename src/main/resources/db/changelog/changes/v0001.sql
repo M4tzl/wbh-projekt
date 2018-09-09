@@ -28,7 +28,7 @@ CREATE TABLE "user_role" (
 
 CREATE TABLE "inserat" (
   id bigserial NOT NULL,
-  vermittler_id bigserial NOT NULL,
+  vermittler varchar(255) NOT NULL,
   storyschreiber varchar(255) null,
   created date not null,
   last_update date null,
@@ -57,7 +57,7 @@ CREATE TABLE "inserat" (
   zielgruppe_erfahren boolean not null,
   zielgruppe_familien boolean not null,
   PRIMARY KEY (id),
-  FOREIGN KEY (vermittler_id) REFERENCES user(id)
+  FOREIGN KEY (vermittler) REFERENCES user(username)
 );
 
 CREATE TABLE "inserat_bild" (

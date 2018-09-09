@@ -47,7 +47,7 @@ public class TestdataRunner implements ApplicationRunner {
             .schulterhoehe("<20cm")
             .voraussichtlicheSchulterhoehe("51-75cm")
             .geschlecht(Geschlecht.M)
-            .vermittler(vermittler)
+            .vermittler(vermittler.getUsername())
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -59,7 +59,7 @@ public class TestdataRunner implements ApplicationRunner {
             .schulterhoehe("51-75cm")
             .voraussichtlicheSchulterhoehe("51-75cm")
             .geschlecht(Geschlecht.M)
-            .vermittler(vermittler)
+            .vermittler(vermittler.getUsername())
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -72,7 +72,7 @@ public class TestdataRunner implements ApplicationRunner {
             .schulterhoehe("<20cm")
             .voraussichtlicheSchulterhoehe("<20cm")
             .geschlecht(Geschlecht.W)
-            .vermittler(vermittler)
+            .vermittler(vermittler.getUsername())
             .build());
 
         storiesRepository.save(new Story(null, "Story 1", "Blablubb"));

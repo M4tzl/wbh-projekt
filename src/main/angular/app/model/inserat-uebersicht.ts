@@ -5,4 +5,11 @@ export interface InseratUebersicht {
     lastUpdate: Date;
     rufname: string;
     status: InseratStatus;
+
+    aktivierbar:boolean;
+    deaktivierbar:boolean;
+    vermittelbar:boolean;
+    loeschbar:boolean;
+
+    vermittler:string;
 }

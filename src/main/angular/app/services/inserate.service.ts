@@ -15,11 +15,11 @@ export class InserateService implements UploadService {
     public loadAll(rufnameFilter: string,
                    sort: string, sortDirection: string,
                    page: number, pageSize: number): Observable<InseratUebersichtResult> {
-        return this.httpClient.get<any>(`/api/inserate/search/byRufname?rufname=${rufnameFilter}&sort=${sort},${sortDirection}&page=${page}&size=${pageSize}`)
+        return this.httpClient.get<any>(`/api/inserate?rufname=${rufnameFilter}&sort=${sort},${sortDirection}&page=${page}&size=${pageSize}`)
             .pipe(
                 map(result => <InseratUebersichtResult> {
-                        inserate: result._embedded.inserate,
-                        page: result.page
+                        inserate: result.content,
+                        page: result
                     })
             );
     }
