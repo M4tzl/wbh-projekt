@@ -22,23 +22,14 @@ public class InserateController {
     @GetMapping("/api/inserate")
     public @ResponseBody ResponseEntity<?> loadInserate(@QuerydslPredicate(root = Inserat.class) Predicate predicate,
                                                         Pageable pageable) {
-        Optional<User> loggedInUser = getLoggedInUser();
-
-        if(loggedInUser.isPresent()) {
-            return ResponseEntity.ok(repository.findAll(predicate, pageable));
-        }
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        return ResponseEntity.ok(repository.findAll(predicate, pageable));
     }
 
     @GetMapping("/api/inserate/{id}")
     public @ResponseBody ResponseEntity<?> loadInserat(@PathVariable long id) {
-        return getLoggedInUser()
-            .flatMap(u -> repository.findById(id)
-                .filter(inserat -> inserat.getVermittler().equals(u.getUsername()))
-            )
+        return repository.findById(id)
             .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.status(HttpStatus.FORBIDDEN).build());
+            .orElse(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
 
     @PostMapping("/api/inserate")
@@ -93,12 +84,13 @@ public class InserateController {
     }
 
     @PutMapping("/api/inserate/{id}/close")
-    public @ResponseBody ResponseEntity<?> closeInserat(@PathVariable long id) {
+    public @ResponseBody ResponseEntity<?> closeInserat(@PathVariable long id, @RequestBody Inserat inserat) {
         Inserat updatedInserat = getLoggedInUser()
             .flatMap(u -> repository.findById(id)
                 .filter(i -> i.getVermittler().equals(u.getUsername())))
             .filter(Inserat::isVermittelbar)
             .map(i -> i.toBuilder()
+                .storyschreiber(inserat.getStoryschreiber())
                 .lastUpdate(LocalDate.now())
                 .status(InseratStatus.VERMITTELT)
                 .build())

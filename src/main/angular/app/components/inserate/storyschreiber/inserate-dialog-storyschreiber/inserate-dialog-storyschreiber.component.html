@@ -1,24 +1,19 @@
 <mat-dialog-content>
-        <form  #inseratForm="ngForm" class="needs-validation" novalidate>
-                <input type="text"
-                id="rassenFreitext"
-                class="form-control"
-                [(ngModel)]="inserat.rassenFreitext"
-                name="rassenFreitext"/>
-         </form>
-    </mat-dialog-content>
+    <input type="text"
+           id="storyschreiber"
+           class="form-control"
+           [(ngModel)]="storyschreiber"
+           name="storyschreiber"/>
+</mat-dialog-content>
 <mat-dialog-actions>
 
+    <button class="mat-raised-button"
+            (click)="close()">
+        Close
+    </button>
 
-
-        <button class="mat-raised-button"
-                (click)="close()">
-            Close
-        </button>
-
-        <button class="mat-raised-button mat-primary"
-                (click)="save()">
-            Save
-        </button>
-
- </mat-dialog-actions>
+    <button class="mat-raised-button mat-primary"
+            (click)="save()">
+        Save
+    </button>
+</mat-dialog-actions>

@@ -2,12 +2,13 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/
 import {InserateService} from "../../../services/inserate.service";
 import {InserateDataSource} from "../../../services/inserate.dataSource";
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort} from "@angular/material";
-import {fromEvent, merge, Observable} from "rxjs";
-import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
+import {EMPTY, fromEvent, merge, of} from "rxjs";
+import {debounceTime, distinctUntilChanged, flatMap, map, switchMap, tap} from "rxjs/operators";
 import {InserateDialogStoryschreiberComponent} from '../storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
 import {SecurityService} from "../../../services/security.service";
 import {CurrentUser} from "../../../model/current-user";
 import {Inserat} from "../../../model/inserat";
+import {update} from "../../../infrastructure/immutable-update";
 
 
 @Component({
@@ -74,8 +75,16 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
     }
 
     close(inserat: Inserat) {
-        this.inserateService.close(inserat)
-            .subscribe(result => this.loadInseratePage());
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        const dialogRef = this.dialog.open(InserateDialogStoryschreiberComponent, dialogConfig);
+
+        dialogRef.afterClosed().pipe(
+            flatMap(val => val ? of(val) : EMPTY),
+            map(val => update(inserat, {storyschreiber: val})),
+            switchMap(i => this.inserateService.close(i))
+        ).subscribe(val => this.loadInseratePage());
     }
 
     activate(inserat: Inserat) {
@@ -86,16 +95,6 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
     deactivate(inserat: Inserat) {
         this.inserateService.deactivate(inserat)
             .subscribe(result => this.loadInseratePage());
-    }
-
-    setStorySchreiber(inserat){
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.data = {inserat};
-        this.dialog.open(InserateDialogStoryschreiberComponent, dialogConfig);
-
-
     }
 }
 
