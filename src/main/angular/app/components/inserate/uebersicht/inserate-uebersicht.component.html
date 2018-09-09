@@ -36,18 +36,22 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let inserat">
-                    <a  [routerLink]="['/inserate/detail',inserat.id]"><img src="assets/img/view.png" alt="[View]"
-                        title="Anzeigen" height="30"></a>&nbsp;
-                    <a  [routerLink]="['/inserate/edit',inserat.id]"><img src="assets/img/edit.png" alt="[Edit]"
+                    <a [routerLink]="['/inserate/detail',inserat.id]"><img src="assets/img/view.png" alt="[View]"
+                                                                           title="Anzeigen" height="30"></a>&nbsp;
+                    <a *ngIf="currentUser?.isVermittler" [routerLink]="['/inserate/edit',inserat.id]"><img
+                        src="assets/img/edit.png" alt="[Edit]"
                         title="Editieren" height="30"></a>&nbsp;
-                    <a  *ngIf="inserat.status != 'ENTWURF'" >
-                        <img class="pointer" src="assets/img/check.png" title="Vermittelt" alt="[Vermittelt]"  height="30" (click)="setStatus(inserat,'VERMITTELT')">&nbsp;
+                    <a *ngIf="currentUser?.isVermittler && inserat.status != 'ENTWURF'">
+                        <img class="pointer" src="assets/img/check.png" title="Vermittelt" alt="[Vermittelt]"
+                             height="30" (click)="setStatus(inserat,'VERMITTELT')">&nbsp;
                     </a>
-                    <a *ngIf="inserat.status == 'INAKTIV'" >
-                         <img class="pointer" src="assets/img/continue.png" title="Aktiv schalten" alt="[Aktiv]" height="30" (click)="setStatus(inserat,'AKTIV')">&nbsp;
-                        </a>
-                    <a *ngIf="inserat.status == 'AKTIV'" >
-                        <img  class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]" height="30" (click)="setStatus(inserat,'INAKTIV')">&nbsp;
+                    <a *ngIf="currentUser?.isVermittler && inserat.status == 'INAKTIV'">
+                        <img class="pointer" src="assets/img/continue.png" title="Aktiv schalten" alt="[Aktiv]"
+                             height="30" (click)="setStatus(inserat,'AKTIV')">&nbsp;
+                    </a>
+                    <a *ngIf="currentUser?.isVermittler && inserat.status == 'AKTIV'">
+                        <img class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]"
+                             height="30" (click)="setStatus(inserat,'INAKTIV')">&nbsp;
                     </a>
                 </mat-cell>
             </ng-container>
@@ -60,9 +64,9 @@
         <mat-paginator [length]="(dataSource.inserateResult$ | async)?.page?.totalElements"
                        [pageSize]="initialPageSize"
                        [pageSizeOptions]="pageSizes"></mat-paginator>
-
-
     </div>
 
-    <button class="btn btn-success" routerLink="/inserate/create">Neues Inserat anlegen</button>
+    <button *ngIf="currentUser?.isVermittler" class="btn btn-success" routerLink="/inserate/create">Neues Inserat
+        anlegen
+    </button>
 </div>

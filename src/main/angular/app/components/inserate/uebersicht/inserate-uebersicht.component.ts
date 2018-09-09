@@ -1,12 +1,12 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, Inject} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InserateService} from "../../../services/inserate.service";
 import {InserateDataSource} from "../../../services/inserate.dataSource";
-import {MatPaginator, MatSort, MatDialog, MatDialogConfig} from "@angular/material";
-import {fromEvent, merge} from "rxjs";
+import {MatDialog, MatDialogConfig, MatPaginator, MatSort} from "@angular/material";
+import {fromEvent, merge, Observable} from "rxjs";
 import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
-import { InserateStatusComponent } from '../status/inserate-status/inserate-status.component';
-import { InserateDialogStoryschreiberComponent } from '../storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
-
+import {InserateDialogStoryschreiberComponent} from '../storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
+import {SecurityService} from "../../../services/security.service";
+import {CurrentUser} from "../../../model/current-user";
 
 
 @Component({
@@ -15,7 +15,7 @@ import { InserateDialogStoryschreiberComponent } from '../storyschreiber/inserat
     styleUrls: ['./inserate-uebersicht.component.scss']
 })
 export class InserateUebersichtComponent implements OnInit, AfterViewInit {
-
+    currentUser: CurrentUser;
     dataSource: InserateDataSource;
     displayedColumns= ["id", "lastUpdate", "rufname", "status", "actions"];
     initialPageSize = 10;
@@ -25,7 +25,11 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild('searchField') searchField: ElementRef;
 
-    constructor(private inserateService: InserateService, public dialog: MatDialog) {
+    constructor(private inserateService: InserateService,
+                private securityService: SecurityService,
+                public dialog: MatDialog) {
+        this.securityService.currentUser
+            .subscribe(user => this.currentUser = user);
 
     }
 

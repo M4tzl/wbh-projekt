@@ -8,7 +8,9 @@ import {CurrentUser} from "../model/current-user";
 export class SecurityService {
 
     private _currentUser = new BehaviorSubject<CurrentUser>(<CurrentUser> {
-        loggedIn: false
+        loggedIn: false,
+        isVermittler: false,
+        isInteressent: false
     });
 
     constructor(private http: HttpClient) {
@@ -46,13 +48,16 @@ export class SecurityService {
     }
 
     private mapToCurrentUser(resp): CurrentUser {
-        return resp && 'username' in resp
-            ? <CurrentUser> {
+        return resp ? <CurrentUser> {
                 loggedIn: true,
-                userName: resp.username
+                userName: resp.username,
+                isInteressent: resp.roles.map(r => r.name).indexOf('INTERESSENT') > -1,
+                isVermittler: resp.roles.map(r => r.name).indexOf('VERMITTLER') > -1
             }
             : <CurrentUser> {
-                loggedIn: false
+                loggedIn: false,
+                isInteressent: false,
+                isVermittler: false
             };
     }
 }

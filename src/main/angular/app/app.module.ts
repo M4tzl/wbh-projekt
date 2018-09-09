@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, forwardRef} from '@angular/core';
+import {forwardRef, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
@@ -21,32 +21,31 @@ import {NgbDateAdapter, NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/n
 import {CustomNgbDateParserFormatter} from "./infrastructure/custom-ngb-date-parser-formatter";
 import {CustomNgbDateAdapter} from "./infrastructure/custom-ngb-date-adapter";
 import {
+    MatDialogModule,
     MatInputModule,
+    MatPaginatorIntl,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatTableModule,
-    MatPaginatorIntl,
-    MatDialogModule
+    MatTableModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UploadComponent} from "./components/upload/upload.component";
 import {SafeUrlPipe} from "./infrastructure/safe-url.pipe";
-import { StartpageComponent } from './components/allgemein/startpage/startpage.component';
-import { DatenschutzComponent } from './components/allgemein/datenschutz/datenschutz/datenschutz.component';
-import { FaqComponent } from './components/allgemein/faq/faq/faq.component';
-import { ImpressumComponent } from './components/allgemein/impressum/impressum/impressum.component';
-import { MatPaginatorIntlGerman } from './services/paginator.service';
-import { InseratSucheComponent } from './components/inserate/suche/inserat-suche.component';
-import { InseratKontaktComponent } from './components/inserate/kontakt/inserat-kontakt.component';
-import { UserLoginComponent } from './components/login/user-login.component';
-import { InserateDialogStoryschreiberComponent } from './components/inserate/storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
+import {StartpageComponent} from './components/interessenten/startpage/startpage.component';
+import {DatenschutzComponent} from './components/allgemein/datenschutz/datenschutz.component';
+import {FaqComponent} from './components/allgemein/faq/faq.component';
+import {ImpressumComponent} from './components/allgemein/impressum/impressum.component';
+import {MatPaginatorIntlGerman} from './services/paginator.service';
+import {InseratSucheComponent} from './components/inserate/suche/inserat-suche.component';
+import {InseratKontaktComponent} from './components/inserate/kontakt/inserat-kontakt.component';
+import {UserLoginComponent} from './components/login/user-login.component';
+import {InserateDialogStoryschreiberComponent} from './components/inserate/storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
 import {SecurityService} from "./services/security.service";
 import {XhrInterceptor} from "./infrastructure/xhr.interceptor";
 import {InteressentenRegisterComponent} from "./components/interessenten/register/interessenten-register.component";
 import {VermittlerRegisterComponent} from "./components/vermittler/register/vermittler-register.component";
 import {EqualValidator} from "./validation/equal-validator";
-
 
 
 @NgModule({
