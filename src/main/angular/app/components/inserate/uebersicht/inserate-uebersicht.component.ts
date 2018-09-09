@@ -1,9 +1,12 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, Inject} from '@angular/core';
 import {InserateService} from "../../../services/inserate.service";
 import {InserateDataSource} from "../../../services/inserate.dataSource";
-import {MatPaginator, MatSort} from "@angular/material";
+import {MatPaginator, MatSort, MatDialog, MatDialogConfig} from "@angular/material";
 import {fromEvent, merge} from "rxjs";
 import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
+import { InserateStatusComponent } from '../status/inserate-status/inserate-status.component';
+import { InserateDialogStoryschreiberComponent } from '../storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
+
 
 
 @Component({
@@ -22,7 +25,8 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild('searchField') searchField: ElementRef;
 
-    constructor(private inserateService: InserateService) {
+    constructor(private inserateService: InserateService, public dialog: MatDialog) {
+
     }
 
     ngOnInit() {
@@ -63,4 +67,33 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
             this.paginator.pageIndex,
             this.paginator.pageSize);
     }
+    setStatus(inserat, status) {
+        inserat.status = status;
+        if(status == 'VERMITTELT'){
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.disableClose = true;
+            dialogConfig.autoFocus = true;
+            dialogConfig.data = {inserat};
+            const dialogRef = this.dialog.open(InserateDialogStoryschreiberComponent, dialogConfig);
+            inserat = dialogRef.afterClosed().subscribe(val => console.log("Dialog output:", val));
+        }
+        //this.inserateService.save(inserat);
+
+        /*const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {inserat, status};
+        this.dialog.open(InserateStatusComponent, dialogConfig);
+        */
+    }
+    setStorySchreiber(inserat){
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {inserat};
+        this.dialog.open(InserateDialogStoryschreiberComponent, dialogConfig);
+
+
+    }
 }
+

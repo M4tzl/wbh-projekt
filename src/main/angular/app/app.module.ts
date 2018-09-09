@@ -26,7 +26,8 @@ import {
     MatProgressSpinnerModule,
     MatSortModule,
     MatTableModule,
-    MatPaginatorIntl
+    MatPaginatorIntl,
+    MatDialogModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UploadComponent} from "./components/upload/upload.component";
@@ -41,6 +42,7 @@ import { InseratKontaktComponent } from './components/inserate/kontakt/inserat-k
 import { UserLoginComponent } from './components/login/user-login.component';
 import { InteressentenRegistryComponent } from './components/interessenten/registry/interessenten-registry.component';
 import { VermittlerRegistryComponent } from './components/vermittler/registry/vermittler-registry.component';
+import { InserateDialogStoryschreiberComponent } from './components/inserate/storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
 
 
 
@@ -64,7 +66,9 @@ import { VermittlerRegistryComponent } from './components/vermittler/registry/ve
         InseratKontaktComponent,
         UserLoginComponent,
         InteressentenRegistryComponent,
-        VermittlerRegistryComponent
+        VermittlerRegistryComponent,
+        InserateDialogStoryschreiberComponent
+
     ],
     imports: [
         BrowserModule,
@@ -77,6 +81,7 @@ import { VermittlerRegistryComponent } from './components/vermittler/registry/ve
         MatPaginatorModule,
         MatSortModule,
         MatProgressSpinnerModule,
+        MatDialogModule,
         RouterModule.forRoot(AppRoutes)
     ],
     providers: [
@@ -90,8 +95,10 @@ import { VermittlerRegistryComponent } from './components/vermittler/registry/ve
             provide: MatPaginatorIntl,
             useClass: forwardRef(() => MatPaginatorIntlGerman)
         }
+
     ],
     bootstrap: [AppComponent],
+    entryComponents: [InserateDialogStoryschreiberComponent]
 
 })
 export class AppModule {

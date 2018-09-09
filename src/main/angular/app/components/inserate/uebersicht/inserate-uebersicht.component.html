@@ -40,6 +40,15 @@
                         title="Anzeigen" height="30"></a>&nbsp;
                     <a  [routerLink]="['/inserate/edit',inserat.id]"><img src="assets/img/edit.png" alt="[Edit]"
                         title="Editieren" height="30"></a>&nbsp;
+                    <a  *ngIf="inserat.status != 'ENTWURF'" >
+                        <img class="pointer" src="assets/img/check.png" title="Vermittelt" alt="[Vermittelt]"  height="30" (click)="setStatus(inserat,'VERMITTELT')">&nbsp;
+                    </a>
+                    <a *ngIf="inserat.status == 'INAKTIV'" >
+                         <img class="pointer" src="assets/img/continue.png" title="Aktiv schalten" alt="[Aktiv]" height="30" (click)="setStatus(inserat,'AKTIV')">&nbsp;
+                        </a>
+                    <a *ngIf="inserat.status == 'AKTIV'" >
+                        <img  class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]" height="30" (click)="setStatus(inserat,'INAKTIV')">&nbsp;
+                    </a>
                 </mat-cell>
             </ng-container>
 
