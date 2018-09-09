@@ -33,6 +33,7 @@ public class TestdataRunner implements ApplicationRunner {
             .username("vermittler1@test.de")
             .password(passwordEncoder.encode("test123"))
             .role(vermittlerRole)
+            .enabled(true)
             .build();
 
         userRepository.save(vermittler);
