@@ -1,5 +1,4 @@
-
-<nav class="navbar navbar-expand-md navbar-light fixed-top tfm" >
+<nav class="navbar navbar-expand-md navbar-light fixed-top tfm">
 
     <a class="navbar-brand" href="#"><img src="assets/img/logo-v2-40.png"><span class="sr-only">(current)</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -16,21 +15,27 @@
             </li>
         </ul>
     </div>
-    <div class="collapse navbar-collapse navbar-right " id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto ">
-            <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Registrierung</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" routerLink="/interessent/registry">für Interessenten</a>
+
+    <a class="nav-link" (click)="logout()" href="#" *ngIf="currentUser && currentUser.loggedIn; else loggedOut">Abmelden
+        ({{currentUser.userName}})</a>
+    <ng-template #loggedOut>
+        <div class="collapse navbar-collapse navbar-right" id="navbarsExampleDefault2">
+            <ul class="navbar-nav mr-auto ">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">Registrierung</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" routerLink="/interessent/register">für Interessenten</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" routerLink="/vermittler/registry">für Vermittler</a>
-                </div>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" routerLink="/login">Anmelden</a>
-            </li>
-          </ul>
-    </div>
+                        <a class="dropdown-item" routerLink="/vermittler/register">für Vermittler</a>
+                    </div>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" routerLink="/login">Anmelden</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
 </nav>
 
 <main role="main" class="container-fluid p-0 pt-5 pb-6">
@@ -44,38 +49,38 @@
 
 <!-- Footer -->
 <footer class="page-footer font-small bg-secondary fixed-bottom">
-     <!-- Footer Links -->
-     <div class="container text-center ">
-            <!-- Grid row -->
-            <div class="row ">
-              <span class="clearfix w-100"></span>
-              <!-- Grid column -->
-                <div class="col-4 col-md-4 ">
+    <!-- Footer Links -->
+    <div class="container text-center ">
+        <!-- Grid row -->
+        <div class="row ">
+            <span class="clearfix w-100"></span>
+            <!-- Grid column -->
+            <div class="col-4 col-md-4 ">
                 <ul class="m-0 p-0 list-unstyled">
-                  <li>
-                    <a  routerLink="/faq">FAQ</a>
-                  </li>
+                    <li>
+                        <a routerLink="/faq">FAQ</a>
+                    </li>
                 </ul>
-                </div>
-                <div class="col-4 col-md-4 ">
-                        <ul class="m-0 p-0 list-unstyled">
-                      <li>
-                        <a  routerLink="/datenschutz">Datenschutz</a>
-                      </li>
-                    </ul>
-                </div>
-                <div class="col-4 col-md-4">
-                    <ul class="m-0 p-0 list-unstyled">
-                        <li>
-                            <a  routerLink="/impressum">Impressum</a>
-                        </li>
-                    </ul>
-                 </div>
             </div>
-            <!-- Grid row -->
-          </div>
-          <!-- Footer Links -->
+            <div class="col-4 col-md-4 ">
+                <ul class="m-0 p-0 list-unstyled">
+                    <li>
+                        <a routerLink="/datenschutz">Datenschutz</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4 col-md-4">
+                <ul class="m-0 p-0 list-unstyled">
+                    <li>
+                        <a routerLink="/impressum">Impressum</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Grid row -->
+    </div>
+    <!-- Footer Links -->
     <div class="footer-copyright text-center">&copy; 2018 Copyright: TFM &nbsp;</div>
-  </footer>
-  <!-- Footer -->
+</footer>
+<!-- Footer -->
 

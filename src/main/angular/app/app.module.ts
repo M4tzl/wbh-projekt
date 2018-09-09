@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, forwardRef} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {InserateUebersichtComponent} from './components/inserate/uebersicht/inserate-uebersicht.component';
 import {StoriesComponent} from './components/stories/uebersicht/stories.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
@@ -40,9 +40,12 @@ import { MatPaginatorIntlGerman } from './services/paginator.service';
 import { InseratSucheComponent } from './components/inserate/suche/inserat-suche.component';
 import { InseratKontaktComponent } from './components/inserate/kontakt/inserat-kontakt.component';
 import { UserLoginComponent } from './components/login/user-login.component';
-import { InteressentenRegistryComponent } from './components/interessenten/registry/interessenten-registry.component';
-import { VermittlerRegistryComponent } from './components/vermittler/registry/vermittler-registry.component';
 import { InserateDialogStoryschreiberComponent } from './components/inserate/storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
+import {SecurityService} from "./services/security.service";
+import {XhrInterceptor} from "./infrastructure/xhr.interceptor";
+import {InteressentenRegisterComponent} from "./components/interessenten/register/interessenten-register.component";
+import {VermittlerRegisterComponent} from "./components/vermittler/register/vermittler-register.component";
+import {EqualValidator} from "./validation/equal-validator";
 
 
 
@@ -65,10 +68,10 @@ import { InserateDialogStoryschreiberComponent } from './components/inserate/sto
         InseratSucheComponent,
         InseratKontaktComponent,
         UserLoginComponent,
-        InteressentenRegistryComponent,
-        VermittlerRegistryComponent,
-        InserateDialogStoryschreiberComponent
-
+        InteressentenRegisterComponent,
+        VermittlerRegisterComponent,
+        InserateDialogStoryschreiberComponent,
+        EqualValidator
     ],
     imports: [
         BrowserModule,
@@ -88,9 +91,11 @@ import { InserateDialogStoryschreiberComponent } from './components/inserate/sto
         InserateService,
         StoriesService,
         BreedService,
+        SecurityService,
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: NgbDateParserFormatter, useClass: CustomNgbDateParserFormatter},
         {provide: NgbDateAdapter, useClass: CustomNgbDateAdapter},
+        {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
         {
             provide: MatPaginatorIntl,
             useClass: forwardRef(() => MatPaginatorIntlGerman)
