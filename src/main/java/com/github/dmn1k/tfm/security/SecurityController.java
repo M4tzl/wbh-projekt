@@ -26,7 +26,6 @@ public class SecurityController {
         org.springframework.security.core.userdetails.User springUser = (org.springframework.security.core.userdetails.User) principal;
         User user = userRepository.findByUsername(springUser.getUsername());
 
-        System.out.println(user.getPassword());
         return ResponseEntity.ok(user);
     }
 

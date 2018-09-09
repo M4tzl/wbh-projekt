@@ -41,17 +41,17 @@
                     <a *ngIf="currentUser?.isVermittler" [routerLink]="['/inserate/edit',inserat.id]"><img
                         src="assets/img/edit.png" alt="[Edit]"
                         title="Editieren" height="30"></a>&nbsp;
-                    <a *ngIf="currentUser?.isVermittler && inserat.status != 'ENTWURF'">
+                    <a *ngIf="currentUser?.isVermittler && inserat.vermittelbar">
                         <img class="pointer" src="assets/img/check.png" title="Vermittelt" alt="[Vermittelt]"
-                             height="30" (click)="setStatus(inserat,'VERMITTELT')">&nbsp;
+                             height="30" (click)="close(inserat)">&nbsp;
                     </a>
-                    <a *ngIf="currentUser?.isVermittler && inserat.status == 'INAKTIV'">
+                    <a *ngIf="currentUser?.isVermittler && inserat.aktivierbar">
                         <img class="pointer" src="assets/img/continue.png" title="Aktiv schalten" alt="[Aktiv]"
-                             height="30" (click)="setStatus(inserat,'AKTIV')">&nbsp;
+                             height="30" (click)="activate(inserat)">&nbsp;
                     </a>
-                    <a *ngIf="currentUser?.isVermittler && inserat.status == 'AKTIV'">
+                    <a *ngIf="currentUser?.isVermittler && inserat.deaktivierbar">
                         <img class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]"
-                             height="30" (click)="setStatus(inserat,'INAKTIV')">&nbsp;
+                             height="30" (click)="deactivate(inserat)">&nbsp;
                     </a>
                 </mat-cell>
             </ng-container>

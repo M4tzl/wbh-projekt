@@ -7,6 +7,7 @@ import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
 import {InserateDialogStoryschreiberComponent} from '../storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
 import {SecurityService} from "../../../services/security.service";
 import {CurrentUser} from "../../../model/current-user";
+import {Inserat} from "../../../model/inserat";
 
 
 @Component({
@@ -71,25 +72,22 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
             this.paginator.pageIndex,
             this.paginator.pageSize);
     }
-    setStatus(inserat, status) {
-        inserat.status = status;
-        if(status == 'VERMITTELT'){
-            const dialogConfig = new MatDialogConfig();
-            dialogConfig.disableClose = true;
-            dialogConfig.autoFocus = true;
-            dialogConfig.data = {inserat};
-            const dialogRef = this.dialog.open(InserateDialogStoryschreiberComponent, dialogConfig);
-            inserat = dialogRef.afterClosed().subscribe(val => console.log("Dialog output:", val));
-        }
-        //this.inserateService.save(inserat);
 
-        /*const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.data = {inserat, status};
-        this.dialog.open(InserateStatusComponent, dialogConfig);
-        */
+    close(inserat: Inserat) {
+        this.inserateService.close(inserat)
+            .subscribe(result => this.loadInseratePage());
     }
+
+    activate(inserat: Inserat) {
+        this.inserateService.activate(inserat)
+            .subscribe(result => this.loadInseratePage());
+    }
+
+    deactivate(inserat: Inserat) {
+        this.inserateService.deactivate(inserat)
+            .subscribe(result => this.loadInseratePage());
+    }
+
     setStorySchreiber(inserat){
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;

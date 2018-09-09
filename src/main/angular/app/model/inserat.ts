@@ -31,4 +31,9 @@ export interface Inserat extends InseratUebersicht {
     zielgruppeErfahren:boolean;
     zielgruppeFamilien:boolean;
 
+    aktivierbar:boolean;
+    deaktivierbar:boolean;
+    vermittelbar:boolean;
+    loeschbar:boolean;
+
 }

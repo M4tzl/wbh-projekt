@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.EnumSet;
 
 @Builder(toBuilder = true)
 @Entity
@@ -64,4 +65,24 @@ public class Inserat {
     @OneToOne
     @JoinColumn(name = "vermittler_id")
     private User vermittler;
+
+    @Transient
+    public boolean isAktivierbar() {
+        return EnumSet.of(InseratStatus.INAKTIV, InseratStatus.ENTWURF).contains(status);
+    }
+
+    @Transient
+    public boolean isDeaktivierbar() {
+        return InseratStatus.AKTIV.equals(status);
+    }
+
+    @Transient
+    public boolean isVermittelbar() {
+        return InseratStatus.AKTIV.equals(status);
+    }
+
+    @Transient
+    public boolean isLoeschbar() {
+        return !InseratStatus.VERMITTELT.equals(status);
+    }
 }
