@@ -1,6 +1,6 @@
 import {DataSource} from "@angular/cdk/table";
 import {BehaviorSubject, Observable, of} from "rxjs";
-import {InserateService} from "./inserate.service";
+import {InserateService} from "../services/inserate.service";
 import {catchError, finalize, map} from "rxjs/operators";
 import {CollectionViewer} from "@angular/cdk/collections";
 import {InseratUebersichtResult} from "../model/inserat-uebersicht-result";

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InserateService} from "../../../services/inserate.service";
-import {InserateDataSource} from "../../../services/inserate.dataSource";
+import {InserateDataSource} from "../../../datasources/inserate.dataSource";
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort} from "@angular/material";
 import {EMPTY, fromEvent, merge, of} from "rxjs";
 import {debounceTime, distinctUntilChanged, flatMap, map, switchMap, tap} from "rxjs/operators";

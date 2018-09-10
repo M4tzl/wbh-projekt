@@ -3,7 +3,7 @@ import {StoriesService} from "../../../services/stories.service";
 import {MatPaginator, MatSort} from "@angular/material";
 import {fromEvent, merge} from "rxjs";
 import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
-import {StoriesDataSource} from "../../../services/stories.dataSource";
+import {StoriesDataSource} from "../../../datasources/stories.dataSource";
 
 
 @Component({

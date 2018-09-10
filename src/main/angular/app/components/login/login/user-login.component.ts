@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {SecurityService} from "../../services/security.service";
+import {SecurityService} from "../../../services/security.service";
 import {Router} from "@angular/router";
-import {Credentials} from "../../model/credentials";
+import {Credentials} from "../../../model/credentials";
 
 @Component({
     selector: 'app-user-login',

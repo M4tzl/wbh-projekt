@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable, of} from "rxjs";
 import {catchError, finalize, map} from "rxjs/operators";
 import {CollectionViewer} from "@angular/cdk/collections";
 import {StoriesResult} from "../model/stories-result";
-import {StoriesService} from "./stories.service";
+import {StoriesService} from "../services/stories.service";
 import {Story} from "../model/story";
 
 export class StoriesDataSource implements DataSource<Story> {

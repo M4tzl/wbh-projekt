@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {Credentials} from "../../model/credentials";
-import {SecurityService} from "../../services/security.service";
+import {Credentials} from "../../../model/credentials";
+import {SecurityService} from "../../../services/security.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({

@@ -11,16 +11,16 @@ import {FaqComponent} from "./components/allgemein/faq/faq.component";
 import {ImpressumComponent} from "./components/allgemein/impressum/impressum.component";
 import {DatenschutzComponent} from "./components/allgemein/datenschutz/datenschutz.component";
 import {InseratKontaktComponent} from "./components/inserate/kontakt/inserat-kontakt.component";
-import {UserLoginComponent} from "./components/login/user-login.component";
+import {UserLoginComponent} from "./components/login/login/user-login.component";
 import {InteressentenRegisterComponent} from "./components/interessenten/register/interessenten-register.component";
 import {VermittlerRegisterComponent} from "./components/vermittler/register/vermittler-register.component";
 import {StartpageRoleGuard} from "./guards/startpage-role.guard";
 import {VermittlerStartpageComponent} from "./components/vermittler/startpage/vermittler-startpage.component";
 import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anonymous-startpage.component";
-import {InvalidSessionComponent} from "./components/allgemein/session/invalid-session.component";
-import {SessionExpiredComponent} from "./components/allgemein/session/session-expired.component";
-import {InitiatePasswordResetComponent} from "./components/login/initiate-password-reset.component";
-import {ResetPasswordComponent} from "./components/login/reset-password.component";
+import {InvalidSessionComponent} from "./components/allgemein/session/invalid/invalid-session.component";
+import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
+import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
+import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
 
 
 export const AppRoutes: Routes = [

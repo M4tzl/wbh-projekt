@@ -39,7 +39,7 @@ import {ImpressumComponent} from './components/allgemein/impressum/impressum.com
 import {MatPaginatorIntlGerman} from './services/paginator.service';
 import {InseratSucheComponent} from './components/inserate/suche/inserat-suche.component';
 import {InseratKontaktComponent} from './components/inserate/kontakt/inserat-kontakt.component';
-import {UserLoginComponent} from './components/login/user-login.component';
+import {UserLoginComponent} from './components/login/login/user-login.component';
 import {InserateDialogStoryschreiberComponent} from './components/inserate/storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
 import {SecurityService} from "./services/security.service";
 import {XhrInterceptor} from "./infrastructure/xhr.interceptor";
@@ -49,10 +49,10 @@ import {EqualValidator} from "./validation/equal-validator";
 import {VermittlerStartpageComponent} from "./components/vermittler/startpage/vermittler-startpage.component";
 import {StartpageRoleGuard} from "./guards/startpage-role.guard";
 import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anonymous-startpage.component";
-import {InvalidSessionComponent} from "./components/allgemein/session/invalid-session.component";
-import {SessionExpiredComponent} from "./components/allgemein/session/session-expired.component";
-import {InitiatePasswordResetComponent} from "./components/login/initiate-password-reset.component";
-import {ResetPasswordComponent} from "./components/login/reset-password.component";
+import {InvalidSessionComponent} from "./components/allgemein/session/invalid/invalid-session.component";
+import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
+import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
+import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
 
 
 @NgModule({
