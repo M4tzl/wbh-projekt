@@ -5,12 +5,8 @@ import com.github.dmn1k.tfm.mail.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
@@ -32,7 +27,6 @@ public class SecurityController {
     private final AccountActivationRepository accountActivationRepository;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
-    private final CustomUserDetailsService userDetailsService;
 
     @GetMapping("/api/user")
     public ResponseEntity<?> user() {
@@ -127,8 +121,6 @@ public class SecurityController {
 
             userRepository.save(account);
 
-            login(new AccountCredentials(account.getUsername(), credentials.getPassword()));
-
             return ResponseEntity.ok(account);
         } finally {
             accountActivationRepository.delete(activation);
@@ -183,11 +175,5 @@ public class SecurityController {
 
         accountActivationRepository.save(accountToken);
         return accountToken;
-    }
-
-    private void login(AccountCredentials credentials) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(credentials.getUsername());
-        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), credentials.getPassword(), userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(auth);
     }
 }
