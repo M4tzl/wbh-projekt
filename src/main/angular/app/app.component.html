@@ -7,10 +7,10 @@
     </button>
     <div class="collapse navbar-collapse " id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
+            <li class="nav-item " data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link" routerLink="/inserate">Inserate</a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link" routerLink="/stories">Stories</a>
             </li>
         </ul>
@@ -22,9 +22,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">Account</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" routerLink="/edit-register">Daten bearbeiten</a>
-                        <a class="dropdown-item" (click)="logout()" href="#">Abmelden</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+                        <a class="dropdown-item" routerLink="/edit-register" data-toggle="collapse" data-target=".navbar-collapse.show">Daten bearbeiten</a>
+                        <a class="dropdown-item" (click)="logout()" href="#" data-toggle="collapse" data-target=".navbar-collapse.show">Abmelden</a>
                     </div>
                 </li>
             </ul>
@@ -37,13 +37,13 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">Registrierung</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" routerLink="/interessent/register">für Interessenten</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+                        <a class="dropdown-item" routerLink="/interessent/register" >für Interessenten</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" routerLink="/vermittler/register">für Vermittler</a>
+                        <a class="dropdown-item" routerLink="/vermittler/register" >für Vermittler</a>
                     </div>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item " data-toggle="collapse" data-target=".navbar-collapse.show">
                     <a class="nav-link" routerLink="/login">Anmelden</a>
                 </li>
             </ul>
