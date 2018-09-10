@@ -38,7 +38,7 @@
                 <mat-cell *matCellDef="let inserat">
                     <a [routerLink]="['/inserate/detail',inserat.id]"><img src="assets/img/view.png" alt="[View]"
                                                                            title="Anzeigen" height="30"></a>&nbsp;
-                    <a *ngIf="currentUser?.isVermittler && currentUser?.userName === inserat.vermittler" [routerLink]="['/inserate/edit',inserat.id]"><img
+                    <a *ngIf="currentUser?.isVermittler && inserat.editierbar" [routerLink]="['/inserate/edit',inserat.id]"><img
                         src="assets/img/edit.png" alt="[Edit]"
                         title="Editieren" height="30"></a>&nbsp;
                     <a *ngIf="currentUser?.isVermittler && inserat.vermittelbar">

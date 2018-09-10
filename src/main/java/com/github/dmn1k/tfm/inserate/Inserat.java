@@ -81,4 +81,9 @@ public class Inserat {
     public boolean isLoeschbar() {
         return !InseratStatus.VERMITTELT.equals(status);
     }
+
+    @Transient
+    public boolean isEditierbar() {
+        return !EnumSet.of(InseratStatus.VERMITTELT, InseratStatus.IN_RECHNUNG_GESTELLT).contains(status);
+    }
 }

@@ -73,7 +73,7 @@ public class InserateController {
         Inserat updatedInserat = getLoggedInUser()
             .flatMap(u -> repository.findById(id)
                 .filter(i -> i.getVermittler().equals(u.getUsername())))
-            .filter(Inserat::isAktivierbar)
+            .filter(Inserat::isEditierbar)
             .map(i -> inserat.toBuilder()
                 .id(id)
                 .lastUpdate(LocalDate.now())

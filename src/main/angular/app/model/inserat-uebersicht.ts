@@ -10,6 +10,7 @@ export interface InseratUebersicht {
     deaktivierbar:boolean;
     vermittelbar:boolean;
     loeschbar:boolean;
+    editierbar:boolean;
 
     vermittler:string;
 }
