@@ -19,8 +19,7 @@ export class ResetPasswordComponent {
 
     onSubmit(form) {
         if (form.valid) {
-            console.log(this.route.snapshot.paramMap.get('token'));
-            this.securityService.resetPassword(this.data, this.route.snapshot.paramMap.get('token'))
+            this.securityService.resetPassword(this.data, this.route.snapshot.queryParamMap.get('token'))
                 .subscribe(res => this.router.navigateByUrl("/"),
                     err => this.resetFailed = true);
         }

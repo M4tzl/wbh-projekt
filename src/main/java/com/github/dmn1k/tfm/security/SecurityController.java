@@ -7,7 +7,9 @@ import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
@@ -35,11 +37,11 @@ public class SecurityController {
     @GetMapping("/api/user")
     public ResponseEntity<?> user() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof org.springframework.security.core.userdetails.User)) {
+        if (!(principal instanceof User)) {
             return ResponseEntity.ok(null);
         }
 
-        org.springframework.security.core.userdetails.User springUser = (org.springframework.security.core.userdetails.User) principal;
+        User springUser = (User) principal;
         Account account = userRepository.findByUsername(springUser.getUsername());
 
         return ResponseEntity.ok(account);
@@ -94,7 +96,7 @@ public class SecurityController {
         AccountToken accountToken = createToken(credentials.getUsername());
 
         String url = MessageFormat.format("{0}://{1}:{2}/#/reset-password?token={3}", request.getScheme(),
-            request.getServerName(), String.valueOf(request.getServerPort()), URLEncoder.encode(accountToken.getToken(), "UTF-8"));
+            request.getServerName(), String.valueOf(request.getServerPort()), accountToken.getToken());
 
         emailService.send(Email.builder()
             .toAddress(credentials.getUsername())
@@ -107,9 +109,8 @@ public class SecurityController {
 
     @SneakyThrows
     @PostMapping("/api/password/reset/{token}")
-    public void changePassword(@RequestBody AccountCredentials credentials,
-                               @PathVariable String token,
-                               HttpServletResponse response) {
+    public ResponseEntity<?> changePassword(@RequestBody AccountCredentials credentials,
+                                            @PathVariable String token) {
         AccountToken activation = accountActivationRepository.findByToken(token);
 
         if (activation == null) {
@@ -126,8 +127,9 @@ public class SecurityController {
 
             userRepository.save(account);
 
-            login(credentials);
-            response.sendRedirect("/");
+            login(new AccountCredentials(account.getUsername(), credentials.getPassword()));
+
+            return ResponseEntity.ok(account);
         } finally {
             accountActivationRepository.delete(activation);
         }
@@ -185,7 +187,7 @@ public class SecurityController {
 
     private void login(AccountCredentials credentials) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(credentials.getUsername());
-        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), credentials.getPassword(), userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 }

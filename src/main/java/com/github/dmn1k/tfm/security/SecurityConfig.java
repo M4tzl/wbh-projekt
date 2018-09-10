@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/*.woff",
                 "/*.woff2",
                 "/api/user", "/api/logout",
+                "/api/password/reset/**",
                 "/api/register/**").permitAll()
             .anyRequest().authenticated()
             .and().csrf()
@@ -53,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().logout()
             .logoutUrl("/api/logout")
             .and().sessionManagement()
-            .invalidSessionUrl("/#/login")
             .sessionAuthenticationErrorUrl("/#/session-expired");
     }
 

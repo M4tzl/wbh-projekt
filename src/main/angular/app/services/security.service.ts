@@ -52,7 +52,9 @@ export class SecurityService {
     }
 
     resetPassword(credentials: Credentials, token: string): Observable<CurrentUser> {
-        return this.http.post<any>(`/api/password/reset/${token}`, credentials);
+        return this.http.post<any>(`/api/password/reset/${token}`, credentials).pipe(
+            switchMap(user => this.authenticate())
+        );
     }
 
     logout(): Observable<any> {

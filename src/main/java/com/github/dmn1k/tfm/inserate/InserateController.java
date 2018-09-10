@@ -139,7 +139,7 @@ public class InserateController {
 
     private Optional<User> getLoggedInUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(!(principal instanceof org.springframework.security.core.userdetails.User)){
+        if(!(principal instanceof User)){
             return Optional.empty();
         }
 
