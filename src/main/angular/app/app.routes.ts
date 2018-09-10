@@ -17,7 +17,6 @@ import {VermittlerRegisterComponent} from "./components/vermittler/register/verm
 import {StartpageRoleGuard} from "./guards/startpage-role.guard";
 import {VermittlerStartpageComponent} from "./components/vermittler/startpage/vermittler-startpage.component";
 import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anonymous-startpage.component";
-import {InvalidSessionComponent} from "./components/allgemein/session/invalid/invalid-session.component";
 import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
 import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
@@ -25,7 +24,6 @@ import {ResetPasswordComponent} from "./components/login/reset/reset-password.co
 
 export const AppRoutes: Routes = [
     {path: '', component: AnonymousStartpageComponent, canActivate: [StartpageRoleGuard]},
-    {path: 'invalid-session', component: InvalidSessionComponent},
     {path: 'session-expired', component: SessionExpiredComponent},
     {path: 'initiate-pw-reset', component: InitiatePasswordResetComponent},
     {path: 'reset-password', component: ResetPasswordComponent},

@@ -1,9 +1,10 @@
 MUST:
-- Interessent darf nur seine Stories bearbeiten können
+- Story-Schreiber zuweisen => Mailversand mit Registrierungslink
+- Interessent: Übersichtsliste mit zugewiesenen Stories. Noch nicht geschriebene Stories tauchen auch als Eintrag auf.
+
 - Inseratssuche => ist serverseitig bereits vorbereitet (es kann jedes feld als filter zur url hinzugefügt werden)
-- Story-Schreiber zuweisen => Mailversand mit Registrierungslink (leicht, am besten nach Authentifizierung zu machen)
-- Neue Story zu Inserat schreiben (Übersichtsseite der zugeordneten Inserate mit Button zum Schreiben einer Story)
-- Kontaktformular (leicht, nach Auth.)
+
+- Kontaktformular
 - STYLING!!!
 - IFrame-Einbindung
 

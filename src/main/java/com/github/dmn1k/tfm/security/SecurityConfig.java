@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().logout()
             .logoutUrl("/api/logout")
             .and().sessionManagement()
-            .invalidSessionUrl("/#/invalid-session")
+            .invalidSessionUrl("/#/login")
             .sessionAuthenticationErrorUrl("/#/session-expired");
     }
 
