@@ -5,13 +5,17 @@ import com.github.dmn1k.tfm.mail.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -26,6 +30,7 @@ public class SecurityController {
     private final AccountActivationRepository accountActivationRepository;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
+    private final CustomUserDetailsService userDetailsService;
 
     @GetMapping("/api/user")
     public ResponseEntity<?> user() {
@@ -41,7 +46,7 @@ public class SecurityController {
     }
 
     @PostMapping("/api/register/interessent")
-    public ResponseEntity<?> register(@RequestBody InteressentRegistrationData regData,
+    public ResponseEntity<?> register(@RequestBody AccountCredentials regData,
                                       HttpServletRequest request) {
         Role role = roleRepository.findByName("INTERESSENT");
         Account account = Account.builder()
@@ -77,10 +82,62 @@ public class SecurityController {
     }
 
     @SneakyThrows
+    @PostMapping("/api/password/reset")
+    public ResponseEntity<?> resetPassword(@RequestBody AccountCredentials credentials,
+                                           HttpServletRequest request) {
+        Account account = userRepository.findByUsername(credentials.getUsername());
+
+        if (account == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        AccountToken accountToken = createToken(credentials.getUsername());
+
+        String url = MessageFormat.format("{0}://{1}:{2}/#/reset-password?token={3}", request.getScheme(),
+            request.getServerName(), String.valueOf(request.getServerPort()), URLEncoder.encode(accountToken.getToken(), "UTF-8"));
+
+        emailService.send(Email.builder()
+            .toAddress(credentials.getUsername())
+            .subject("Password-Reset bei Tier-Fair-Mittlung")
+            .content(MessageFormat.format("<a href=\"{0}\">Bitte auf den Link klicken um Ihr Passwort neu zu vergeben</a>", url))
+            .build());
+
+        return ResponseEntity.ok(account);
+    }
+
+    @SneakyThrows
+    @PostMapping("/api/password/reset/{token}")
+    public void changePassword(@RequestBody AccountCredentials credentials,
+                               @PathVariable String token,
+                               HttpServletResponse response) {
+        AccountToken activation = accountActivationRepository.findByToken(token);
+
+        if (activation == null) {
+            throw new IllegalStateException("No activation record found for token");
+        }
+
+        try {
+            if (activation.getValid().isBefore(LocalDate.now())) {
+                throw new IllegalStateException("Token expired");
+            }
+
+            Account account = userRepository.findByUsername(activation.getUsername());
+            account.setPassword(passwordEncoder.encode(credentials.getPassword()));
+
+            userRepository.save(account);
+
+            login(credentials);
+            response.sendRedirect("/");
+        } finally {
+            accountActivationRepository.delete(activation);
+        }
+    }
+
+    @SneakyThrows
     @GetMapping("/api/activate/{token}")
     public void activate(@PathVariable String token,
                          HttpServletResponse response) {
-        AccountActivation activation = accountActivationRepository.findByToken(token);
+        AccountToken activation = accountActivationRepository.findByToken(token);
 
         if (activation == null) {
             throw new IllegalStateException("No activation record found for token");
@@ -103,21 +160,32 @@ public class SecurityController {
     }
 
     private void handleActivation(String username, HttpServletRequest request) {
-        AccountActivation accountActivation = AccountActivation.builder()
-            .username(username)
-            .token(UUID.randomUUID().toString())
-            .valid(LocalDate.now().plusDays(14))
-            .build();
-
-        accountActivationRepository.save(accountActivation);
+        AccountToken accountToken = createToken(username);
 
         String activationurl = MessageFormat.format("{0}://{1}:{2}/api/activate/{3}", request.getScheme(),
-            request.getServerName(), String.valueOf(request.getServerPort()), accountActivation.getToken());
+            request.getServerName(), String.valueOf(request.getServerPort()), accountToken.getToken());
 
         emailService.send(Email.builder()
             .toAddress(username)
             .subject("Registrierung bei Tier-Fair-Mittlung")
             .content(MessageFormat.format("<a href=\"{0}\">Bitte bestätigen Sie ihre Registrierung</a>", activationurl))
             .build());
+    }
+
+    private AccountToken createToken(String username) {
+        AccountToken accountToken = AccountToken.builder()
+            .username(username)
+            .token(UUID.randomUUID().toString())
+            .valid(LocalDate.now().plusDays(14))
+            .build();
+
+        accountActivationRepository.save(accountToken);
+        return accountToken;
+    }
+
+    private void login(AccountCredentials credentials) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(credentials.getUsername());
+        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(auth);
     }
 }

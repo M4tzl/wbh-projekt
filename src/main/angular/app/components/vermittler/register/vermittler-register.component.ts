@@ -4,12 +4,12 @@ import {Router} from '@angular/router';
 import {Vermittler} from "../../../model/vermittler";
 
 @Component({
-  selector: 'app-vermittler-registry',
-  templateUrl: './vermittler-register.component.html',
-  styleUrls: ['./vermittler-register.component.css']
+    selector: 'app-vermittler-registry',
+    templateUrl: './vermittler-register.component.html',
+    styleUrls: ['./vermittler-register.component.css']
 })
 export class VermittlerRegisterComponent {
-    data:any = {};
+    data: any = {};
     vermittler: Vermittler = <Vermittler>{};
     registrationFailed: boolean = false;
 
@@ -17,8 +17,11 @@ export class VermittlerRegisterComponent {
                 private router: Router) {
     }
 
-    onSubmit(){
-        this.securityService.registerVermittler(this.vermittler.username, this.data.password, this.vermittler)
+    onSubmit() {
+        this.securityService.registerVermittler({
+            username: this.vermittler.username,
+            password: this.data.password
+        }, this.vermittler)
             .subscribe(res => this.router.navigateByUrl("/"),
                 err => this.registrationFailed = true);
     }
@@ -26,6 +29,7 @@ export class VermittlerRegisterComponent {
     resetErrors(): void {
         this.registrationFailed = false;
     }
+
     get bundeslaender(): string[] {
         return [
             'Baden-Württemberg',

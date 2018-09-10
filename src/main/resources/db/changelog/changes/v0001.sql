@@ -99,7 +99,7 @@ CREATE TABLE "story_bild" (
   FOREIGN KEY(story_id) REFERENCES story(id)
 );
 
-CREATE TABLE "account_activation" (
+CREATE TABLE "account_token" (
   id bigserial NOT NULL,
   username varchar(255) not null,
   token varchar(500) not null,

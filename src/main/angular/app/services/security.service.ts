@@ -4,6 +4,7 @@ import {Observable, ReplaySubject} from "rxjs";
 import {map, switchMap, tap} from "rxjs/operators";
 import {CurrentUser} from "../model/current-user";
 import {Vermittler} from "../model/vermittler";
+import {Credentials} from "../model/credentials";
 
 @Injectable()
 export class SecurityService {
@@ -18,7 +19,7 @@ export class SecurityService {
         return this._currentUser.asObservable();
     }
 
-    authenticate(credentials?: { username: string, password: string }): Observable<CurrentUser> {
+    authenticate(credentials?: Credentials): Observable<CurrentUser> {
         const headers = new HttpHeaders(credentials ? {
             authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
         } : {});
@@ -30,18 +31,28 @@ export class SecurityService {
             );
     }
 
-    registerInteressent(username: string, password: string): Observable<CurrentUser> {
-        return this.http.post<any>('/api/register/interessent', {username, password})
+    registerInteressent(credentials: Credentials): Observable<CurrentUser> {
+        return this.http.post<any>('/api/register/interessent', credentials)
             .pipe(
-                switchMap(user => this.authenticate({username, password}))
+                switchMap(user => this.authenticate(credentials))
             );
     }
 
-    registerVermittler(username: string, password: string, vermittler: Vermittler): Observable<CurrentUser> {
-        return this.http.post<any>('/api/register/vermittler', {username, password, vermittler})
+    registerVermittler(credentials: Credentials, vermittler: Vermittler): Observable<CurrentUser> {
+        return this.http.post<any>('/api/register/vermittler', {
+            username: credentials.username, password: credentials.password, vermittler
+        })
             .pipe(
-                switchMap(user => this.authenticate({username, password}))
+                switchMap(user => this.authenticate(credentials))
             );
+    }
+
+    initiatePasswordReset(credentials: Credentials): Observable<CurrentUser> {
+        return this.http.post<any>('/api/password/reset', credentials);
+    }
+
+    resetPassword(credentials: Credentials, token: string): Observable<CurrentUser> {
+        return this.http.post<any>(`/api/password/reset/${token}`, credentials);
     }
 
     logout(): Observable<any> {

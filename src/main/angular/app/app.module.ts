@@ -49,6 +49,10 @@ import {EqualValidator} from "./validation/equal-validator";
 import {VermittlerStartpageComponent} from "./components/vermittler/startpage/vermittler-startpage.component";
 import {StartpageRoleGuard} from "./guards/startpage-role.guard";
 import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anonymous-startpage.component";
+import {InvalidSessionComponent} from "./components/allgemein/session/invalid-session.component";
+import {SessionExpiredComponent} from "./components/allgemein/session/session-expired.component";
+import {InitiatePasswordResetComponent} from "./components/login/initiate-password-reset.component";
+import {ResetPasswordComponent} from "./components/login/reset-password.component";
 
 
 @NgModule({
@@ -75,7 +79,11 @@ import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anon
         InteressentenRegisterComponent,
         VermittlerRegisterComponent,
         InserateDialogStoryschreiberComponent,
-        EqualValidator
+        EqualValidator,
+        InvalidSessionComponent,
+        SessionExpiredComponent,
+        InitiatePasswordResetComponent,
+        ResetPasswordComponent
     ],
     imports: [
         BrowserModule,

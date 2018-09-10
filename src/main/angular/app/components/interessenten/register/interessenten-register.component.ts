@@ -1,6 +1,7 @@
 import {Component, OnChanges, SimpleChanges} from '@angular/core';
 import {SecurityService} from "../../../services/security.service";
 import {Router} from "@angular/router";
+import {Credentials} from "../../../model/credentials";
 
 @Component({
     selector: 'app-interessenten-register',
@@ -8,7 +9,7 @@ import {Router} from "@angular/router";
     styleUrls: ['./interessenten-register.component.css']
 })
 export class InteressentenRegisterComponent {
-    data: any = {};
+    data: Credentials = <Credentials>{};
     registrationFailed: boolean = false;
 
     constructor(private securityService: SecurityService,
@@ -16,7 +17,7 @@ export class InteressentenRegisterComponent {
     }
 
     onSubmit() {
-        this.securityService.registerInteressent(this.data.email, this.data.password)
+        this.securityService.registerInteressent(this.data)
             .subscribe(res => this.router.navigateByUrl("/"),
                 err => this.registrationFailed = true);
     }

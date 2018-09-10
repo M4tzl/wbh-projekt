@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {SecurityService} from "../../services/security.service";
 import {Router} from "@angular/router";
+import {Credentials} from "../../model/credentials";
 
 @Component({
     selector: 'app-user-login',
@@ -8,7 +9,7 @@ import {Router} from "@angular/router";
     styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent {
-    data: any = {};
+    data: Credentials = <Credentials> {};
     loginFailed: boolean = false;
 
     constructor(private securityService: SecurityService,
@@ -17,7 +18,7 @@ export class UserLoginComponent {
 
     onSubmit(form) {
         if (form.valid) {
-            this.securityService.authenticate({username: this.data.email, password: this.data.password})
+            this.securityService.authenticate(this.data)
                 .subscribe(res => this.router.navigateByUrl("/"),
                     err => this.loginFailed = true);
         }
