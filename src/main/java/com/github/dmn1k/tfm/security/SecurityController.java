@@ -21,6 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 public class SecurityController {
+    private static final String STUDIENPROJEKT_DISCLAIMER = "<strong>BITTE BEACHTEN: Bei Tier-Fair-Mittlung handelt es sich um ein Studienprojekt und nicht um ein echtes Produkt! Falls Sie nicht Teil des Projektes sind bietet die Plattform keinerlei Mehrwert für Sie!</strong>";
     private final AccountRepository userRepository;
     private final RoleRepository roleRepository;
     private final VermittlerRepository vermittlerRepository;
@@ -95,7 +96,7 @@ public class SecurityController {
         emailService.send(Email.builder()
             .toAddress(credentials.getUsername())
             .subject("Password-Reset bei Tier-Fair-Mittlung")
-            .content(MessageFormat.format("<a href=\"{0}\">Bitte auf den Link klicken um Ihr Passwort neu zu vergeben</a>", url))
+            .content(MessageFormat.format("<a href=\"{0}\">Bitte auf den Link klicken um Ihr Passwort neu zu vergeben</a><br/><br/>" + STUDIENPROJEKT_DISCLAIMER, url))
             .build());
 
         return ResponseEntity.ok(account);
@@ -162,7 +163,7 @@ public class SecurityController {
         emailService.send(Email.builder()
             .toAddress(username)
             .subject("Registrierung bei Tier-Fair-Mittlung")
-            .content(MessageFormat.format("<a href=\"{0}\">Bitte bestätigen Sie ihre Registrierung</a>", activationurl))
+            .content(MessageFormat.format("<a href=\"{0}\">Bitte bestätigen Sie ihre Registrierung</a><br/><br/>" + STUDIENPROJEKT_DISCLAIMER, activationurl))
             .build());
     }
 
