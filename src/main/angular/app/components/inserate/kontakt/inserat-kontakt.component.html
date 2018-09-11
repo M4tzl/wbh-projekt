@@ -10,7 +10,7 @@
             </div>
             <div class="card-body">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label"  for="rufname">Eine Nachricht an //Organisation// senden</label>
+                    <label class="col-sm-4 col-form-label"  for="nachricht">Eine Nachricht an //Organisation// senden</label>
                     <div class="col-sm-8">
                         <textarea
                             id="nachricht"
@@ -28,16 +28,16 @@
                  </div>
                  <div class="row">
                     <div class="col-12 col-sm-12 col-md-6 text-left">
-                        <input type="checkbox"  [(ngModel)]="efahrungHund" name="efahrungHund" id="efahrungHund"/>&nbsp;
-                        <label for="efahrungHund" class="{{efahrungHund ? 'font-weight-bold' : 'font-weight-light'}}">bereits Erfahrung mit Hunden?</label>
+                        <input type="checkbox"  [(ngModel)]="data.erfahrungHund" name="erfahrungHund" id="erfahrungHund"/>&nbsp;
+                        <label for="erfahrungHund" class="{{data.erfahrungHund ? 'font-weight-bold' : 'font-weight-light'}}">bereits Erfahrung mit Hunden?</label>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 text-left">
-                        <input type="checkbox"  [(ngModel)]="weitereTiere" name="weitereTiere" id="weitereTiere"/>&nbsp;
-                        <label for="weitereTiere" class="{{weitereTiere ? 'font-weight-bold' : 'font-weight-light'}}">Weitere Tiere im Haushalt?</label>
+                        <input type="checkbox"  [(ngModel)]="data.weitereTiere" name="weitereTiere" id="weitereTiere"/>&nbsp;
+                        <label for="weitereTiere" class="{{data.weitereTiere ? 'font-weight-bold' : 'font-weight-light'}}">Weitere Tiere im Haushalt?</label>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 text-left">
-                        <input type="checkbox"  [(ngModel)]="kinderHaushalt" name="kinderHaushalt" id="kinderHaushalt"/>&nbsp;
-                        <label for="kinderHaushalt" class="{{kinderHaushalt ? 'font-weight-bold' : 'font-weight-light'}}">Kinder im Haushalt?</label>
+                        <input type="checkbox"  [(ngModel)]="data.kinderHaushalt" name="kinderHaushalt" id="kinderHaushalt"/>&nbsp;
+                        <label for="kinderHaushalt" class="{{data.kinderHaushalt ? 'font-weight-bold' : 'font-weight-light'}}">Kinder im Haushalt?</label>
                     </div>
 
                 </div>
@@ -46,16 +46,16 @@
                 </div>
                 <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 text-left">
-                            <input type="checkbox"  [(ngModel)]="Haus" name="Haus" id="Haus"/>&nbsp;
-                            <label for="Haus" class="{{Haus ? 'font-weight-bold' : 'font-weight-light'}}">Haus?</label>
+                            <input type="checkbox"  [(ngModel)]="data.haus" name="Haus" id="Haus"/>&nbsp;
+                            <label for="Haus" class="{{data.haus ? 'font-weight-bold' : 'font-weight-light'}}">Haus?</label>
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 text-left">
-                            <input type="checkbox"  [(ngModel)]="Wohnung" name="Wohnung" id="Wohnung"/>&nbsp;
-                            <label for="Wohnung" class="{{Wohnung ? 'font-weight-bold' : 'font-weight-light'}}">Wohnung?</label>
+                            <input type="checkbox"  [(ngModel)]="data.wohnung" name="Wohnung" id="Wohnung"/>&nbsp;
+                            <label for="Wohnung" class="{{data.wohnung ? 'font-weight-bold' : 'font-weight-light'}}">Wohnung?</label>
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 text-left">
-                            <input type="checkbox"  [(ngModel)]="tierhaltung" name="tierhaltung" id="tierhaltung"/>&nbsp;
-                            <label for="tierhaltung" class="{{tierhaltung ? 'font-weight-bold' : 'font-weight-light'}}">Tierhaltung erlaubt (z.B. vom Vermieter)?</label>
+                            <input type="checkbox"  [(ngModel)]="data.tierhaltung" name="tierhaltung" id="tierhaltung"/>&nbsp;
+                            <label for="tierhaltung" class="{{data.tierhaltung ? 'font-weight-bold' : 'font-weight-light'}}">Tierhaltung erlaubt (z.B. vom Vermieter)?</label>
                         </div>
                  </div>
             </div>

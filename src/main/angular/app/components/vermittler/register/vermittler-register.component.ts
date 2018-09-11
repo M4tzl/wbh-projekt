@@ -17,13 +17,15 @@ export class VermittlerRegisterComponent {
                 private router: Router) {
     }
 
-    onSubmit() {
-        this.securityService.registerVermittler({
-            username: this.vermittler.username,
-            password: this.data.password
-        }, this.vermittler)
-            .subscribe(res => this.router.navigateByUrl("/"),
-                err => this.registrationFailed = true);
+    onSubmit(form) {
+        if(form.valid) {
+            this.securityService.registerVermittler({
+                username: this.vermittler.username,
+                password: this.data.password
+            }, this.vermittler)
+                .subscribe(res => this.router.navigateByUrl("/"),
+                    err => this.registrationFailed = true);
+        }
     }
 
     resetErrors(): void {

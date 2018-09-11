@@ -9,7 +9,10 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
-    data: Credentials = <Credentials>{};
+    data: { password: string, confirmPassword: string } = {
+        password: '',
+        confirmPassword: ''
+    };
     resetFailed: boolean = false;
 
     constructor(private securityService: SecurityService,
@@ -19,7 +22,7 @@ export class ResetPasswordComponent {
 
     onSubmit(form) {
         if (form.valid) {
-            this.securityService.resetPassword(this.data, this.route.snapshot.queryParamMap.get('token'))
+            this.securityService.resetPassword(this.data.password, this.route.snapshot.queryParamMap.get('token'))
                 .subscribe(res => this.router.navigateByUrl("/"),
                     err => this.resetFailed = true);
         }

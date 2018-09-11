@@ -9,17 +9,24 @@ import {Credentials} from "../../../model/credentials";
     styleUrls: ['./interessenten-register.component.css']
 })
 export class InteressentenRegisterComponent {
-    data: Credentials = <Credentials>{};
+    data: { username: string, password: string, confirmPassword: string } = {
+        username: '',
+        password: '',
+        confirmPassword: ''
+    };
+
     registrationFailed: boolean = false;
 
     constructor(private securityService: SecurityService,
                 private router: Router) {
     }
 
-    onSubmit() {
-        this.securityService.registerInteressent(this.data)
-            .subscribe(res => this.router.navigateByUrl("/"),
-                err => this.registrationFailed = true);
+    onSubmit(form) {
+        if(form.valid) {
+            this.securityService.registerInteressent(this.data)
+                .subscribe(res => this.router.navigateByUrl("/"),
+                    err => this.registrationFailed = true);
+        }
     }
 
     resetErrors(): void {

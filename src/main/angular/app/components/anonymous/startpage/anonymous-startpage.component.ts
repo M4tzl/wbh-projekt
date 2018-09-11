@@ -8,7 +8,7 @@ import {CurrentUser} from "../../../model/current-user";
     styleUrls: ['./anonymous-startpage.component.css']
 })
 export class AnonymousStartpageComponent {
-    private currentUser: CurrentUser;
+    currentUser: CurrentUser;
 
     constructor(private securityService: SecurityService) {
         securityService.currentUser.subscribe(user => this.currentUser = user);
