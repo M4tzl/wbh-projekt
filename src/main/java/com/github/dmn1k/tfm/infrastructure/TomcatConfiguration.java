@@ -9,32 +9,39 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
-@Profile("prod")
 @Configuration
-public class TomcatProdConfiguration {
+public class TomcatConfiguration {
     @Value("${server.port.http}")
     private int serverPortHttp;
 
     @Value("${server.port}")
     private int serverPortHttps;
 
+    @Value("${server.ssl.enabled}")
+    private boolean sslRequired;
+
     @Bean
     public ServletWebServerFactory servletContainer() {
-        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
-            @Override
-            protected void postProcessContext(Context context) {
-                SecurityConstraint securityConstraint = new SecurityConstraint();
-                securityConstraint.setUserConstraint("CONFIDENTIAL");
-                SecurityCollection collection = new SecurityCollection();
-                collection.addPattern("/*");
-                securityConstraint.addCollection(collection);
-                context.addConstraint(securityConstraint);
-            }
-        };
-        tomcat.addAdditionalTomcatConnectors(redirectConnector());
-        return tomcat;
+        if (sslRequired) {
+            TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
+                @Override
+                protected void postProcessContext(Context context) {
+                    SecurityConstraint securityConstraint = new SecurityConstraint();
+                    securityConstraint.setUserConstraint("CONFIDENTIAL");
+                    SecurityCollection collection = new SecurityCollection();
+                    collection.addPattern("/*");
+                    securityConstraint.addCollection(collection);
+                    context.addConstraint(securityConstraint);
+                }
+            };
+
+            tomcat.addAdditionalTomcatConnectors(redirectConnector());
+
+            return tomcat;
+        }
+
+        return new TomcatServletWebServerFactory();
     }
 
     private Connector redirectConnector() {
