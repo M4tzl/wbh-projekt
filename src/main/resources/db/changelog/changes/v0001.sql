@@ -81,13 +81,14 @@ CREATE TABLE "inserat_bild" (
   inserat_id bigserial NOT NULL,
   bild_key varchar(200) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY(inserat_id) REFERENCES inserat(id)
+  FOREIGN KEY(inserat_id) REFERENCES inserat(id) ON DELETE CASCADE
 );
 
 CREATE TABLE "story" (
     id bigserial NOT NULL,
-    titel varchar(100) not null,
-    beschreibung varchar(500) null,
+    autor varchar(255) not null,
+    titel varchar(255) not null,
+    beschreibung varchar(5000) null,
     primary key (id)
 );
 
@@ -96,7 +97,7 @@ CREATE TABLE "story_bild" (
   story_id bigserial NOT NULL,
   bild_key varchar(200) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY(story_id) REFERENCES story(id)
+  FOREIGN KEY(story_id) REFERENCES story(id) ON DELETE CASCADE
 );
 
 CREATE TABLE "account_token" (

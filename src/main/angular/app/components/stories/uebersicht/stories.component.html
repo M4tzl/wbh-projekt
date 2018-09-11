@@ -28,9 +28,9 @@
                 <mat-cell *matCellDef="let story">
                     <a [routerLink]="['/stories/detail',story.id]"><img src="assets/img/view.png" alt="[View]"
                                                                         title="Anzeigen" height="30"></a>&nbsp;
-                    <a [routerLink]="['/stories/edit',story.id]"><img src="assets/img/edit.png" alt="[Edit]"
+                    <a [routerLink]="['/stories/edit',story.id]" *ngIf="currentUser?.userName === story.autor"><img src="assets/img/edit.png" alt="[Edit]"
                                                                       title="Editieren" height="30"></a>&nbsp;
-                    <a [routerLink]="['/stories/delete',story.id]"><img src="assets/img/trash.png" alt="[Trash]"
+                    <a (click)="deleteStory(story)" *ngIf="currentUser?.userName === story.autor"><img src="assets/img/trash.png" alt="[Trash]"
                                                                         title="Löschen" height="30"></a>
                 </mat-cell>
             </ng-container>

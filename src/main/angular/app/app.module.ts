@@ -13,7 +13,6 @@ import {AppRoutes} from "./app.routes";
 import {InserateService} from "./services/inserate.service";
 import {StoriesService} from "./services/stories.service";
 import {StoriesEditComponent} from './components/stories/edit/stories-edit.component';
-import {StoriesDeleteComponent} from './components/stories/delete/stories-delete.component';
 import {InserateDetailComponent} from "./components/inserate/detail/inserate-detail.component";
 import {InserateEditComponent} from "./components/inserate/edit/inserate-edit.component";
 import {BreedService} from "./services/breed.service";
@@ -52,6 +51,7 @@ import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anon
 import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
 import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
+import {YesNoDialogComponent} from "./components/allgemein/yes-no-dialog/yes-no-dialog.component";
 
 
 @NgModule({
@@ -64,7 +64,6 @@ import {ResetPasswordComponent} from "./components/login/reset/reset-password.co
         StoriesComponent,
         StoriesDetailComponent,
         StoriesEditComponent,
-        StoriesDeleteComponent,
         SafeUrlPipe,
         InteressentenStartpageComponent,
         VermittlerStartpageComponent,
@@ -81,7 +80,8 @@ import {ResetPasswordComponent} from "./components/login/reset/reset-password.co
         EqualValidator,
         SessionExpiredComponent,
         InitiatePasswordResetComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        YesNoDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -114,7 +114,7 @@ import {ResetPasswordComponent} from "./components/login/reset/reset-password.co
 
     ],
     bootstrap: [AppComponent],
-    entryComponents: [InserateDialogStoryschreiberComponent]
+    entryComponents: [InserateDialogStoryschreiberComponent, YesNoDialogComponent]
 
 })
 export class AppModule {

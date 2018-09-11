@@ -1,9 +1,13 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {StoriesService} from "../../../services/stories.service";
-import {MatPaginator, MatSort} from "@angular/material";
-import {fromEvent, merge} from "rxjs";
-import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
+import {MatDialog, MatPaginator, MatSort} from "@angular/material";
+import {EMPTY, fromEvent, merge, of} from "rxjs";
+import {debounceTime, distinctUntilChanged, flatMap, switchMap, tap} from "rxjs/operators";
 import {StoriesDataSource} from "../../../datasources/stories.dataSource";
+import {CurrentUser} from "../../../model/current-user";
+import {SecurityService} from "../../../services/security.service";
+import {Story} from "../../../model/story";
+import {YesNoDialogComponent} from "../../allgemein/yes-no-dialog/yes-no-dialog.component";
 
 
 @Component({
@@ -13,7 +17,7 @@ import {StoriesDataSource} from "../../../datasources/stories.dataSource";
 })
 
 export class StoriesComponent implements OnInit, AfterViewInit {
-
+    currentUser: CurrentUser;
     dataSource: StoriesDataSource;
     displayedColumns= ["id", "titel", "actions"];
     initialPageSize = 10;
@@ -23,7 +27,11 @@ export class StoriesComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild('searchField') searchField: ElementRef;
 
-    constructor(private storiesService: StoriesService) {
+    constructor(private storiesService: StoriesService,
+                private securityService: SecurityService,
+                public dialog: MatDialog) {
+        this.securityService.currentUser
+            .subscribe(user => this.currentUser = user);
     }
 
     ngOnInit() {
@@ -63,5 +71,18 @@ export class StoriesComponent implements OnInit, AfterViewInit {
             this.sort.direction,
             this.paginator.pageIndex,
             this.paginator.pageSize);
+    }
+
+    deleteStory(story: Story) {
+        const dialogRef = this.dialog.open(YesNoDialogComponent, {
+            disableClose: true,
+            autoFocus: true,
+            data: 'Möchten Sie die Story wirklich löschen?'
+        });
+
+        dialogRef.afterClosed().pipe(
+            flatMap(val => val ? of(val) : EMPTY),
+            switchMap(i => this.storiesService.delete(story.id))
+        ).subscribe(val => this.loadStoriesPage());
     }
 }

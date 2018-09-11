@@ -1,17 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
-import { Story } from '../../../model/story';
-import { StoriesService } from '../../../services/stories.service';
+import {Story} from '../../../model/story';
+import {StoriesService} from '../../../services/stories.service';
 import {ImageUploadResult} from "../../upload/image-upload-result";
 import {BildMetadaten} from "../../../model/bild-metadaten";
 import {map, mergeMap, tap} from "rxjs/operators";
 
 
 @Component({
-  selector: 'app-stories-edit',
-  templateUrl: './stories-edit.component.html',
-  styleUrls: ['./stories-edit.component.css']
+    selector: 'app-stories-edit',
+    templateUrl: './stories-edit.component.html',
+    styleUrls: ['./stories-edit.component.css']
 })
 export class StoriesEditComponent implements OnInit {
     story: Story = <Story>{};
@@ -21,6 +20,7 @@ export class StoriesEditComponent implements OnInit {
                 private route: ActivatedRoute,
                 private router: Router) {
     }
+
     private placeholderStoryBild(story) {
         return <BildMetadaten> {entityId: story.id};
     }
@@ -41,16 +41,17 @@ export class StoriesEditComponent implements OnInit {
         }
     }
 
-    onSubmit(form){
+    onSubmit(form) {
         if (form.valid) {
-        const id = this.route.snapshot.params['id'];
-        this.storyService.update(this.story)
-            .subscribe(result => this.router.navigate(['/stories/edit/'+id]));
+            this.storyService.update(this.story)
+                .subscribe(result => this.router.navigateByUrl('/stories'));
         }
     }
+
     goBack(): void {
-        this.router.navigate(['/stories/']);
+        this.router.navigateByUrl('/stories');
     }
+
     onImageUploaded(event: ImageUploadResult) {
         if (!event.oldImage.id) {
             this.images.push(this.placeholderStoryBild(this.story));

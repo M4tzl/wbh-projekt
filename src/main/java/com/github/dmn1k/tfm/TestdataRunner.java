@@ -1,10 +1,10 @@
 package com.github.dmn1k.tfm;
 
-import com.github.dmn1k.tfm.inserate.*;
-import com.github.dmn1k.tfm.security.Role;
-import com.github.dmn1k.tfm.security.RoleRepository;
-import com.github.dmn1k.tfm.security.Account;
-import com.github.dmn1k.tfm.security.AccountRepository;
+import com.github.dmn1k.tfm.inserate.Geschlecht;
+import com.github.dmn1k.tfm.inserate.Inserat;
+import com.github.dmn1k.tfm.inserate.InseratStatus;
+import com.github.dmn1k.tfm.inserate.InserateRepository;
+import com.github.dmn1k.tfm.security.*;
 import com.github.dmn1k.tfm.stories.StoriesRepository;
 import com.github.dmn1k.tfm.stories.Story;
 import lombok.RequiredArgsConstructor;
@@ -23,20 +23,42 @@ public class TestdataRunner implements ApplicationRunner {
     private final InserateRepository inserateRepository;
     private final StoriesRepository storiesRepository;
     private final AccountRepository userRepository;
+    private final VermittlerRepository vermittlerRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(ApplicationArguments args) {
         Role vermittlerRole = roleRepository.findByName("VERMITTLER");
+        Role interessentRole = roleRepository.findByName("INTERESSENT");
+
         Account vermittler = Account.builder()
-            .username("vermittler1@test.de")
+            .username("vermittler@dominik-schlosser.de")
             .password(passwordEncoder.encode("test123"))
             .role(vermittlerRole)
             .enabled(true)
             .build();
 
         userRepository.save(vermittler);
+        vermittlerRepository.save(Vermittler.builder()
+            .ansprechpartner("Dominik Schlosser")
+            .bundesland("Bayern")
+            .organisation("Test")
+            .ort("Fürth")
+            .plz("90765")
+            .strasseHsNr("Buchenstraße 6")
+            .telefon("N/A")
+            .username("vermittler@dominik-schlosser.de")
+            .build());
+
+        Account interessent = Account.builder()
+            .username("interessent@dominik-schlosser.de")
+            .password(passwordEncoder.encode("test123"))
+            .role(interessentRole)
+            .enabled(true)
+            .build();
+
+        userRepository.save(interessent);
 
         inserateRepository.save(Inserat.builder()
             .lastUpdate(LocalDate.of(2018, 8, 10))
@@ -48,6 +70,7 @@ public class TestdataRunner implements ApplicationRunner {
             .voraussichtlicheSchulterhoehe("51-75cm")
             .geschlecht(Geschlecht.M)
             .vermittler(vermittler.getUsername())
+            .storyschreiber(interessent.getUsername())
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -60,6 +83,7 @@ public class TestdataRunner implements ApplicationRunner {
             .voraussichtlicheSchulterhoehe("51-75cm")
             .geschlecht(Geschlecht.M)
             .vermittler(vermittler.getUsername())
+            .storyschreiber(interessent.getUsername())
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -75,13 +99,13 @@ public class TestdataRunner implements ApplicationRunner {
             .vermittler(vermittler.getUsername())
             .build());
 
-        storiesRepository.save(new Story(null, "Story 1", "Blablubb"));
-        storiesRepository.save(new Story(null, "Story 2", "Blablubbnvnv"));
-        storiesRepository.save(new Story(null, "Story 3", "Blablubbvnvn"));
-        storiesRepository.save(new Story(null, "Story 4", "Blablubb gdfgdh"));
-        storiesRepository.save(new Story(null, "Story 5", "Blablubbvhfghd hdhdh"));
-        storiesRepository.save(new Story(null, "Story 6", "Blablubb hdhdfgh"));
-        storiesRepository.save(new Story(null, "Story 7", "Blablubb hsdhsdh "));
-        storiesRepository.save(new Story(null, "Story 8", "Blablubb hdhs hs"));
+        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 1", "Blablubb"));
+        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 2", "Blablubbnvnv"));
+        storiesRepository.save(new Story(null, "bla@blubb.de", "Story 3", "Blablubbvnvn"));
+        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 4", "Blablubb gdfgdh"));
+        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 5", "Blablubbvhfghd hdhdh"));
+        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 6", "Blablubb hdhdfgh"));
+        storiesRepository.save(new Story(null, "xyz@bla.de", "Story 7", "Blablubb hsdhsdh "));
+        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 8", "Blablubb hdhs hs"));
     }
 }

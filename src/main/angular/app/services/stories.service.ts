@@ -6,7 +6,6 @@ import {map} from "rxjs/operators";
 import {StoriesResult} from "../model/stories-result";
 import {BildMetadaten} from "../model/bild-metadaten";
 import {UploadService} from "./upload.service";
-import {MatPaginatorIntl} from "@angular/material";
 
 @Injectable()
 export class StoriesService implements UploadService {
