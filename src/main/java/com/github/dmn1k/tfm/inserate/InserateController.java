@@ -118,17 +118,18 @@ public class InserateController {
     }
 
     private void sendStoryschreiberEmail(HttpServletRequest request, Inserat inserat) {
+        // TODO: Was ist, wenn der Account ein Vermittler ist? => Fehler werfen und im UI anzeigen
         Account account = accountRepository.findByUsername(inserat.getStoryschreiber());
 
         String url = MessageFormat.format("{0}://{1}:{2}/#/login", request.getScheme(),
             request.getServerName(), String.valueOf(request.getServerPort()));
-        String message = MessageFormat.format("<a href=\"{0}\">Loggen Sie sich ein und schreiben Sie eine Story über Ihren neuen Hund!</a><br/><br/><strong>{0}</strong>",
+        String message = MessageFormat.format("<a href=\"{0}\">Loggen Sie sich ein und schreiben Sie eine Story über Ihren neuen Hund!</a><br/><br/><strong>{1}</strong>",
             url, Constants.STUDIENPROJEKT_DISCLAIMER);
 
         if(account == null){
             url = MessageFormat.format("{0}://{1}:{2}/#/interessent/register", request.getScheme(),
                 request.getServerName(), String.valueOf(request.getServerPort()));
-            message = MessageFormat.format("<a href=\"{0}\">Registrieren Sie sich bei Tier-Fair-Mittlung und schreiben Sie eine Story über Ihren neuen Hund!</a><br/><br/><strong>{0}</strong>",
+            message = MessageFormat.format("<a href=\"{0}\">Registrieren Sie sich bei Tier-Fair-Mittlung und schreiben Sie eine Story über Ihren neuen Hund!</a><br/><br/><strong>{1}</strong>",
                 url, Constants.STUDIENPROJEKT_DISCLAIMER);
         }
 

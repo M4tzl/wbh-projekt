@@ -77,7 +77,7 @@ public class Inserat {
 
     @Transient
     public boolean isVermittelbar() {
-        return InseratStatus.AKTIV.equals(status);
+        return EnumSet.of(InseratStatus.AKTIV, InseratStatus.VERMITTELT).contains(status);
     }
 
     @Transient
