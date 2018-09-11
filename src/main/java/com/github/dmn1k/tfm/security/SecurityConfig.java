@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    @Value("${server.ssl.enabled}")
+    @Value("${ssl.required}")
     private boolean sslRequired;
 
     @Bean
