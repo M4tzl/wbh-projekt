@@ -24,12 +24,6 @@ export class UserLoginComponent {
         }
     }
 
-    resetPW(form) {
-
-        console.log("PW Reset durchführen:" + form);
-
-    }
-
     resetErrors(): void {
         this.loginFailed = false;
     }

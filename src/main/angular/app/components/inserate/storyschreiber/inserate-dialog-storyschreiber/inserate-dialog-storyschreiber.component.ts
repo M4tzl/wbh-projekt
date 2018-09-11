@@ -10,14 +10,15 @@ import {InserateStatusComponent} from '../../status/inserate-status/inserate-sta
     styleUrls: ['./inserate-dialog-storyschreiber.component.css']
 })
 export class InserateDialogStoryschreiberComponent {
-    storyschreiber: string;
+    data: {storyschreiber: string} = {storyschreiber: ''};
 
     constructor(public inserateService: InserateService, private dialogRef: MatDialogRef<InserateStatusComponent>) {
     }
 
-    save() {
-        console.log(this.storyschreiber);
-        this.dialogRef.close(this.storyschreiber);
+    save(form) {
+        if(form.valid) {
+            this.dialogRef.close(this.data.storyschreiber);
+        }
     }
 
     close() {

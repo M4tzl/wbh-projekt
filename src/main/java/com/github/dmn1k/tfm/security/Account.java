@@ -3,6 +3,7 @@ package com.github.dmn1k.tfm.security;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Collections;
 import java.util.Set;
 
@@ -17,6 +18,8 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Email
     private String username;
     private String password;
     private boolean enabled;

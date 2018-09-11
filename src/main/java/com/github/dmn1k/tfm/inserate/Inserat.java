@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.time.LocalDate;
 import java.util.EnumSet;
 
@@ -42,6 +43,8 @@ public class Inserat {
 
     private String schulterhoehe;
     private String voraussichtlicheSchulterhoehe;
+
+    @Email
     private String storyschreiber;
 
     private boolean kastriert;

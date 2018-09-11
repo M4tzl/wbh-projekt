@@ -1,5 +1,6 @@
 package com.github.dmn1k.tfm.security;
 
+import com.github.dmn1k.tfm.Constants;
 import com.github.dmn1k.tfm.mail.Email;
 import com.github.dmn1k.tfm.mail.EmailService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 public class SecurityController {
-    private static final String STUDIENPROJEKT_DISCLAIMER = "<strong>BITTE BEACHTEN: Bei Tier-Fair-Mittlung handelt es sich um ein Studienprojekt und nicht um ein echtes Produkt! Falls Sie nicht Teil des Projektes sind bietet die Plattform keinerlei Mehrwert für Sie!</strong>";
-    private final AccountRepository userRepository;
+    private final AccountRepository accountRepository;
     private final RoleRepository roleRepository;
     private final VermittlerRepository vermittlerRepository;
     private final AccountActivationRepository accountActivationRepository;
@@ -37,7 +37,7 @@ public class SecurityController {
         }
 
         User springUser = (User) principal;
-        Account account = userRepository.findByUsername(springUser.getUsername());
+        Account account = accountRepository.findByUsername(springUser.getUsername());
 
         return ResponseEntity.ok(account);
     }
@@ -52,7 +52,7 @@ public class SecurityController {
             .role(role)
             .build();
 
-        userRepository.save(account);
+        accountRepository.save(account);
 
         handleActivation(regData.getUsername(), request);
 
@@ -70,7 +70,7 @@ public class SecurityController {
             .role(role)
             .build();
 
-        userRepository.save(account);
+        accountRepository.save(account);
         vermittlerRepository.save(regData.getVermittler());
 
         handleActivation(regData.getUsername(), request);
@@ -82,7 +82,7 @@ public class SecurityController {
     @PostMapping("/api/password/reset")
     public ResponseEntity<?> resetPassword(@RequestBody AccountCredentials credentials,
                                            HttpServletRequest request) {
-        Account account = userRepository.findByUsername(credentials.getUsername());
+        Account account = accountRepository.findByUsername(credentials.getUsername());
 
         if (account == null) {
             return ResponseEntity.badRequest().build();
@@ -96,7 +96,8 @@ public class SecurityController {
         emailService.send(Email.builder()
             .toAddress(credentials.getUsername())
             .subject("Password-Reset bei Tier-Fair-Mittlung")
-            .content(MessageFormat.format("<a href=\"{0}\">Bitte auf den Link klicken um Ihr Passwort neu zu vergeben</a><br/><br/>" + STUDIENPROJEKT_DISCLAIMER, url))
+            .content(MessageFormat.format("<a href=\"{0}\">Bitte auf den Link klicken um Ihr Passwort neu zu vergeben</a><br/><br/><strong>{1}</strong>",
+                url, Constants.STUDIENPROJEKT_DISCLAIMER))
             .build());
 
         return ResponseEntity.ok(account);
@@ -117,10 +118,10 @@ public class SecurityController {
                 throw new IllegalStateException("Token expired");
             }
 
-            Account account = userRepository.findByUsername(activation.getUsername());
+            Account account = accountRepository.findByUsername(activation.getUsername());
             account.setPassword(passwordEncoder.encode(credentials.getPassword()));
 
-            userRepository.save(account);
+            accountRepository.save(account);
 
             return ResponseEntity.ok(account);
         } finally {
@@ -143,10 +144,10 @@ public class SecurityController {
                 throw new IllegalStateException("Token expired");
             }
 
-            Account account = userRepository.findByUsername(activation.getUsername());
+            Account account = accountRepository.findByUsername(activation.getUsername());
             account.setEnabled(true);
 
-            userRepository.save(account);
+            accountRepository.save(account);
 
             response.sendRedirect("/");
         } finally {
@@ -163,7 +164,8 @@ public class SecurityController {
         emailService.send(Email.builder()
             .toAddress(username)
             .subject("Registrierung bei Tier-Fair-Mittlung")
-            .content(MessageFormat.format("<a href=\"{0}\">Bitte bestätigen Sie ihre Registrierung</a><br/><br/>" + STUDIENPROJEKT_DISCLAIMER, activationurl))
+            .content(MessageFormat.format("<a href=\"{0}\">Bitte bestätigen Sie ihre Registrierung</a><br/><br/><strong>{1}</strong>",
+                activationurl, Constants.STUDIENPROJEKT_DISCLAIMER))
             .build());
     }
 
