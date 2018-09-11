@@ -1,8 +1,6 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import {Inserat} from '../../../../model/inserat';
+import {Component} from '@angular/core';
 import {InserateService} from '../../../../services/inserate.service';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {InserateStatusComponent} from '../../status/inserate-status/inserate-status.component';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
     selector: 'app-inserate-dialog-storyschreiber',
@@ -12,7 +10,7 @@ import {InserateStatusComponent} from '../../status/inserate-status/inserate-sta
 export class InserateDialogStoryschreiberComponent {
     data: {storyschreiber: string} = {storyschreiber: ''};
 
-    constructor(public inserateService: InserateService, private dialogRef: MatDialogRef<InserateStatusComponent>) {
+    constructor(public inserateService: InserateService, private dialogRef: MatDialogRef<InserateDialogStoryschreiberComponent>) {
     }
 
     save(form) {
