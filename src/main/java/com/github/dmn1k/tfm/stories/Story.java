@@ -32,4 +32,17 @@ public class Story {
 
     private String titel;
     private String beschreibung;
+
+    private boolean draft;
+
+    public StoryDto toDto(){
+        return StoryDto.builder()
+            .id(id)
+            .autor(autor)
+            .beschreibung(beschreibung)
+            .titel(titel)
+            .inseratId(inserat == null ? null : inserat.getId())
+            .draft(draft)
+            .build();
+    }
 }

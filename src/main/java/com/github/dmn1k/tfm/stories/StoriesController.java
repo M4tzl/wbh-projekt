@@ -28,51 +28,44 @@ public class StoriesController {
     @GetMapping("/api/stories")
     public @ResponseBody ResponseEntity<?> loadStories(@QuerydslPredicate(root = Story.class) Predicate predicate,
                                                         Pageable pageable) {
-        return ResponseEntity.ok(storiesRepository.findAll(predicate, pageable));
+        BooleanExpression compositePredicate = QStory.story.draft.isFalse().and(predicate);
+        Page<StoryDto> storyDtos = storiesRepository.findAll(compositePredicate, pageable)
+            .map(Story::toDto);
+
+        return ResponseEntity.ok(storyDtos);
     }
 
     @GetMapping("/api/stories/open")
     public ResponseEntity<?> loadOpenStories(Pageable pageable) {
         User user = getLoggedInUser().orElseThrow(() -> new IllegalStateException("Anonymous access not allowed"));
 
-        Page<Story> stories = inserateRepository.findInserateWithoutStory(pageable)
-            .map(i -> Story.builder()
+        Page<StoryDto> storyDtos = inserateRepository.findInserateWithoutStory(pageable)
+            .map(i -> i.getStory() == null ? Story.builder()
                 .inserat(i)
                 .autor(user.getUsername())
                 .titel("Story über " + i.getRufname())
-                .build());
-        return ResponseEntity.ok(stories);
+                .build() : i.getStory())
+            .map(Story::toDto);
+        return ResponseEntity.ok(storyDtos);
     }
 
     @GetMapping("/api/stories/{id}")
     public ResponseEntity<?> loadStory(@PathVariable long id) {
         return storiesRepository.findById(id)
+            .map(Story::toDto)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
 
     @PostMapping("/api/stories")
-    public ResponseEntity<?> createStory(@RequestBody Story story) {
-        User user = getLoggedInUser().orElseThrow(() -> new IllegalStateException("Anonymous access not allowed"));
-        Story updatedStory = story.toBuilder()
-            .autor(user.getUsername())
-            .build();
-
-        Story saved = storiesRepository.save(updatedStory);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<?> createStory(@RequestBody StoryDto dto) {
+        return saveStory(dto, dto.getId());
     }
 
     @PutMapping("/api/stories/{id}")
     public ResponseEntity<?> updateStory(@PathVariable long id,
-                                         @RequestBody Story story) {
-        Story updatedStory = getLoggedInUser()
-            .flatMap(u -> storiesRepository.findById(id)
-                .filter(i -> i.getAutor().equals(u.getUsername())))
-            .map(s -> story)
-            .orElseThrow(() -> new IllegalStateException("Story existiert nicht bzw. der Zugriff ist nicht erlaubt"));
-
-        Story saved = storiesRepository.save(updatedStory);
-        return ResponseEntity.ok(saved);
+                                         @RequestBody StoryDto dto) {
+        return saveStory(dto, id);
     }
 
     @DeleteMapping("/api/stories/{id}")
@@ -84,6 +77,26 @@ public class StoriesController {
 
         storiesRepository.delete(story);
         return ResponseEntity.ok(story);
+    }
+
+    private ResponseEntity<?> saveStory(@RequestBody StoryDto dto, Long id) {
+        User user = getLoggedInUser().orElseThrow(() -> new IllegalStateException("Anonymous access not allowed"));
+
+        if(dto.getInseratId() == null){
+            throw new IllegalArgumentException("Eine Story muss an einem Inserat hängen!");
+        }
+
+        Story story = Story.builder()
+            .id(id)
+            .titel(dto.getTitel())
+            .beschreibung(dto.getBeschreibung())
+            .autor(user.getUsername())
+            .inserat(inserateRepository.getOne(dto.getInseratId()))
+            .draft(dto.isDraft())
+            .build();
+
+        Story saved = storiesRepository.save(story);
+        return ResponseEntity.ok(saved);
     }
 
     private Optional<User> getLoggedInUser() {

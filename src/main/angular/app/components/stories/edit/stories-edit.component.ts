@@ -5,7 +5,7 @@ import {StoriesService} from '../../../services/stories.service';
 import {ImageUploadResult} from "../../upload/image-upload-result";
 import {BildMetadaten} from "../../../model/bild-metadaten";
 import {map, mergeMap, tap} from "rxjs/operators";
-import {Location} from '@angular/common';
+import {update} from "../../../infrastructure/immutable-update";
 
 
 @Component({
@@ -18,8 +18,7 @@ export class StoriesEditComponent implements OnInit {
     images: BildMetadaten[] = [];
 
     constructor(public storyService: StoriesService,
-                private route: ActivatedRoute,
-                private location: Location) {
+                private route: ActivatedRoute) {
     }
 
     private placeholderStoryBild(story) {
@@ -44,13 +43,13 @@ export class StoriesEditComponent implements OnInit {
 
     onSubmit(form) {
         if (form.valid) {
-            this.storyService.update(this.story)
-                .subscribe(result => this.location.back());
+            this.storyService.update(update(this.story, {draft: false}))
+                .subscribe(result => window.history.back());
         }
     }
 
     goBack(): void {
-        this.location.back();
+        window.history.back();
     }
 
     onImageUploaded(event: ImageUploadResult) {

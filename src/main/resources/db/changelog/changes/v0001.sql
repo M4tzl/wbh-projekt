@@ -90,6 +90,7 @@ CREATE TABLE "story" (
     autor varchar(255) not null,
     titel varchar(255) not null,
     beschreibung varchar(5000) null,
+    draft boolean not null,
     PRIMARY KEY (id),
     FOREIGN KEY (inserat_id) REFERENCES inserat(id)
 );

@@ -1,23 +1,25 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {StoriesService} from "../../../services/stories.service";
-import {MatDialog, MatPaginator, MatSort} from "@angular/material";
-import {merge} from "rxjs";
-import {tap} from "rxjs/operators";
+import {MatPaginator} from "@angular/material";
 import {StoriesDataSource} from "../../../datasources/stories.dataSource";
 import {CurrentUser} from "../../../model/current-user";
 import {SecurityService} from "../../../services/security.service";
+import {Story} from "../../../model/story";
+import {Router} from "@angular/router";
+import {update} from "../../../infrastructure/immutable-update";
 
 
 @Component({
-  selector: 'app-open-stories',
-  templateUrl: './open-stories.component.html',
-  styleUrls: ['./open-stories.component.scss']
+    selector: 'app-open-stories',
+    templateUrl: './open-stories.component.html',
+    styleUrls: ['./open-stories.component.scss']
 })
 
 export class OpenStoriesComponent implements OnInit {
+    errorOccured: boolean;
     currentUser: CurrentUser;
     dataSource: StoriesDataSource;
-    displayedColumns= ["id", "titel", "actions"];
+    displayedColumns = ["titel", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
 
@@ -25,7 +27,7 @@ export class OpenStoriesComponent implements OnInit {
 
     constructor(private storiesService: StoriesService,
                 private securityService: SecurityService,
-                public dialog: MatDialog) {
+                private router: Router) {
         this.securityService.currentUser
             .subscribe(user => this.currentUser = user);
     }
@@ -40,5 +42,13 @@ export class OpenStoriesComponent implements OnInit {
         this.dataSource.loadOpenStories(
             this.paginator.pageIndex,
             this.paginator.pageSize);
+    }
+
+    createStory(story: Story) {
+        this.storiesService.create(update(story, {draft: true}))
+            .subscribe(
+                result => this.router.navigate(['/stories/edit', result.id]),
+                err => this.errorOccured = true
+            );
     }
 }

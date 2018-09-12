@@ -16,7 +16,7 @@ export class StoriesDetailComponent implements OnInit{
     story:Story;
     loading: boolean = true;
     images: BildMetadaten[] = [];
-    constructor(private location: Location, private route:ActivatedRoute, private storyService:StoriesService) {
+    constructor(private route:ActivatedRoute, private storyService:StoriesService) {
     }
     ngOnInit(){
         this.loading = true;
@@ -32,6 +32,6 @@ export class StoriesDetailComponent implements OnInit{
             .subscribe(result => this.images = result);
     }
     goBack(): void {
-        this.location.back();
+        window.history.back();
     }
 }

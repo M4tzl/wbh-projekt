@@ -41,12 +41,19 @@ export class StoriesService implements UploadService {
     public load(id:number): Observable<Story> {
         return this.httpClient.get<Story>("/api/stories/"+id);
     }
+
     public delete(id:number): Observable<Story> {
         return this.httpClient.delete<Story>("/api/stories/"+id);
     }
+
     public update(story: Story): Observable<Story> {
         return this.httpClient.put<Story>(`/api/stories/${story.id}`, story);
     }
+
+    public create(story: Story): Observable<Story> {
+        return this.httpClient.post<Story>(`/api/stories`, story);
+    }
+
     public uploadImage(storyBild: BildMetadaten, file: File): Observable<BildMetadaten> {
         const formData: FormData = new FormData();
         formData.append('file', file);

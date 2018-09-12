@@ -18,7 +18,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 public interface InserateRepository extends JpaRepository<Inserat, Long>,
     QuerydslPredicateExecutor<Inserat>, QuerydslBinderCustomizer<QInserat> {
 
-    @Query("SELECT i FROM Inserat i WHERE NOT EXISTS(SELECT s FROM Story s WHERE s.inserat = i)")
+    @Query("SELECT i FROM Inserat i WHERE NOT EXISTS(SELECT s FROM Story s WHERE s.inserat = i AND s.draft = false)")
     Page<Inserat> findInserateWithoutStory(Pageable pageable);
 
     @Override

@@ -100,7 +100,7 @@ public class TestdataRunner implements ApplicationRunner {
             .storyschreiber(interessent.getUsername())
             .build());
 
-        storiesRepository.save(new Story(null, inserat1, interessent.getUsername(), "Story 1", "Blablubb"));
-        storiesRepository.save(new Story(null, inserat2, interessent.getUsername(), "Story 2", "Blablubbnvnv"));
+        storiesRepository.save(new Story(null, inserat1, interessent.getUsername(), "Story 1", "Blablubb", false));
+        storiesRepository.save(new Story(null, inserat2, interessent.getUsername(), "Story 2", "Blablubbnvnv", false));
     }
 }

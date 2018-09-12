@@ -15,7 +15,6 @@ export class InseratKontaktComponent implements OnInit {
     data: any = {};
 
     constructor(private inserateService: InserateService,
-                private location: Location,
                 private route: ActivatedRoute) {
     }
 
@@ -36,6 +35,6 @@ export class InseratKontaktComponent implements OnInit {
     }
 
     goBack(): void {
-        this.location.back();
+        window.history.back();
     }
 }

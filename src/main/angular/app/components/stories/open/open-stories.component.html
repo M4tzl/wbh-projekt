@@ -1,5 +1,5 @@
 <div class="container p-0 mt-2 border rounded">
-    <h4>Stories</h4>
+    <h4>Schreiben Sie eine Story über ihren neuen Hund!</h4>
 
     <div class="loading-indicator" *ngIf="dataSource.loading$ | async">
         <mat-spinner></mat-spinner>
@@ -7,11 +7,6 @@
 
     <div class="table-responsive">
         <mat-table class="table table-hover table-bordered table-striped table-sm" [dataSource]="dataSource">
-
-            <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef style="max-width:60px;">ID</mat-header-cell>
-                <mat-cell *matCellDef="let story" style="max-width:60px;">{{story.id}}</mat-cell>
-            </ng-container>
 
             <ng-container matColumnDef="titel">
                 <mat-header-cell *matHeaderCellDef>Titel</mat-header-cell>
@@ -21,8 +16,8 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let story">&nbsp;
-                    <a [routerLink]="['/stories/create']"><img src="assets/img/edit.png" alt="[Anlegen]"
-                                                                      title="Story schreiben" height="30"></a>&nbsp;
+                    <a (click)="createStory(story)"><img src="assets/img/edit.png" alt="[Anlegen]"
+                                                         title="Story schreiben" height="30"></a>&nbsp;
                 </mat-cell>
             </ng-container>
 
@@ -34,5 +29,9 @@
         <mat-paginator [length]="(dataSource.inserateResult$ | async)?.page?.totalElements"
                        [pageSize]="initialPageSize"
                        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <div class="alert alert-danger" role="alert" *ngIf="errorOccured">
+        Es ist ein technischer Fehler aufgetreten
     </div>
 </div>

@@ -17,7 +17,6 @@ export class InserateDetailComponent implements OnInit {
     images: BildMetadaten[] = [];
 
     constructor(private inserateService: InserateService,
-                private location: Location,
                 private route: ActivatedRoute) {
     }
 
@@ -37,6 +36,6 @@ export class InserateDetailComponent implements OnInit {
     }
 
     goBack(): void {
-        this.location.back();
+        window.history.back();
     }
 }
