@@ -1,13 +1,16 @@
 MUST:
 - Inseratssuche => ist serverseitig bereits vorbereitet (es kann jedes feld als filter zur url hinzugefügt werden)
-
 - Nutzerführung: Wer sieht wann was
+- thumbnails anzeigen in inseratsliste
+
+- anonymous startseite: kacheln für inseratsuche und stories
+- im menü wenn man angemeldet ist "meine inserate" und "meine stories"
 
 ADMINMODUS:
  - Rechnungsstellung
  - Lösch-Job
 
-
+- registrierungsdaten anpassen
 - Kontaktformular
 - STYLING!!!
 - IFrame-Einbindung
