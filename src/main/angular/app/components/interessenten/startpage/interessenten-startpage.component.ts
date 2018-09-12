@@ -14,5 +14,7 @@ export class InteressentenStartpageComponent {
             .subscribe(result => this.showOpenStories = result.stories.length > 0);
     }
 
-
+    get cardClasses(): string {
+        return this.showOpenStories ? 'col-sm-6 col-md-6 mb-2' : 'col-sm-12 col-md-12 mb-4';
+    }
 }
