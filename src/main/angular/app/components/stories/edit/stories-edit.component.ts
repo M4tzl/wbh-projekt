@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Story} from '../../../model/story';
 import {StoriesService} from '../../../services/stories.service';
 import {ImageUploadResult} from "../../upload/image-upload-result";
 import {BildMetadaten} from "../../../model/bild-metadaten";
 import {map, mergeMap, tap} from "rxjs/operators";
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class StoriesEditComponent implements OnInit {
 
     constructor(public storyService: StoriesService,
                 private route: ActivatedRoute,
-                private router: Router) {
+                private location: Location) {
     }
 
     private placeholderStoryBild(story) {
@@ -44,12 +45,12 @@ export class StoriesEditComponent implements OnInit {
     onSubmit(form) {
         if (form.valid) {
             this.storyService.update(this.story)
-                .subscribe(result => this.router.navigateByUrl('/stories'));
+                .subscribe(result => this.location.back());
         }
     }
 
     goBack(): void {
-        this.router.navigateByUrl('/stories');
+        this.location.back();
     }
 
     onImageUploaded(event: ImageUploadResult) {

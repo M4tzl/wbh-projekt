@@ -15,11 +15,23 @@ export class StoriesDataSource implements DataSource<Story> {
     constructor(private storiesService: StoriesService) {
     }
 
-    loadStories(filter:string,
-                sortBy:string,
-                sortDirection:string,
-                pageIndex:number,
-                pageSize:number) {
+    loadOpenStories(pageIndex: number,
+                    pageSize: number) {
+        this.loadingSubject.next(true);
+
+        this.storiesService.loadOpen(pageIndex, pageSize).pipe(
+            catchError(() => of([])),
+            finalize(() => this.loadingSubject.next(false))
+        )
+            .subscribe(result => this.storiesSubject.next(<StoriesResult> result));
+
+    }
+
+    loadStories(filter: {key: keyof Story, value: string}[],
+                sortBy: string,
+                sortDirection: string,
+                pageIndex: number,
+                pageSize: number) {
 
         this.loadingSubject.next(true);
 

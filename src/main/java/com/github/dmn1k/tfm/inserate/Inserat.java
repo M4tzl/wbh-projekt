@@ -1,9 +1,12 @@
 package com.github.dmn1k.tfm.inserate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.dmn1k.tfm.stories.Story;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -64,6 +67,11 @@ public class Inserat {
     private boolean zielgruppeErfahren;
     private boolean zielgruppeFamilien;
     private String vermittler;
+
+    @JsonIgnore
+    @NotFound
+    @OneToOne(mappedBy = "inserat")
+    private Story story;
 
     @Transient
     public boolean isAktivierbar() {

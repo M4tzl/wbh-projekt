@@ -86,10 +86,12 @@ CREATE TABLE "inserat_bild" (
 
 CREATE TABLE "story" (
     id bigserial NOT NULL,
+    inserat_id bigserial NOT NULL,
     autor varchar(255) not null,
     titel varchar(255) not null,
     beschreibung varchar(5000) null,
-    primary key (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (inserat_id) REFERENCES inserat(id)
 );
 
 CREATE TABLE "story_bild" (

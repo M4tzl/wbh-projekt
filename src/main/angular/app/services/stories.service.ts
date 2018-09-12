@@ -6,20 +6,34 @@ import {map} from "rxjs/operators";
 import {StoriesResult} from "../model/stories-result";
 import {BildMetadaten} from "../model/bild-metadaten";
 import {UploadService} from "./upload.service";
+import {Inserat} from "../model/inserat";
 
 @Injectable()
 export class StoriesService implements UploadService {
     constructor(private httpClient: HttpClient){
     }
 
-    public loadAll(titelFilter: string,
+    public loadAll(filter: {key: keyof Story, value: string}[],
                    sort: string, sortDirection: string,
                    page: number, pageSize: number): Observable<StoriesResult> {
-        return this.httpClient.get<any>(`/api/stories/search/byTitel?titel=${titelFilter}&sort=${sort},${sortDirection}&page=${page}&size=${pageSize}`)
+        const filterString = filter.map(entry => `${entry.key}=${entry.value}`)
+            .join('&');
+
+        return this.httpClient.get<any>(`/api/stories?${filterString}&sort=${sort},${sortDirection}&page=${page}&size=${pageSize}`)
             .pipe(
                 map(result => <StoriesResult> {
-                    stories: result._embedded.stories,
-                    page: result.page
+                    stories: result.content,
+                    page: result
+                })
+            );
+    }
+
+    public loadOpen(page: number, pageSize: number): Observable<StoriesResult> {
+        return this.httpClient.get<any>(`/api/stories/open?&page=${page}&size=${pageSize}`)
+            .pipe(
+                map(result => <StoriesResult> {
+                    stories: result.content,
+                    page: result
                 })
             );
     }

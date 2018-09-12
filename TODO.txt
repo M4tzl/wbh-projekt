@@ -1,7 +1,7 @@
 MUST:
-- Interessent: Übersichtsliste mit zugewiesenen Stories. Noch nicht geschriebene Stories tauchen auch als Eintrag auf.
-
 - Inseratssuche => ist serverseitig bereits vorbereitet (es kann jedes feld als filter zur url hinzugefügt werden)
+
+- Nutzerführung: Wer sieht wann was
 
 - Kontaktformular
 - STYLING!!!

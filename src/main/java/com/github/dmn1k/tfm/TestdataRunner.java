@@ -60,7 +60,7 @@ public class TestdataRunner implements ApplicationRunner {
 
         userRepository.save(interessent);
 
-        inserateRepository.save(Inserat.builder()
+        Inserat inserat1 = inserateRepository.save(Inserat.builder()
             .lastUpdate(LocalDate.of(2018, 8, 10))
             .status(InseratStatus.AKTIV)
             .geburtsdatum(LocalDate.now())
@@ -73,7 +73,7 @@ public class TestdataRunner implements ApplicationRunner {
             .storyschreiber(interessent.getUsername())
             .build());
 
-        inserateRepository.save(Inserat.builder()
+        Inserat inserat2 = inserateRepository.save(Inserat.builder()
             .status(InseratStatus.ENTWURF)
             .created(LocalDate.of(2015, 1, 1))
             .geburtsdatum(LocalDate.now())
@@ -97,15 +97,10 @@ public class TestdataRunner implements ApplicationRunner {
             .voraussichtlicheSchulterhoehe("<20cm")
             .geschlecht(Geschlecht.W)
             .vermittler(vermittler.getUsername())
+            .storyschreiber(interessent.getUsername())
             .build());
 
-        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 1", "Blablubb"));
-        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 2", "Blablubbnvnv"));
-        storiesRepository.save(new Story(null, "bla@blubb.de", "Story 3", "Blablubbvnvn"));
-        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 4", "Blablubb gdfgdh"));
-        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 5", "Blablubbvhfghd hdhdh"));
-        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 6", "Blablubb hdhdfgh"));
-        storiesRepository.save(new Story(null, "xyz@bla.de", "Story 7", "Blablubb hsdhsdh "));
-        storiesRepository.save(new Story(null, interessent.getUsername(), "Story 8", "Blablubb hdhs hs"));
+        storiesRepository.save(new Story(null, inserat1, interessent.getUsername(), "Story 1", "Blablubb"));
+        storiesRepository.save(new Story(null, inserat2, interessent.getUsername(), "Story 2", "Blablubbnvnv"));
     }
 }

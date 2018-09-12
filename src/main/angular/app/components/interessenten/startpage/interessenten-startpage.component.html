@@ -1,17 +1,33 @@
 <div class="container mt-2 pb-5">
     <div class="row ">
-    <div class="col-sm-12 col-md-12 mb-4">
+        <div class="col-sm-6 col-md-6 mb-2">
             <div class="card pointer" routerLink="/stories">
                 <div class="card-header">
-                            <h3 class="card-title">Stories</h3>
+                    <h3 class="card-title">Stories</h3>
                 </div>
                 <div class="card-body">
-                        <img class="card-img-top" src="assets/img/Yorkshire-Terrier-glasses-fluffy-wind-320x240.jpg" alt="Stories anzeigen" title="Stories anzeigen">
+                    <img class="card-img-top" src="assets/img/Yorkshire-Terrier-glasses-fluffy-wind-320x240.jpg"
+                         alt="Stories anzeigen" title="Stories anzeigen">
                 </div>
                 <div class="card-footer ">
-                        <p class="card-text">Mein neues Leben.</p>
+                    <p class="card-text">Mein neues Leben.</p>
                 </div>
-              </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 mb-2" *ngIf="showOpenStories">
+            <div class="card pointer" routerLink="/open-stories">
+                <div class="card-header">
+                    <h3 class="card-title">Schreiben Sie eine neue Story!</h3>
+                </div>
+                <div class="card-body">
+                    <img class="card-img-top" src="assets/img/Yorkshire-Terrier-glasses-fluffy-wind-320x240.jpg"
+                         alt="Stories schreiben" title="Stories schreiben">
+                </div>
+                <div class="card-footer ">
+                    <p class="card-text">Mein neues Leben.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

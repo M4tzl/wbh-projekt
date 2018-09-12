@@ -37,7 +37,7 @@ export class StoriesComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.dataSource = new StoriesDataSource(this.storiesService);
 
-        this.dataSource.loadStories('', 'titel', 'asc', 0, this.initialPageSize);
+        this.dataSource.loadStories([], 'titel', 'asc', 0, this.initialPageSize);
     }
 
     ngAfterViewInit() {
@@ -66,7 +66,9 @@ export class StoriesComponent implements OnInit, AfterViewInit {
 
     loadStoriesPage() {
         this.dataSource.loadStories(
-            this.searchField.nativeElement.value,
+            [
+                {key: "titel", value: this.searchField.nativeElement.value}
+            ],
             'titel',
             this.sort.direction,
             this.paginator.pageIndex,

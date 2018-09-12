@@ -52,6 +52,7 @@ import {SessionExpiredComponent} from "./components/allgemein/session/expired/se
 import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
 import {YesNoDialogComponent} from "./components/allgemein/yes-no-dialog/yes-no-dialog.component";
+import {OpenStoriesComponent} from "./components/stories/open/open-stories.component";
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import {YesNoDialogComponent} from "./components/allgemein/yes-no-dialog/yes-no-
         SessionExpiredComponent,
         InitiatePasswordResetComponent,
         ResetPasswordComponent,
-        YesNoDialogComponent
+        YesNoDialogComponent,
+        OpenStoriesComponent
     ],
     imports: [
         BrowserModule,

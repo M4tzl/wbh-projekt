@@ -19,6 +19,7 @@ import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anon
 import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
 import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
+import {OpenStoriesComponent} from "./components/stories/open/open-stories.component";
 
 
 export const AppRoutes: Routes = [
@@ -37,6 +38,7 @@ export const AppRoutes: Routes = [
     {path: 'inserate/edit/:id', component: InserateEditComponent},
     {path: 'inserate/create', component: InserateEditComponent},
     {path: 'stories', component: StoriesComponent},
+    {path: 'open-stories', component: OpenStoriesComponent},
     {path: 'stories/detail/:id', component: StoriesDetailComponent},
     {path: 'stories/edit/:id', component: StoriesEditComponent},
     {path: 'faq', component: FaqComponent},
