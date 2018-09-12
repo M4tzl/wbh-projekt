@@ -3,6 +3,11 @@ MUST:
 
 - Nutzerführung: Wer sieht wann was
 
+ADMINMODUS:
+ - Rechnungsstellung
+ - Lösch-Job
+
+
 - Kontaktformular
 - STYLING!!!
 - IFrame-Einbindung
