@@ -82,11 +82,14 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label font-weight-bold" for="plz">Telefon</label>
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="telefon">Telefon</label>
                         <div class="col-sm-8">
                             <input type="text" id="telefon" class="form-control" [(ngModel)]="vermittler.telefon" #telefon="ngModel"
-                                    (ngModelChange)="resetErrors()"
-                                    name="telefon"  />
+                                   (ngModelChange)="resetErrors()"
+                                   name="telefon" required />
+                            <div *ngIf="telefon.invalid && (telefon.dirty || telefon.touched)" class="alert alert-danger">
+                                Bitte eine Telefonnummer angeben.
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
