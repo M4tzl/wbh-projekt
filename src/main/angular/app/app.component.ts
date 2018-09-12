@@ -13,7 +13,10 @@ export class AppComponent {
     constructor(private securityService: SecurityService,
                 private router: Router) {
         this.securityService.currentUser
-            .subscribe(user => this.currentUser = user);
+            .subscribe(
+                user => this.currentUser = user,
+                err => this.currentUser = null
+            );
     }
 
     logout() {

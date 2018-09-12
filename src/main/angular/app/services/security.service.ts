@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable, ReplaySubject} from "rxjs";
-import {map, switchMap, tap} from "rxjs/operators";
+import {Observable, of, ReplaySubject} from "rxjs";
+import {catchError, map, switchMap, tap} from "rxjs/operators";
 import {CurrentUser} from "../model/current-user";
 import {Vermittler} from "../model/vermittler";
 import {Credentials} from "../model/credentials";
