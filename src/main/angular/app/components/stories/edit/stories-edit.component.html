@@ -5,7 +5,7 @@
                 <div class="form-group row">
                         <label class="col-sm-4 col-form-label font-weight-bold"  for="titel">Titel</label>
                         <div class="col-sm-8">
-                         <input type="text" id="titel" class="form-control" [(ngModel)]="story.titel" #titel="ngModel" name="titel" required/>
+                         <input type="text" id="titel" class="form-control" [(ngModel)]="story.titel" #titel="ngModel" name="titel" required max="50"/>
                          <div *ngIf="titel.invalid && (titel.dirty || titel.touched)" class="alert alert-danger">
                                 Titel ist ein Pflichtfeld
                             </div>
@@ -32,7 +32,7 @@
                         <app-upload class="col-sm-12 col-md-3" *ngFor="let image of images"
                                     [uploadService]="storyService"
                                     [bildMetadaten]="image"
-                                    (imageUploaded)="onImageUploaded($event)"></app-upload>
+                                    (imageUploaded)="onImageUploaded($event)" ></app-upload>
 
                 </div>
                 <div class="row">
