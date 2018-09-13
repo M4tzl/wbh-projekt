@@ -49,6 +49,7 @@ public class TestdataRunner implements ApplicationRunner {
             .strasseHsNr("Buchenstraße 6")
             .telefon("N/A")
             .username("vermittler@dominik-schlosser.de")
+            .webseite("www.tier-fair-mittlung.de")
             .build());
 
         Account interessent = Account.builder()
@@ -66,6 +67,7 @@ public class TestdataRunner implements ApplicationRunner {
             .geburtsdatum(LocalDate.now())
             .rasse("cocker spaniel")
             .rufname("Hansi")
+            .bundesland("Bayern")
             .schulterhoehe("<20cm")
             .voraussichtlicheSchulterhoehe("51-75cm")
             .geschlecht(Geschlecht.M)
@@ -79,6 +81,7 @@ public class TestdataRunner implements ApplicationRunner {
             .geburtsdatum(LocalDate.now())
             .rasse("husky")
             .rufname("Hansi 2")
+            .bundesland("Bayern")
             .schulterhoehe("51-75cm")
             .voraussichtlicheSchulterhoehe("51-75cm")
             .geschlecht(Geschlecht.M)
@@ -92,6 +95,7 @@ public class TestdataRunner implements ApplicationRunner {
             .lastUpdate(LocalDate.of(2018, 5, 2))
             .geburtsdatum(LocalDate.of(2000, 1, 5))
             .rasse("germanshepherd")
+            .bundesland("Bayern")
             .rufname("Fritz")
             .schulterhoehe("<20cm")
             .voraussichtlicheSchulterhoehe("<20cm")

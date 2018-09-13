@@ -14,7 +14,7 @@
                         <div class="col-sm-8">
                             <input type="text" id="organisation" class="form-control" [(ngModel)]="vermittler.organisation" #organisation="ngModel"
                                     (ngModelChange)="resetErrors()"
-                                    name="organisation" required />
+                                    name="organisation" required maxlength="100"/>
                             <div *ngIf="organisation.invalid && (organisation.dirty || organisation.touched)" class="alert alert-danger">
                                 Bitte eine Organisation angeben.
                             </div>
@@ -25,7 +25,7 @@
                         <div class="col-sm-8">
                             <input type="text" id="ansprechpartner" class="form-control" [(ngModel)]="vermittler.ansprechpartner" #ansprechpartner="ngModel"
                                     (ngModelChange)="resetErrors()"
-                                    name="ansprechpartner" required />
+                                    name="ansprechpartner" required  maxlength="100"/>
                             <div *ngIf="ansprechpartner.invalid && (ansprechpartner.dirty || ansprechpartner.touched)" class="alert alert-danger">
                                 Bitte den Ansprechpartner angeben.
                             </div>
@@ -36,7 +36,7 @@
                         <div class="col-sm-8">
                             <input type="text" id="strasseHsNr" class="form-control" [(ngModel)]="vermittler.strasseHsNr" #strasseHsNr="ngModel"
                                     (ngModelChange)="resetErrors()"
-                                    name="strasseHsNr" required />
+                                    name="strasseHsNr" required maxlength="100"/>
                             <div *ngIf="strasseHsNr.invalid && (strasseHsNr.dirty || strasseHsNr.touched)" class="alert alert-danger">
                                 Bitte die Strase u. HsNr angeben.
                             </div>
@@ -47,7 +47,7 @@
                         <div class="col-sm-8 col-md-2">
                             <input type="text" id="plz" class="form-control" [(ngModel)]="vermittler.plz" #plz="ngModel"
                                     (ngModelChange)="resetErrors()"
-                                    name="plz" required />
+                                    name="plz" required  pattern="[0-9]{5}" />
                             <div *ngIf="plz.invalid && (plz.dirty || plz.touched)" class="alert alert-danger">
                                 Bitte die PLZ angeben.
                             </div>
@@ -56,14 +56,14 @@
                         <div class="col-sm-8 col-md-4">
                             <input type="text" id="ort" class="form-control" [(ngModel)]="vermittler.ort" #ort="ngModel"
                                     (ngModelChange)="resetErrors()"
-                                    name="ort" required />
+                                    name="ort" required maxlength="100"/>
                             <div *ngIf="ort.invalid && (ort.dirty || ort.touched)" class="alert alert-danger">
                                 Bitte den Ort angeben.
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label font-weight-bold required" for="strasseHsNr">Bundesland</label>
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="bundesland">Bundesland</label>
                         <div class="col-sm-8">
                                 <select id="bundesland"
                                 required
@@ -86,9 +86,20 @@
                         <div class="col-sm-8">
                             <input type="text" id="telefon" class="form-control" [(ngModel)]="vermittler.telefon" #telefon="ngModel"
                                    (ngModelChange)="resetErrors()"
-                                   name="telefon" required />
+                                   name="telefon" required pattern="^[0-9-+/\ss()]*$" minlength="7" maxlength="20" />
                             <div *ngIf="telefon.invalid && (telefon.dirty || telefon.touched)" class="alert alert-danger">
                                 Bitte eine Telefonnummer angeben.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="webseite">Webseite (mit https://)</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="webseite" class="form-control" [(ngModel)]="vermittler.webseite" #webseite="ngModel"
+                                   (ngModelChange)="resetErrors()"
+                                   name="webseite" required maxlength="100" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$"/>
+                            <div *ngIf="webseite.invalid && (webseite.dirty || webseite.touched)" class="alert alert-danger">
+                                Bitte eine Webseite angeben.
                             </div>
                         </div>
                     </div>
@@ -97,7 +108,7 @@
                         <div class="col-sm-8">
                             <input type="text" id="email" class="form-control" [(ngModel)]="vermittler.username" #email="ngModel"
                                    (ngModelChange)="resetErrors()"
-                                   name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+                                   name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" maxlength="100"/>
                             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
                                 Bitte eine Email-Adresse angeben.
                             </div>
@@ -109,7 +120,7 @@
                             <input type="password" id="password" class="form-control" [(ngModel)]="data.password"
                                    validateEqual="confirmPassword" reverse="true"
                                    (ngModelChange)="resetErrors()"
-                                   #password="ngModel" name="password" required/>
+                                   #password="ngModel" name="password" required minlength="8" maxlength="100"/>
                             <div *ngIf="password.invalid && (password.dirty || password.touched)"
                                  class="alert alert-danger">
                                 <div *ngIf="password.errors.required">
@@ -126,7 +137,7 @@
                                    [(ngModel)]="data.confirmPassword" #confirmPassword="ngModel" name="confirmPassword"
                                    validateEqual="password" reverse="false"
                                    (ngModelChange)="resetErrors()"
-                                   required/>
+                                   required minlength="8" maxlength="100"/>
                             <div
                                 *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
                                 class="alert alert-danger">

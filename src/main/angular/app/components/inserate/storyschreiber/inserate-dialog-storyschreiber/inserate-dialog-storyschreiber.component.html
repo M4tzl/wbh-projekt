@@ -1,8 +1,9 @@
 <mat-dialog-content>
     <form #storyschreiberForm="ngForm" class="needs-validation" novalidate>
+            Email-Adresse angeben:
     <input type="text" id="storyschreiber" [(ngModel)]="data.storyschreiber"
            #storyschreiber="ngModel" class="form-control"
-           name="storyschreiber" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+           name="storyschreiber" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" maxlength="100"/>
     <div *ngIf="storyschreiber.invalid && (storyschreiber.dirty || storyschreiber.touched)" class="alert alert-danger">
         Bitte eine gültige Email-Adresse angeben.
     </div>
@@ -10,11 +11,11 @@
 </mat-dialog-content>
 <mat-dialog-actions>
 
-    <button class="mat-raised-button" (click)="close()">
-        Close
+    <button class="btn btn-warning" (click)="close()">
+        abbrechen
     </button>
 
-    <button class="mat-raised-button mat-primary" (click)="save(storyschreiberForm)" [disabled]="storyschreiberForm.invalid">
-        Save
+    <button class="btn btn-success" (click)="save(storyschreiberForm)" [disabled]="storyschreiberForm.invalid">
+        speichern
     </button>
 </mat-dialog-actions>

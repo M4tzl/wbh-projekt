@@ -23,4 +23,5 @@ public class Vermittler {
     private String ort;
     private String bundesland;
     private String telefon;
+    private String webseite;
 }

@@ -20,6 +20,7 @@ CREATE TABLE "vermittler" (
   ort varchar(255) not null,
   bundesland varchar(255) not null,
   telefon varchar(255) not null,
+  webseite varchar(255) not null,
   PRIMARY KEY (id),
   CONSTRAINT UC_Vermittler_Username UNIQUE (username),
   FOREIGN KEY(username) REFERENCES "account"(username)

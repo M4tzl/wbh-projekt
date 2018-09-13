@@ -128,7 +128,7 @@
                                (ngModelChange)="resetErrors()"
                                [(ngModel)]="inserat.rufname"
                                name="rufname"
-                               #rufname="ngModel"/>
+                               #rufname="ngModel" maxlength="20" />
                         <div *ngIf="rufname.invalid && (rufname.dirty || rufname.touched)" class="alert alert-danger">
                             Der Rufname ist ein Pflichtfeld
                         </div>

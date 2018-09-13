@@ -7,4 +7,5 @@ export interface Vermittler {
     ort: string;
     bundesland: string;
     telefon: string;
+    webseite: string;
 }
