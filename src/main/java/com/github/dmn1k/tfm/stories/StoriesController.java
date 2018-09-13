@@ -1,5 +1,6 @@
 package com.github.dmn1k.tfm.stories;
 
+import com.github.dmn1k.tfm.inserate.Inserat;
 import com.github.dmn1k.tfm.inserate.InserateRepository;
 import com.github.dmn1k.tfm.inserate.QInserat;
 import com.querydsl.core.types.Predicate;
@@ -39,7 +40,7 @@ public class StoriesController {
     public ResponseEntity<?> loadOpenStories(Pageable pageable) {
         User user = getLoggedInUser().orElseThrow(() -> new IllegalStateException("Anonymous access not allowed"));
 
-        Page<StoryDto> storyDtos = inserateRepository.findInserateWithoutStory(pageable)
+        Page<StoryDto> storyDtos = inserateRepository.findInserateWithoutStory(user.getUsername(), pageable)
             .map(i -> i.getStory() == null ? Story.builder()
                 .inserat(i)
                 .autor(user.getUsername())
@@ -86,12 +87,18 @@ public class StoriesController {
             throw new IllegalArgumentException("Eine Story muss an einem Inserat hängen!");
         }
 
+        Inserat inserat = inserateRepository.findById(dto.getInseratId()).orElseThrow(() -> new IllegalStateException("Inserat existiert nicht"));
+
+        if(!user.getUsername().equals(inserat.getStoryschreiber())){
+            throw new IllegalStateException("Keine Berechtigung Story für Inserat zu schreiben!");
+        }
+
         Story story = Story.builder()
             .id(id)
             .titel(dto.getTitel())
             .beschreibung(dto.getBeschreibung())
             .autor(user.getUsername())
-            .inserat(inserateRepository.getOne(dto.getInseratId()))
+            .inserat(inserat)
             .draft(dto.isDraft())
             .build();
 
