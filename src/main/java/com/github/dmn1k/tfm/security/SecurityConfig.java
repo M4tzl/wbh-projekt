@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/*.woff2",
                 "/api/user", "/api/logout",
                 "/api/password/reset/**",
+                "/api/stories/**", "/api/inserate/**",
                 "/api/register/**").permitAll()
             .anyRequest().authenticated()
             .and().csrf()
