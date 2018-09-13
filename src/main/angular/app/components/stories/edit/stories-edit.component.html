@@ -3,44 +3,52 @@
         <div class="card">
             <div class="card-header">
                 <div class="form-group row">
-                        <label class="col-sm-4 col-form-label font-weight-bold"  for="titel">Titel</label>
-                        <div class="col-sm-8">
-                         <input type="text" id="titel" class="form-control" [(ngModel)]="story.titel" #titel="ngModel" name="titel" required max="50"/>
-                         <div *ngIf="titel.invalid && (titel.dirty || titel.touched)" class="alert alert-danger">
-                                Titel ist ein Pflichtfeld
+                    <label class="col-sm-4 col-form-label font-weight-bold" for="titel">Titel</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="titel" class="form-control" [(ngModel)]="story.titel" #titel="ngModel"
+                               name="titel" required max="50"/>
+                        <div *ngIf="titel.invalid && (titel.dirty || titel.touched)" class="alert alert-danger">
+                            <div *ngIf="titel.errors.required">
+                                Bitte einen Titel angeben.
+                            </div>
+                            <div *ngIf="titel.errors.maxlength">
+                                Der Titel ist zu lang.
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
             <div class="card-body">
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label font-weight-bold"  for="beschreibung">Beschreibung</label>
-                        <div class="col-sm-8">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label font-weight-bold" for="beschreibung">Beschreibung</label>
+                    <div class="col-sm-8">
                             <textarea
                                 id="beschreibung"
                                 class="form-control"
                                 [(ngModel)]="story.beschreibung" #beschreibung="ngModel"
                                 name="beschreibung" rows="8" required></textarea>
-                                <div *ngIf="beschreibung.invalid && (beschreibung.dirty || beschreibung.touched)" class="alert alert-danger">
-                                        Beschreibung ist ein Pflichtfeld
-                                </div>
-                         </div>
+                        <div *ngIf="beschreibung.invalid && (beschreibung.dirty || beschreibung.touched)"
+                             class="alert alert-danger">
+                            Beschreibung ist ein Pflichtfeld
+                        </div>
                     </div>
+                </div>
             </div>
             <div class="card-footer">
                 <div class="row">
-                        <app-upload class="col-sm-12 col-md-3" *ngFor="let image of images"
-                                    [uploadService]="storyService"
-                                    [bildMetadaten]="image"
-                                    (imageUploaded)="onImageUploaded($event)" ></app-upload>
+                    <app-upload class="col-sm-12 col-md-3" *ngFor="let image of images"
+                                [uploadService]="storyService"
+                                [bildMetadaten]="image"
+                                (imageUploaded)="onImageUploaded($event)"></app-upload>
 
                 </div>
                 <div class="row">
                     <div class="col-6 text-left">
-                                <button class="btn btn-warning" (click)="goBack()">zurück</button>
+                        <button class="btn btn-warning" (click)="goBack()">zurück</button>
                     </div>
                     <div class="col-6 text-right">
-                            <button type="submit" class="btn btn-success" [disabled]="!storyForm.form.valid">Speichern</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!storyForm.form.valid">Speichern
+                        </button>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,12 @@
                                (ngModelChange)="resetErrors()"
                                name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" maxlength="100"/>
                         <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-                            Bitte eine Email-Adresse angeben.
+                            <div *ngIf="email.errors.required">
+                                Bitte eine Email-Adresse angeben
+                            </div>
+                            <div *ngIf="email.errors.maxlength">
+                                Die Adresse ist zu lang
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -32,6 +37,12 @@
                             <div *ngIf="password.errors.required">
                                 Passwort ist ein Pflichtfeld
                             </div>
+                            <div *ngIf="password.errors.minlength">
+                                Das Passwort muss mindestens 8 Zeichen lang sein
+                            </div>
+                            <div *ngIf="password.errors.maxlength">
+                                Das Passwort ist zu lang
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,7 +54,7 @@
                                [(ngModel)]="data.confirmPassword" #confirmPassword="ngModel" name="confirmPassword"
                                validateEqual="password" reverse="false"
                                (ngModelChange)="resetErrors()"
-                               required minlength="8" maxlength="100" />
+                               required />
                         <div
                             *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
                             class="alert alert-danger">

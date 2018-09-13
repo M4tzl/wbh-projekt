@@ -7,9 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.util.EnumSet;
 
@@ -34,6 +36,7 @@ public class Inserat {
     @Enumerated(EnumType.STRING)
     private InseratStatus status;
 
+    @Length(max = 20)
     private String rufname;
     private String rassenFreitext;
 
@@ -42,6 +45,7 @@ public class Inserat {
     @Enumerated(EnumType.STRING)
     private Geschlecht geschlecht;
 
+    @Past
     private LocalDate geburtsdatum;
 
     private String kurzbeschreibung;
@@ -49,6 +53,7 @@ public class Inserat {
     private String schulterhoehe;
     private String voraussichtlicheSchulterhoehe;
 
+    @Length(max = 100)
     @Email
     private String storyschreiber;
 

@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -30,9 +31,10 @@ public class Story {
     @Email
     private String autor;
 
+    @Length(max = 50)
     private String titel;
-    private String beschreibung;
 
+    private String beschreibung;
     private boolean draft;
 
     public StoryDto toDto(){

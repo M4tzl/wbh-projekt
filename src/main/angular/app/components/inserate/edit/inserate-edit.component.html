@@ -130,7 +130,12 @@
                                name="rufname"
                                #rufname="ngModel" maxlength="20" />
                         <div *ngIf="rufname.invalid && (rufname.dirty || rufname.touched)" class="alert alert-danger">
-                            Der Rufname ist ein Pflichtfeld
+                            <div *ngIf="rufname.errors.required">
+                                Der Rufname ist ein Pflichtfeld
+                            </div>
+                            <div *ngIf="rufname.errors.maxlength">
+                                Der Rufname ist zu lang
+                            </div>
                         </div>
                     </div>
                 </div>
