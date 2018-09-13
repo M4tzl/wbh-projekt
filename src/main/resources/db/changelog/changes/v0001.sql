@@ -72,6 +72,7 @@ CREATE TABLE "inserat" (
   zielgruppe_garten boolean not null,
   zielgruppe_erfahren boolean not null,
   zielgruppe_familien boolean not null,
+  bundesland varchar(255) not null,
   PRIMARY KEY (id),
   FOREIGN KEY (vermittler) REFERENCES "account"(username)
 );

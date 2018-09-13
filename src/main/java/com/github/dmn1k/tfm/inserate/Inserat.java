@@ -37,6 +37,8 @@ public class Inserat {
     private String rufname;
     private String rassenFreitext;
 
+    private String bundesland;
+
     @Enumerated(EnumType.STRING)
     private Geschlecht geschlecht;
 

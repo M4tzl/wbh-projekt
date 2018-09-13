@@ -5,8 +5,10 @@ import {Inserat} from "../../../model/inserat";
 import {Observable} from "rxjs";
 import {BreedService} from "../../../services/breed.service";
 import {BildMetadaten} from "../../../model/bild-metadaten";
-import {map, mergeMap, tap} from "rxjs/operators";
+import {map, mergeMap, switchMap, tap} from "rxjs/operators";
 import {ImageUploadResult} from "../../upload/image-upload-result";
+import {SecurityService} from "../../../services/security.service";
+import {update} from "../../../infrastructure/immutable-update";
 
 // TODO: Die Logik in dieser Komponente ist mittlerweile leicht verworren. Tests und ein Refactoring wären gut...
 @Component({
@@ -18,8 +20,10 @@ export class InserateEditComponent implements OnInit {
     inserat: Inserat = <Inserat>{};
     rassen: Observable<string[]>;
     images: BildMetadaten[] = [];
+    errorOccured: boolean;
 
     constructor(public inserateService: InserateService,
+                private securityService: SecurityService,
                 private breedService: BreedService,
                 private route: ActivatedRoute,
                 private router: Router) {
@@ -46,8 +50,10 @@ export class InserateEditComponent implements OnInit {
 
     onWeiter(form) {
         if (form.valid) {
-            this.inserateService.save(this.inserat)
+            this.securityService.loadVermittler()
                 .pipe(
+                    map(vermittler => update(this.inserat, {bundesland: vermittler.bundesland})),
+                    switchMap(inserat => this.inserateService.save(inserat)),
                     tap(inserat => this.inserat = inserat),
                     tap(inserat => {
                         if (this.images.length === 0) {
@@ -61,8 +67,13 @@ export class InserateEditComponent implements OnInit {
                         ...this.route.snapshot.queryParams,
                         wizard: '2',
                     }
-                }));
+                }),
+                    err => this.errorOccured = true);
         }
+    }
+
+    resetErrors(): void {
+        this.errorOccured = false;
     }
 
     private placeholderInseratBild(inserat) {

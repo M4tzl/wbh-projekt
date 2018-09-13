@@ -4,22 +4,25 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-12">
-                        <h3>Inserat {{inserat?.id ? 'editieren' : 'anlegen' }} {{inserat?.rufname ? '"' + inserat.rufname +
-                                '"' : ''}}</h3>
+                        <h3>Inserat {{inserat?.id ? 'editieren' : 'anlegen' }} {{inserat?.rufname ? '"' +
+                            inserat.rufname +
+                            '"' : ''}}</h3>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-md-3 text-left col-form-label control-label required" for="rasse">Rasse:</label>
+                    <label class="col-sm-4 col-md-3 text-left col-form-label control-label required"
+                           for="rasse">Rasse:</label>
                     <div class="col-sm-8 col-md-3 text-left">
                         <select id="rasse"
-                            required
-                            class="form-control"
-                            [(ngModel)]="inserat.rasse" name="rasse"
-                            #rasse="ngModel">
+                                required
+                                class="form-control"
+                                [(ngModel)]="inserat.rasse" name="rasse"
+                                (ngModelChange)="resetErrors()"
+                                #rasse="ngModel">
                             <option *ngFor="let rasse of rassen | async"
-                                [value]="rasse" [selected]="rasse === inserat.rasse">
+                                    [value]="rasse" [selected]="rasse === inserat.rasse">
                                 {{rasse}}
                             </option>
                         </select>
@@ -27,46 +30,54 @@
                             Rasse ist ein Pflichtfeld
                         </div>
                     </div>
-                    <label class="col-sm-4 col-md-3 text-left col-form-label control-label" for="rassenFreitext">Zusatz (Rasse):</label>
+                    <label class="col-sm-4 col-md-3 text-left col-form-label control-label" for="rassenFreitext">Zusatz
+                        (Rasse):</label>
                     <div class="col-sm-8 col-md-3 text-left">
                         <input type="text"
-                            id="rassenFreitext"
-                            class="form-control"
-                            [(ngModel)]="inserat.rassenFreitext"
-                            name="rassenFreitext"/>
+                               id="rassenFreitext"
+                               class="form-control"
+                               (ngModelChange)="resetErrors()"
+                               [(ngModel)]="inserat.rassenFreitext"
+                               name="rassenFreitext"/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-md-3 text-left col-form-label control-label required" for="groesseAktuell" >Größe (aktuell):</label>
+                    <label class="col-sm-4 col-md-3 text-left col-form-label control-label required"
+                           for="groesseAktuell">Größe (aktuell):</label>
                     <div class="col-sm-8 col-md-3 text-left">
                         <select id="groesseAktuell"
-                            required
-                            class="form-control"
-                            [(ngModel)]="inserat.schulterhoehe" name="groesseAktuell"
-                            #groesseAktuell="ngModel">
+                                required
+                                class="form-control"
+                                (ngModelChange)="resetErrors()"
+                                [(ngModel)]="inserat.schulterhoehe" name="groesseAktuell"
+                                #groesseAktuell="ngModel">
                             <option *ngFor="let schulterhoehe of schulterhoehen"
-                                [value]="schulterhoehe" [selected]="schulterhoehe === inserat.schulterhoehe">
-                            {{schulterhoehe}}
+                                    [value]="schulterhoehe" [selected]="schulterhoehe === inserat.schulterhoehe">
+                                {{schulterhoehe}}
                             </option>
                         </select>
-                        <div *ngIf="groesseAktuell.invalid && (groesseAktuell.dirty || groesseAktuell.touched)" class="alert alert-danger">
+                        <div *ngIf="groesseAktuell.invalid && (groesseAktuell.dirty || groesseAktuell.touched)"
+                             class="alert alert-danger">
                             Die aktuelle Größe ist ein Pflichtfeld
                         </div>
                     </div>
-                    <label class="col-sm-4 col-md-3 text-left col-form-label control-label required" for="groesseVorauss" >Größe (vorauss):</label>
+                    <label class="col-sm-4 col-md-3 text-left col-form-label control-label required"
+                           for="groesseVorauss">Größe (vorauss):</label>
                     <div class="col-sm-8 col-md-3 text-left">
                         <select id="groesseVorauss"
-                            required
-                            class="form-control"
-                            [(ngModel)]="inserat.voraussichtlicheSchulterhoehe" name="groesseVorauss"
-                            #groesseVorauss="ngModel">
+                                required
+                                class="form-control"
+                                (ngModelChange)="resetErrors()"
+                                [(ngModel)]="inserat.voraussichtlicheSchulterhoehe" name="groesseVorauss"
+                                #groesseVorauss="ngModel">
                             <option *ngFor="let schulterhoehe of schulterhoehen"
-                                [value]="schulterhoehe"
-                                [selected]="schulterhoehe === inserat.voraussichtlicheSchulterhoehe">
-                            {{schulterhoehe}}
+                                    [value]="schulterhoehe"
+                                    [selected]="schulterhoehe === inserat.voraussichtlicheSchulterhoehe">
+                                {{schulterhoehe}}
                             </option>
                         </select>
-                        <div *ngIf="groesseVorauss.invalid && (groesseVorauss.dirty || groesseVorauss.touched)" class="alert alert-danger">
+                        <div *ngIf="groesseVorauss.invalid && (groesseVorauss.dirty || groesseVorauss.touched)"
+                             class="alert alert-danger">
                             Die voraussichtliche Größe ist ein Pflichtfeld
                         </div>
                     </div>
@@ -75,30 +86,34 @@
                     <label class="col-sm-4 col-md-3 text-left col-form-label control-label required" for="gebDatum">Geburtsdatum</label>
                     <div class="col-sm-8 col-md-3 text-left">
                         <input type="text"
-                            required
-                            ngbDatepicker
-                            id="gebDatum"
-                            class="form-control"
-                            [(ngModel)]="inserat.geburtsdatum"
-                            name="gebDatum"
-                            #gebDatum="ngModel"
-                            #gebDatumDatepicker="ngbDatepicker"
-                            (click)="gebDatumDatepicker.toggle()"/>
-                        <div *ngIf="gebDatum.invalid && (gebDatum.dirty || gebDatum.touched)" class="alert alert-danger">
+                               required
+                               ngbDatepicker
+                               id="gebDatum"
+                               class="form-control"
+                               (ngModelChange)="resetErrors()"
+                               [(ngModel)]="inserat.geburtsdatum"
+                               name="gebDatum"
+                               #gebDatum="ngModel"
+                               #gebDatumDatepicker="ngbDatepicker"
+                               (click)="gebDatumDatepicker.toggle()"/>
+                        <div *ngIf="gebDatum.invalid && (gebDatum.dirty || gebDatum.touched)"
+                             class="alert alert-danger">
                             Das Geburtsdatum ist ein Pflichtfeld
                         </div>
                     </div>
                     <label class="col-sm-4 col-md-3 text-left col-form-label control-label required" for="geschlecht">Geschlecht</label>
                     <div class="col-sm-8 col-md-3 text-left">
                         <select id="geschlecht"
-                            required
-                            class="form-control"
-                            [(ngModel)]="inserat.geschlecht" name="geschlecht"
-                            #geschlecht="ngModel">
+                                required
+                                class="form-control"
+                                (ngModelChange)="resetErrors()"
+                                [(ngModel)]="inserat.geschlecht" name="geschlecht"
+                                #geschlecht="ngModel">
                             <option value="M" [selected]="'M' === inserat.geschlecht">männlich</option>
                             <option value="W" [selected]="'W' === inserat.geschlecht">weiblich</option>
                         </select>
-                        <div *ngIf="geschlecht.invalid && (geschlecht.dirty || geschlecht.touched)" class="alert alert-danger">
+                        <div *ngIf="geschlecht.invalid && (geschlecht.dirty || geschlecht.touched)"
+                             class="alert alert-danger">
                             Geschlecht ist ein Pflichtfeld
                         </div>
                     </div>
@@ -107,12 +122,13 @@
                     <label class="col-sm-4 col-md-3 text-left col-form-label control-label required" for="rufname">Rufname</label>
                     <div class="col-sm-8 col-md-3 text-left">
                         <input type="text"
-                            required
-                            id="rufname"
-                            class="form-control"
-                            [(ngModel)]="inserat.rufname"
-                            name="rufname"
-                            #rufname="ngModel"/>
+                               required
+                               id="rufname"
+                               class="form-control"
+                               (ngModelChange)="resetErrors()"
+                               [(ngModel)]="inserat.rufname"
+                               name="rufname"
+                               #rufname="ngModel"/>
                         <div *ngIf="rufname.invalid && (rufname.dirty || rufname.touched)" class="alert alert-danger">
                             Der Rufname ist ein Pflichtfeld
                         </div>
@@ -123,84 +139,111 @@
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.geimpft" name="geimpft" id="geimpft"/>&nbsp;
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.geimpft" name="geimpft" id="geimpft"/>&nbsp;
                         <label for="geimpft" class="{{inserat?.geimpft ? 'font-weight-bold' : 'font-weight-light'}}">geimpft</label>
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.gechipt" name="gechipt" id="gechipt"/>&nbsp;
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.gechipt" name="gechipt" id="gechipt"/>&nbsp;
                         <label for="gechipt" class="{{inserat?.gechipt ? 'font-weight-bold' : 'font-weight-light'}}">gechipt</label>
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.kastriert" name="kastriert" id="kastriert"/>&nbsp;
-                        <label for="kastriert" class="{{inserat?.kastriert ? 'font-weight-bold' : 'font-weight-light'}}">kastriert</label>
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.kastriert" name="kastriert" id="kastriert"/>&nbsp;
+                        <label for="kastriert"
+                               class="{{inserat?.kastriert ? 'font-weight-bold' : 'font-weight-light'}}">kastriert</label>
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.stubenrein" name="stubenrein" id="stubenrein"/>&nbsp;
-                        <label for="stubenrein" class="{{inserat?.stubenrein ? 'font-weight-bold' : 'font-weight-light'}}">stubenrein</label>
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.stubenrein" name="stubenrein" id="stubenrein"/>&nbsp;
+                        <label for="stubenrein"
+                               class="{{inserat?.stubenrein ? 'font-weight-bold' : 'font-weight-light'}}">stubenrein</label>
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.leinenfuehrigkeit" name="leinenfuehrigkeit" id="leinenfuehrigkeit"/>&nbsp;
-                        <label for="leinenfuehrigkeit" class="{{inserat?.leinenfuehrigkeit ? 'font-weight-bold' : 'font-weight-light'}}">leinenführig</label>
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.leinenfuehrigkeit" name="leinenfuehrigkeit"
+                               id="leinenfuehrigkeit"/>&nbsp;
+                        <label for="leinenfuehrigkeit"
+                               class="{{inserat?.leinenfuehrigkeit ? 'font-weight-bold' : 'font-weight-light'}}">leinenführig</label>
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.zutraulich" name="zutraulich" id="zutraulich"/>&nbsp;
-                        <label for="zutraulich" class="{{inserat?.zutraulich ? 'font-weight-bold' : 'font-weight-light'}}">zutraulich</label>
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.zutraulich" name="zutraulich" id="zutraulich"/>&nbsp;
+                        <label for="zutraulich"
+                               class="{{inserat?.zutraulich ? 'font-weight-bold' : 'font-weight-light'}}">zutraulich</label>
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.autofahren" name="autofahren" id="autofahren"/>&nbsp;
-                        <label for="autofahren" class="{{inserat?.autofahren ? 'font-weight-bold' : 'font-weight-light'}}">Auto fahren</label>
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.autofahren" name="autofahren" id="autofahren"/>&nbsp;
+                        <label for="autofahren"
+                               class="{{inserat?.autofahren ? 'font-weight-bold' : 'font-weight-light'}}">Auto
+                            fahren</label>
                     </div>
                 </div>
                 <div class="row mb-2">
-                        <div class="col-12 textwithline"><span>verträgt sich mit</span></div>
-                    </div>
-                <div class="row">
-                    <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.vertraeglichkeitKatzen" name="vertraeglichkeitKatzen" id="vertraeglichkeitKatzen" />&nbsp;
-                        <label for="vertraeglichkeitKatzen" class="{{inserat?.vertraeglichkeitKatzen ? 'font-weight-bold' : 'font-weight-light'}}">Katzen</label>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.vertraeglichkeitHunde" name="vertraeglichkeitHunde" id="vertraeglichkeitHunde" />&nbsp;
-                        <label for="vertraeglichkeitHunde" class="{{inserat?.vertraeglichkeitHunde ? 'font-weight-bold' : 'font-weight-light'}}">anderen Hunden</label>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.vertraeglichkeitKinder" name="vertraeglichkeitKinder" id="vertraeglichkeitKinder" />&nbsp;
-                        <label for="vertraeglichkeitKinder" class="{{inserat?.vertraeglichkeitKinder ? 'font-weight-bold' : 'font-weight-light'}}">Kindern</label>
-                    </div>
-                 </div>
-                 <div class="row mb-2">
-                        <div class="col-12 textwithline"><span>Zielgruppe</span></div>
+                    <div class="col-12 textwithline"><span>verträgt sich mit</span></div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                            <input type="checkbox" [(ngModel)]="inserat.zielgruppeAnfaenger" name="zielgruppeAnfaenger" id="zielgruppeAnfaenger" />&nbsp;
-                        <label for="zielgruppeAnfaenger" class="{{inserat?.zielgruppeAnfaenger ? 'font-weight-bold' : 'font-weight-light'}}">Anfänger</label>
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.vertraeglichkeitKatzen"
+                               name="vertraeglichkeitKatzen" id="vertraeglichkeitKatzen"/>&nbsp;
+                        <label for="vertraeglichkeitKatzen"
+                               class="{{inserat?.vertraeglichkeitKatzen ? 'font-weight-bold' : 'font-weight-light'}}">Katzen</label>
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.zielgruppeErfahren" name="zielgruppeErfahren" id="zielgruppeErfahren" />&nbsp;
-                        <label for="zielgruppeErfahren" class="{{inserat?.zielgruppeErfahren ? 'font-weight-bold' : 'font-weight-light'}}">Erfahrene</label>
-                     </div>
-                    <div class="col-12 col-sm-6 col-md-3 text-left">
-                            <input type="checkbox" [(ngModel)]="inserat.zielgruppeSenioren" name="zielgruppeSenioren" id="zielgruppeSenioren" />&nbsp;
-                        <label for="zielgruppeSenioren" class="{{inserat?.zielgruppeSenioren ? 'font-weight-bold' : 'font-weight-light'}}">Senioren</label>
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.vertraeglichkeitHunde" name="vertraeglichkeitHunde"
+                               id="vertraeglichkeitHunde"/>&nbsp;
+                        <label for="vertraeglichkeitHunde"
+                               class="{{inserat?.vertraeglichkeitHunde ? 'font-weight-bold' : 'font-weight-light'}}">anderen
+                            Hunden</label>
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                            <input type="checkbox" [(ngModel)]="inserat.zielgruppeFamilien" name="zielgruppeFamilien" id="zielgruppeFamilien" />&nbsp;
-                        <label for="zielgruppeFamilien" class="{{inserat?.zielgruppeFamilien ? 'font-weight-bold' : 'font-weight-light'}}">Familien</label>
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.vertraeglichkeitKinder"
+                               name="vertraeglichkeitKinder" id="vertraeglichkeitKinder"/>&nbsp;
+                        <label for="vertraeglichkeitKinder"
+                               class="{{inserat?.vertraeglichkeitKinder ? 'font-weight-bold' : 'font-weight-light'}}">Kindern</label>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12 textwithline"><span>Zielgruppe</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-3 text-left">
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.zielgruppeAnfaenger" name="zielgruppeAnfaenger"
+                               id="zielgruppeAnfaenger"/>&nbsp;
+                        <label for="zielgruppeAnfaenger"
+                               class="{{inserat?.zielgruppeAnfaenger ? 'font-weight-bold' : 'font-weight-light'}}">Anfänger</label>
                     </div>
                     <div class="col-12 col-sm-6 col-md-3 text-left">
-                        <input type="checkbox" [(ngModel)]="inserat.zielgruppeGarten" name="zielgruppeGarten" id="zielgruppeGarten" />&nbsp;
-                        <label for="zielgruppeGarten" class="{{inserat?.zielgruppeGarten ? 'font-weight-bold' : 'font-weight-light'}}">Gartenbesitzer</label>
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.zielgruppeErfahren" name="zielgruppeErfahren"
+                               id="zielgruppeErfahren"/>&nbsp;
+                        <label for="zielgruppeErfahren"
+                               class="{{inserat?.zielgruppeErfahren ? 'font-weight-bold' : 'font-weight-light'}}">Erfahrene</label>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 text-left">
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.zielgruppeSenioren" name="zielgruppeSenioren"
+                               id="zielgruppeSenioren"/>&nbsp;
+                        <label for="zielgruppeSenioren"
+                               class="{{inserat?.zielgruppeSenioren ? 'font-weight-bold' : 'font-weight-light'}}">Senioren</label>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 text-left">
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.zielgruppeFamilien" name="zielgruppeFamilien"
+                               id="zielgruppeFamilien"/>&nbsp;
+                        <label for="zielgruppeFamilien"
+                               class="{{inserat?.zielgruppeFamilien ? 'font-weight-bold' : 'font-weight-light'}}">Familien</label>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 text-left">
+                        <input type="checkbox" (ngModelChange)="resetErrors()" [(ngModel)]="inserat.zielgruppeGarten" name="zielgruppeGarten"
+                               id="zielgruppeGarten"/>&nbsp;
+                        <label for="zielgruppeGarten"
+                               class="{{inserat?.zielgruppeGarten ? 'font-weight-bold' : 'font-weight-light'}}">Gartenbesitzer</label>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="row">
                     <div class="col-6 text-left">
-                        <button class="btn btn-warning" routerLink="/inserate">{{inserat?.id ? 'Abbrechen' : 'Verwerfen' }}</button>
+                        <button class="btn btn-warning" routerLink="/inserate">{{inserat?.id ? 'Abbrechen' : 'Verwerfen'
+                            }}
+                        </button>
                     </div>
                     <div class="col-6 text-right">
-                        <button type="submit" class="btn btn-success" [disabled]="inseratForm.invalid">Fortfahren</button>
+                        <button type="submit" class="btn btn-success" [disabled]="inseratForm.invalid">Fortfahren
+                        </button>
                     </div>
                 </div>
             </div>
@@ -214,14 +257,15 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-12">
-                        <h3>Inserat {{inserat?.id ? 'editieren' : 'anlegen' }} {{inserat?.rufname ? '"' + inserat.rufname +
-                                '"' : ''}}</h3>
+                        <h3>Inserat {{inserat?.id ? 'editieren' : 'anlegen' }} {{inserat?.rufname ? '"' +
+                            inserat.rufname +
+                            '"' : ''}}</h3>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label"  for="beschreibung">Beschreibung:</label>
+                    <label class="col-sm-4 col-form-label" for="beschreibung">Beschreibung:</label>
                     <div class="col-sm-8">
                         <textarea
                             id="beschreibung"
@@ -244,10 +288,16 @@
                         <button class="btn btn-warning" (click)="backToWizardOne()">Zurück</button>
                     </div>
                     <div class="col-6 text-right">
-                        <button type="submit" class="btn btn-success" [disabled]="inseratForm2.invalid">Veröffentlichen</button>
+                        <button type="submit" class="btn btn-success" [disabled]="inseratForm2.invalid">
+                            Veröffentlichen
+                        </button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="errorOccured">
+    Es ist ein technischer Fehler aufgetreten!
 </div>

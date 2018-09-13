@@ -32,5 +32,6 @@ export interface Inserat extends InseratUebersicht {
     zielgruppeFamilien:boolean;
 
     storyschreiber: string;
+    bundesland: string;
 
 }

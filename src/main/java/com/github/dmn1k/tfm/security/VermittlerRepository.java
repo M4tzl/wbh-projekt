@@ -6,4 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(exported = false)
 public interface VermittlerRepository extends JpaRepository<Vermittler, Long> {
+    Vermittler findByUsername(@Param("username") String username);
 }

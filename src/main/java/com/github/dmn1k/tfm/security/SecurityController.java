@@ -42,6 +42,19 @@ public class SecurityController {
         return ResponseEntity.ok(account);
     }
 
+    @GetMapping("/api/user/vermittler")
+    public ResponseEntity<?> currentVermittler() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof User)) {
+            throw new IllegalStateException("Nuter ist kein Vermittler!");
+        }
+
+        User springUser = (User) principal;
+        Vermittler vermittler = vermittlerRepository.findByUsername(springUser.getUsername());
+
+        return ResponseEntity.ok(vermittler);
+    }
+
     @PostMapping("/api/register/interessent")
     public ResponseEntity<?> register(@RequestBody AccountCredentials regData,
                                       HttpServletRequest request) {
