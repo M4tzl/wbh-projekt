@@ -9,6 +9,7 @@ import {map, mergeMap, switchMap, tap} from "rxjs/operators";
 import {ImageUploadResult} from "../../upload/image-upload-result";
 import {SecurityService} from "../../../services/security.service";
 import {update} from "../../../infrastructure/immutable-update";
+import {Constants} from "../../../model/constants";
 
 // TODO: Die Logik in dieser Komponente ist mittlerweile leicht verworren. Tests und ein Refactoring wären gut...
 @Component({
@@ -21,6 +22,7 @@ export class InserateEditComponent implements OnInit {
     rassen: Observable<string[]>;
     images: BildMetadaten[] = [];
     errorOccured: boolean;
+    constants: Constants = new Constants();
 
     constructor(public inserateService: InserateService,
                 private securityService: SecurityService,
@@ -89,17 +91,6 @@ export class InserateEditComponent implements OnInit {
         return this.route.snapshot.queryParams['wizard'] || 1;
     }
 
-    // TODO: auslagern
-    get schulterhoehen(): string[] {
-        return [
-            '<20cm',
-            '21-35cm',
-            '51-75cm',
-            '76-85cm',
-            '86-100cm',
-            '>100cm',
-        ];
-    }
 
     backToWizardOne() {
         this.router.navigate([], {

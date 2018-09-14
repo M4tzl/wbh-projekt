@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {SecurityService} from '../../../services/security.service';
 import {Router} from '@angular/router';
 import {Vermittler} from "../../../model/vermittler";
+import {Constants} from "../../../model/constants";
 
 @Component({
     selector: 'app-vermittler-registry',
@@ -12,6 +13,7 @@ export class VermittlerRegisterComponent {
     data: any = {};
     vermittler: Vermittler = <Vermittler>{};
     registrationFailed: boolean = false;
+    constants: Constants = new Constants();
 
     constructor(private securityService: SecurityService,
                 private router: Router) {
@@ -30,25 +32,5 @@ export class VermittlerRegisterComponent {
 
     resetErrors(): void {
         this.registrationFailed = false;
-    }
-
-    get bundeslaender(): string[] {
-        return [
-            'Baden-Württemberg',
-            'Bayern',
-            'Berlin',
-            'Brandenburg',
-            'Bremen',
-            'Hamburg',
-            'Hessen',
-            'Mecklenburg-Vorpommern',
-            'Niedersachsen',
-            'Nordrhein-Westfalen',
-            'Rheinland-Pfalz',
-            'Saarland',
-            'Sachsen',
-            'Sachsen-Anhalt',
-            'Schleswig-Holstein',
-            'Thüringen']
     }
 }

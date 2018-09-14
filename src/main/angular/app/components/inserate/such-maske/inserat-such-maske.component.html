@@ -15,7 +15,7 @@
                     <select id="rasse"
                             class="form-control"
                             [(ngModel)]="filter.rasse" name="rasse">
-                        <option value="beliebig">beliebig</option>
+                        <option value="beliebig" selected>beliebig</option>
                         <option *ngFor="let rasse of rassen | async" [value]="rasse">
                             {{rasse}}
                         </option>
@@ -36,7 +36,8 @@
                     <select id="groesseAktuell"
                             class="form-control"
                             [(ngModel)]="filter.schulterhoehe" name="groesseAktuell">
-                        <option *ngFor="let schulterhoehe of schulterhoehen" [value]="schulterhoehe">
+                        <option value="beliebig">beliebig</option>
+                        <option *ngFor="let schulterhoehe of constants.schulterhoehen" [value]="schulterhoehe">
                             {{schulterhoehe}}
                         </option>
                     </select>
@@ -47,7 +48,8 @@
                     <select id="groesseVorauss"
                             class="form-control"
                             [(ngModel)]="filter.voraussichtlicheSchulterhoehe" name="groesseVorauss">
-                        <option *ngFor="let schulterhoehe of schulterhoehen" [value]="schulterhoehe">
+                        <option value="beliebig">beliebig</option>
+                        <option *ngFor="let schulterhoehe of constants.schulterhoehen" [value]="schulterhoehe">
                             {{schulterhoehe}}
                         </option>
                     </select>
@@ -60,7 +62,8 @@
                     <select id="alterVon"
                             class="form-control"
                             [(ngModel)]="filter.alterVon" name="alterVon">
-                        <option *ngFor="let alter of altersstufen" [value]="alter.value">
+                        <option value="0">beliebig</option>
+                        <option *ngFor="let alter of constants.altersstufen" [value]="alter.value">
                             {{alter.displayName}}
                         </option>
                     </select>
@@ -71,7 +74,8 @@
                     <select id="alterBis"
                             class="form-control"
                             [(ngModel)]="filter.alterBis" name="alterBis">
-                        <option *ngFor="let alter of altersstufen" [value]="alter.value">
+                        <option value="{{ 50 * 365 }}">beliebig</option>
+                        <option *ngFor="let alter of constants.altersstufen" [value]="alter.value">
                             {{alter.displayName}}
                         </option>
                     </select>
@@ -84,7 +88,8 @@
                     <select id="bundesland"
                             class="form-control"
                             [(ngModel)]="filter.bundesland" name="bundesland">
-                        <option *ngFor="let bundesland of bundeslaender" [value]="bundesland">
+                        <option value="beliebig">beliebig</option>
+                        <option *ngFor="let bundesland of constants.bundeslaender" [value]="bundesland">
                             {{bundesland}}
                         </option>
                     </select>
@@ -94,7 +99,7 @@
                     <select id="geschlecht"
                             class="form-control"
                             [(ngModel)]="filter.geschlecht" name="geschlecht">
-                        <option value="">egal</option>
+                        <option value="beliebig">egal</option>
                         <option value="M">männlich</option>
                         <option value="W">weiblich</option>
                     </select>

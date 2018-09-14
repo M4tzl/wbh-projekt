@@ -1,5 +1,4 @@
 MUST:
-- Inseratssuche: Suche ändern / Parameter vorbelegen
 - Nutzerführung: Wer sieht wann was
 - thumbnails anzeigen in inseratsliste
 
@@ -11,12 +10,13 @@ ADMINMODUS:
  - Lösch-Job
 
 - registrierungsdaten anpassen
-- Kontaktformular
+- Kontaktformular => mail senden
 - STYLING!!!
 - IFrame-Einbindung
 
 Nice2have:
 - Upload-Progressanzeige
+- security vereinfachen
 
 Externe Quellen:
 - http://www.dogbreedslist.info/free-dog-wallpapers/#.W5GMy5N9iUl  (die Ähnlichkeit zu dieser Seite ist wirklich zufällig... oh man. Naja.)

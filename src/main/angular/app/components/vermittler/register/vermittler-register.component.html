@@ -95,7 +95,7 @@
                                 class="form-control"
                                 [(ngModel)]="vermittler.bundesland" name="bundesland"
                                 #bundesland="ngModel">
-                                <option *ngFor="let bundesland of bundeslaender"
+                                <option *ngFor="let bundesland of constants.bundeslaender"
                                     [value]="bundesland">
                                 {{bundesland}}
                                 </option>

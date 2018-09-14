@@ -51,7 +51,7 @@
                                 (ngModelChange)="resetErrors()"
                                 [(ngModel)]="inserat.schulterhoehe" name="groesseAktuell"
                                 #groesseAktuell="ngModel">
-                            <option *ngFor="let schulterhoehe of schulterhoehen"
+                            <option *ngFor="let schulterhoehe of constants.schulterhoehen"
                                     [value]="schulterhoehe" [selected]="schulterhoehe === inserat.schulterhoehe">
                                 {{schulterhoehe}}
                             </option>
@@ -70,7 +70,7 @@
                                 (ngModelChange)="resetErrors()"
                                 [(ngModel)]="inserat.voraussichtlicheSchulterhoehe" name="groesseVorauss"
                                 #groesseVorauss="ngModel">
-                            <option *ngFor="let schulterhoehe of schulterhoehen"
+                            <option *ngFor="let schulterhoehe of constants.schulterhoehen"
                                     [value]="schulterhoehe"
                                     [selected]="schulterhoehe === inserat.voraussichtlicheSchulterhoehe">
                                 {{schulterhoehe}}
