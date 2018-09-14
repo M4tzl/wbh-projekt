@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Story} from '../../../model/story';
 import {StoriesService} from '../../../services/stories.service';
 import {ImageUploadResult} from "../../upload/image-upload-result";
 import {BildMetadaten} from "../../../model/bild-metadaten";
-import {map, mergeMap, tap} from "rxjs/operators";
+import {map, mergeMap, switchMap, tap} from "rxjs/operators";
 import {update} from "../../../infrastructure/immutable-update";
 
 
@@ -18,6 +18,7 @@ export class StoriesEditComponent implements OnInit {
     images: BildMetadaten[] = [];
 
     constructor(public storyService: StoriesService,
+                private router: Router,
                 private route: ActivatedRoute) {
     }
 
@@ -44,7 +45,12 @@ export class StoriesEditComponent implements OnInit {
     onSubmit(form) {
         if (form.valid) {
             this.storyService.update(update(this.story, {draft: false}))
-                .subscribe(result => window.history.back());
+                .pipe(
+                    switchMap(story => this.storyService.loadOpen(0, 1))
+                )
+                .subscribe(result => result.page.totalElements > 0
+                    ? window.history.back()
+                    : this.router.navigateByUrl("/stories"));
         }
     }
 

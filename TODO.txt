@@ -1,9 +1,6 @@
 MUST:
-- Nutzerführung: Wer sieht wann was
 - thumbnails anzeigen in inseratsliste
-
-- anonymous startseite: kacheln für inseratsuche und stories
-- im menü wenn man angemeldet ist "meine inserate" und "meine stories"
+- allgemein inhalte der tabellen an pflichtenheft angleichen inklusive sortierbarkeit
 
 ADMINMODUS:
  - Rechnungsstellung

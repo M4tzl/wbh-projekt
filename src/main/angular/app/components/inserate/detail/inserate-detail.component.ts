@@ -5,6 +5,8 @@ import {Inserat} from "../../../model/inserat";
 import {Location} from '@angular/common';
 import {finalize, map, mergeMap, tap} from "rxjs/operators";
 import {BildMetadaten} from "../../../model/bild-metadaten";
+import {SecurityService} from "../../../services/security.service";
+import {CurrentUser} from "../../../model/current-user";
 
 @Component({
     selector: 'app-inserate-detail',
@@ -15,9 +17,13 @@ export class InserateDetailComponent implements OnInit {
     inserat: Inserat;
     loading: boolean = true;
     images: BildMetadaten[] = [];
+    currentUser: CurrentUser;
 
     constructor(private inserateService: InserateService,
+                private securityService: SecurityService,
                 private route: ActivatedRoute) {
+        this.securityService.currentUser
+            .subscribe(user => this.currentUser = user);
     }
 
 

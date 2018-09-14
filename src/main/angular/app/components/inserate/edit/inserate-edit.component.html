@@ -242,8 +242,7 @@
             <div class="card-footer">
                 <div class="row">
                     <div class="col-6 text-left">
-                        <button class="btn btn-warning" routerLink="/inserate">{{inserat?.id ? 'Abbrechen' : 'Verwerfen'
-                            }}
+                        <button type="button" class="btn btn-warning" (click)="goBack()">{{inserat?.id ? 'Abbrechen' : 'Verwerfen'}}
                         </button>
                     </div>
                     <div class="col-6 text-right">
@@ -290,7 +289,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6 text-left">
-                        <button class="btn btn-warning" (click)="backToWizardOne()">Zurück</button>
+                        <button type="button" class="btn btn-warning" (click)="backToWizardOne()">Zurück</button>
                     </div>
                     <div class="col-6 text-right">
                         <button type="submit" class="btn btn-success" [disabled]="inseratForm2.invalid">

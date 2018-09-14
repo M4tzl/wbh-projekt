@@ -81,10 +81,6 @@ public class Inserat {
     @OneToOne(mappedBy = "inserat")
     private Story story;
 
-    // Computed Properties for search:
-    @Formula("rassen_freitext IS NULL OR rassen_freitext = ''")
-    private boolean reinrassig;
-
     @Transient
     public boolean isAktivierbar() {
         return EnumSet.of(InseratStatus.INAKTIV, InseratStatus.ENTWURF).contains(status);

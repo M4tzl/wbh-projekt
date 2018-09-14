@@ -84,13 +84,16 @@ export class InserateEditComponent implements OnInit {
 
     onSubmit() {
         this.inserateService.publish(this.inserat)
-            .subscribe(result => this.router.navigate(["/inserate"]));
+            .subscribe(result => this.router.navigateByUrl("/inserate/manage"));
     }
 
     get wizardPage(): number {
         return this.route.snapshot.queryParams['wizard'] || 1;
     }
 
+    goBack() {
+        window.history.back();
+    }
 
     backToWizardOne() {
         this.router.navigate([], {

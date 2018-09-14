@@ -1,11 +1,11 @@
 import {Routes} from "@angular/router";
-import {InserateUebersichtComponent} from "./components/inserate/uebersicht/inserate-uebersicht.component";
+import {InserateVerwaltenComponent} from "./components/inserate/verwalten/inserate-verwalten.component";
 import {StoriesComponent} from "./components/stories/uebersicht/stories.component";
 import {StoriesDetailComponent} from "./components/stories/detail/stories-detail.component";
 import {InserateDetailComponent} from "./components/inserate/detail/inserate-detail.component";
 import {InserateEditComponent} from "./components/inserate/edit/inserate-edit.component";
 import {StoriesEditComponent} from "./components/stories/edit/stories-edit.component";
-import {InteressentenStartpageComponent} from "./components/interessenten/startpage/interessenten-startpage.component";
+import {StartpageComponent} from "./components/startpage/startpage.component";
 import {FaqComponent} from "./components/allgemein/faq/faq.component";
 import {ImpressumComponent} from "./components/allgemein/impressum/impressum.component";
 import {DatenschutzComponent} from "./components/allgemein/datenschutz/datenschutz.component";
@@ -13,9 +13,6 @@ import {InseratKontaktComponent} from "./components/inserate/kontakt/inserat-kon
 import {UserLoginComponent} from "./components/login/login/user-login.component";
 import {InteressentenRegisterComponent} from "./components/interessenten/register/interessenten-register.component";
 import {VermittlerRegisterComponent} from "./components/vermittler/register/vermittler-register.component";
-import {StartpageRoleGuard} from "./guards/startpage-role.guard";
-import {VermittlerStartpageComponent} from "./components/vermittler/startpage/vermittler-startpage.component";
-import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anonymous-startpage.component";
 import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
 import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
@@ -25,16 +22,14 @@ import {InseratSuchMaskeComponent} from "./components/inserate/such-maske/insera
 
 
 export const AppRoutes: Routes = [
-    {path: '', component: AnonymousStartpageComponent, canActivate: [StartpageRoleGuard]},
+    {path: '', component: StartpageComponent},
     {path: 'session-expired', component: SessionExpiredComponent},
     {path: 'initiate-pw-reset', component: InitiatePasswordResetComponent},
     {path: 'reset-password', component: ResetPasswordComponent},
-    {path: 'vermittler', component: VermittlerStartpageComponent},
-    {path: 'interessent', component: InteressentenStartpageComponent},
     {path: 'login', component: UserLoginComponent},
     {path: 'interessent/register', component: InteressentenRegisterComponent},
     {path: 'vermittler/register', component: VermittlerRegisterComponent},
-    {path: 'inserate', component: InserateUebersichtComponent},
+    {path: 'inserate/manage', component: InserateVerwaltenComponent},
     {path: 'inserate/detail/:id', component: InserateDetailComponent},
     {path: 'inserate/kontakt/:id', component: InseratKontaktComponent},
     {path: 'inserate/edit/:id', component: InserateEditComponent},

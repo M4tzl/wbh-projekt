@@ -7,17 +7,43 @@
     </button>
     <div class="collapse navbar-collapse " id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item " data-toggle="collapse" data-target=".navbar-collapse.show">
-                <a class="nav-link" routerLink="/inserate">Inserate</a>
+            <li *ngIf="currentUser?.isVermittler; else noVermittlerInserate" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="vermittlerInserateDropdown" href="#" role="button" data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">Inserate</a>
+                <div class="dropdown-menu" aria-labelledby="vermittlerInserateDropdown" data-toggle="collapse"
+                     data-target=".navbar-collapse.show">
+                    <a class="dropdown-item" routerLink="/inserate/such-maske">Inserate suchen</a>
+                    <a class="dropdown-item" routerLink="/inserate/manage">Meine Inserate verwalten</a>
+                    <a class="dropdown-item" routerLink="/inserate/create">Neues Inserat anlegen</a>
+                </div>
             </li>
-            <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                <a class="nav-link" routerLink="/stories">Stories</a>
+            <ng-template #noVermittlerInserate>
+                <li class="nav-item " data-toggle="collapse" data-target=".navbar-collapse.show">
+                    <a class="nav-link" routerLink="/inserate/such-maske">Inserate</a>
+                </li>
+            </ng-template>
+
+            <li *ngIf="currentUser?.isInteressent && showOpenStories; else noOpenStories" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="interessenStoriesDropdown" href="#" role="button" data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">Stories</a>
+                <div class="dropdown-menu" aria-labelledby="interessenStoriesDropdown" data-toggle="collapse"
+                     data-target=".navbar-collapse.show">
+                    <a class="dropdown-item" routerLink="/stories">Stories suchen</a>
+                    <a class="dropdown-item" routerLink="/open-stories">Offene Story anlegen</a>
+                </div>
             </li>
+            <ng-template #noOpenStories>
+                <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+                    <a class="nav-link" routerLink="/stories">Stories</a>
+                </li>
+            </ng-template>
         </ul>
 
         <ul *ngIf="currentUser && currentUser.loggedIn; else loggedOut" class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link" id="accountDropdown" href="#" role="button" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" id="accountDropdown" href="#" role="button" data-toggle="dropdown"
                    aria-haspopup="true"
                    aria-expanded="false">{{currentUser.userName}}</a>
                 <div class="dropdown-menu" aria-labelledby="accountDropdown" data-toggle="collapse"
@@ -33,7 +59,7 @@
         <ng-template #loggedOut>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link" id="navbarDropdown" href="#" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown"
                        aria-haspopup="true"
                        aria-expanded="false">Registrierung</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" data-toggle="collapse"

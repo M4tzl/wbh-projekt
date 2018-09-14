@@ -63,6 +63,7 @@ export class InseratSuchMaskeComponent {
                 voraussichtlicheSchulterhoehe: 'beliebig',
                 bundesland: 'beliebig',
                 geschlecht: 'beliebig',
+                rasse: 'beliebig'
             });
     }
 

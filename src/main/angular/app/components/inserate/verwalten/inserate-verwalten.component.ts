@@ -12,11 +12,11 @@ import {update} from "../../../infrastructure/immutable-update";
 
 
 @Component({
-    selector: 'app-inserate',
-    templateUrl: './inserate-uebersicht.component.html',
-    styleUrls: ['./inserate-uebersicht.component.scss']
+    selector: 'app-inserate-verwalten',
+    templateUrl: './inserate-verwalten.component.html',
+    styleUrls: ['./inserate-verwalten.component.scss']
 })
-export class InserateUebersichtComponent implements OnInit, AfterViewInit {
+export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
     currentUser: CurrentUser;
     dataSource: InserateDataSource;
     displayedColumns = ["id", "lastUpdate", "rufname", "status", "actions"];
@@ -38,9 +38,7 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.dataSource = new InserateDataSource(this.inserateService);
 
-        this.dataSource.loadInserate([
-            {key: "vermittler", value: this.currentUser.userName}
-        ], 'lastUpdate', 'desc', 0, this.initialPageSize);
+        this.dataSource.loadInserate([], 'lastUpdate', 'desc', 0, this.initialPageSize);
     }
 
     ngAfterViewInit() {
@@ -70,8 +68,7 @@ export class InserateUebersichtComponent implements OnInit, AfterViewInit {
     loadInseratePage() {
         this.dataSource.loadInserate(
             [
-                {key: "rufname", value: this.searchField.nativeElement.value},
-                {key: "vermittler", value: this.currentUser.userName}
+                {key: "rufname", value: this.searchField.nativeElement.value}
             ],
             'lastUpdate',
             this.sort.direction,

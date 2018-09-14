@@ -48,12 +48,13 @@ public class InserateController {
 
     @GetMapping("/api/inserate")
     public ResponseEntity<?> loadInserate(@QuerydslPredicate(root = Inserat.class) Predicate predicate,
-                                   @RequestParam(value = "alterVon", required = false) Integer alterVon,
-                                   @RequestParam(value = "alterBis", required = false) Integer alterBis,
-                                   Pageable pageable) {
+                                          @RequestParam(value = "alterVon", required = false) Integer alterVon,
+                                          @RequestParam(value = "alterBis", required = false) Integer alterBis,
+                                          @RequestParam(value = "reinrassig", required = false) Boolean reinrassig,
+                                          Pageable pageable) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if(predicate != null) {
+        if (predicate != null) {
             predicates.add(predicate);
         }
 
@@ -61,12 +62,15 @@ public class InserateController {
             .map(User::getUsername)
             .map(accountRepository::findByUsername);
 
-        account
+        List<InseratStatus> relevantStatuses = account
             .map(Account::getRoles)
             .orElse(Sets.newHashSet(Role.INTERESSENT)).stream() // Anonyme Nutzer dürfen alle Inserate sehen, die ein angemeldeter Interessent sehen darf
             .flatMap(r -> VISIBLE_STATUSES_PER_ROLE.get(r).stream())
-            .map(QInserat.inserat.status::in)
-            .forEach(predicates::add);
+            .collect(Collectors.toList());
+
+        if (!relevantStatuses.isEmpty()) {
+            predicates.add(QInserat.inserat.status.in(relevantStatuses));
+        }
 
         account.filter(a -> a.getRoles().contains(Role.VERMITTLER))
             .map(Account::getUsername)
@@ -81,6 +85,11 @@ public class InserateController {
             predicates.add(QInserat.inserat.geburtsdatum.after(LocalDate.now().minusDays(alterBis)));
         }
 
+        if(reinrassig != null){
+            predicates.add(QInserat.inserat.rassenFreitext.isNull()
+                .or(QInserat.inserat.rassenFreitext.isEmpty()));
+        }
+
         BooleanExpression completePredicate = Expressions.allOf(predicates.stream()
             .map(Expressions::asBoolean)
             .toArray(BooleanExpression[]::new));
@@ -89,16 +98,14 @@ public class InserateController {
     }
 
     @GetMapping("/api/inserate/{id}")
-    public @ResponseBody
-    ResponseEntity<?> loadInserat(@PathVariable long id) {
+    public ResponseEntity<?> loadInserat(@PathVariable long id) {
         return repository.findById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
 
     @PostMapping("/api/inserate")
-    public @ResponseBody
-    ResponseEntity<?> createInserat(@RequestBody Inserat inserat) {
+    public ResponseEntity<?> createInserat(@RequestBody Inserat inserat) {
         Optional<User> loggedInUser = getLoggedInUser();
 
         if (loggedInUser.isPresent()) {
@@ -117,12 +124,11 @@ public class InserateController {
     }
 
     @PutMapping("/api/inserate/{id}")
-    public @ResponseBody
-    ResponseEntity<?> updateInserat(@PathVariable long id, @RequestBody Inserat inserat) {
+    public ResponseEntity<?> updateInserat(@PathVariable long id, @RequestBody Inserat inserat) {
         Inserat updatedInserat = getLoggedInUser()
             .flatMap(u -> repository.findById(id)
                 .filter(i -> i.getVermittler().equals(u.getUsername())))
-            .map(i -> i.toBuilder()
+            .map(i -> inserat.toBuilder()
                 .id(id)
                 .lastUpdate(LocalDate.now())
                 .build())
@@ -133,8 +139,7 @@ public class InserateController {
     }
 
     @PutMapping("/api/inserate/{id}/publish")
-    public @ResponseBody
-    ResponseEntity<?> publishInserat(@PathVariable long id, @RequestBody Inserat inserat) {
+    public ResponseEntity<?> publishInserat(@PathVariable long id, @RequestBody Inserat inserat) {
         Inserat updatedInserat = getLoggedInUser()
             .flatMap(u -> repository.findById(id)
                 .filter(i -> i.getVermittler().equals(u.getUsername())))
@@ -151,10 +156,9 @@ public class InserateController {
     }
 
     @PutMapping("/api/inserate/{id}/close")
-    public @ResponseBody
-    ResponseEntity<?> closeInserat(@PathVariable long id,
-                                   @RequestBody Inserat inserat,
-                                   HttpServletRequest request) {
+    public ResponseEntity<?> closeInserat(@PathVariable long id,
+                                          @RequestBody Inserat inserat,
+                                          HttpServletRequest request) {
         Inserat updatedInserat = getLoggedInUser()
             .flatMap(u -> repository.findById(id)
                 .filter(i -> i.getVermittler().equals(u.getUsername())))
@@ -198,8 +202,7 @@ public class InserateController {
     }
 
     @PutMapping("/api/inserate/{id}/activate")
-    public @ResponseBody
-    ResponseEntity<?> activateInserat(@PathVariable long id) {
+    public ResponseEntity<?> activateInserat(@PathVariable long id) {
         Inserat updatedInserat = getLoggedInUser()
             .flatMap(u -> repository.findById(id)
                 .filter(i -> i.getVermittler().equals(u.getUsername())))
@@ -216,8 +219,7 @@ public class InserateController {
     }
 
     @PutMapping("/api/inserate/{id}/deactivate")
-    public @ResponseBody
-    ResponseEntity<?> deactivateInserat(@PathVariable long id) {
+    public ResponseEntity<?> deactivateInserat(@PathVariable long id) {
         Inserat updatedInserat = getLoggedInUser()
             .flatMap(u -> repository.findById(id)
                 .filter(i -> i.getVermittler().equals(u.getUsername())))

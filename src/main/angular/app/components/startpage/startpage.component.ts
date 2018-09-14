@@ -1,23 +1,21 @@
 import {Component} from '@angular/core';
-import {SecurityService} from "./services/security.service";
-import {CurrentUser} from "./model/current-user";
-import {Router} from "@angular/router";
-import {StoriesService} from "./services/stories.service";
+import {StoriesService} from "../../services/stories.service";
+import {CurrentUser} from "../../model/current-user";
+import {SecurityService} from "../../services/security.service";
 import {catchError, filter, switchMap, tap} from "rxjs/operators";
 import {throwError} from "rxjs";
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    selector: 'app-startpage',
+    templateUrl: './startpage.component.html',
+    styleUrls: ['./startpage.component.css']
 })
-export class AppComponent {
-    currentUser: CurrentUser;
+export class StartpageComponent {
     showOpenStories: boolean;
+    currentUser: CurrentUser;
 
-    constructor(private securityService: SecurityService,
-                private storiesService: StoriesService,
-                private router: Router) {
+    constructor(private storiesService: StoriesService,
+                private securityService: SecurityService) {
         this.securityService.currentUser
             .pipe(
                 catchError(err => {
@@ -32,8 +30,4 @@ export class AppComponent {
             .subscribe(result => this.showOpenStories = result.stories.length > 0);
     }
 
-    logout() {
-        this.securityService.logout()
-            .subscribe(res => this.router.navigateByUrl('/'));
-    }
 }

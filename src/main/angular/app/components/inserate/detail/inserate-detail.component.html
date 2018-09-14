@@ -132,8 +132,8 @@
                     <button class="btn btn-warning" (click)="goBack()">zurück</button>
                 </div>
                 <div class="col-6 text-right">
-                        <button class="btn btn-info" [routerLink]="['/inserate/kontakt',inserat?.id]">Kontakt</button>&nbsp;
-                        <button class="btn btn-success" [routerLink]="['/inserate/edit',inserat?.id]">editieren</button>
+                        <button *ngIf="currentUser?.isInteressent" class="btn btn-info" [routerLink]="['/inserate/kontakt',inserat?.id]">Kontakt</button>&nbsp;
+                        <button *ngIf="currentUser?.isVermittler && currentUser.userName === inserat?.vermittler" class="btn btn-success" [routerLink]="['/inserate/edit',inserat?.id]">editieren</button>
                     </div>
             </div>
     </div>

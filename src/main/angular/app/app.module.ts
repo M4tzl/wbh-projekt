@@ -3,7 +3,7 @@ import {forwardRef, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {InserateUebersichtComponent} from './components/inserate/uebersicht/inserate-uebersicht.component';
+import {InserateVerwaltenComponent} from './components/inserate/verwalten/inserate-verwalten.component';
 import {StoriesComponent} from './components/stories/uebersicht/stories.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -31,7 +31,7 @@ import {
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UploadComponent} from "./components/upload/upload.component";
 import {SafeUrlPipe} from "./infrastructure/safe-url.pipe";
-import {InteressentenStartpageComponent} from './components/interessenten/startpage/interessenten-startpage.component';
+import {StartpageComponent} from './components/startpage/startpage.component';
 import {DatenschutzComponent} from './components/allgemein/datenschutz/datenschutz.component';
 import {FaqComponent} from './components/allgemein/faq/faq.component';
 import {ImpressumComponent} from './components/allgemein/impressum/impressum.component';
@@ -45,9 +45,7 @@ import {XhrInterceptor} from "./infrastructure/xhr.interceptor";
 import {InteressentenRegisterComponent} from "./components/interessenten/register/interessenten-register.component";
 import {VermittlerRegisterComponent} from "./components/vermittler/register/vermittler-register.component";
 import {EqualValidator} from "./validation/equal-validator";
-import {VermittlerStartpageComponent} from "./components/vermittler/startpage/vermittler-startpage.component";
 import {StartpageRoleGuard} from "./guards/startpage-role.guard";
-import {AnonymousStartpageComponent} from "./components/anonymous/startpage/anonymous-startpage.component";
 import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
 import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
@@ -60,16 +58,14 @@ import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche
     declarations: [
         AppComponent,
         UploadComponent,
-        InserateUebersichtComponent,
+        InserateVerwaltenComponent,
         InserateDetailComponent,
         InserateEditComponent,
         StoriesComponent,
         StoriesDetailComponent,
         StoriesEditComponent,
         SafeUrlPipe,
-        InteressentenStartpageComponent,
-        VermittlerStartpageComponent,
-        AnonymousStartpageComponent,
+        StartpageComponent,
         DatenschutzComponent,
         FaqComponent,
         ImpressumComponent,

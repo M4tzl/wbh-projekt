@@ -34,7 +34,7 @@ export class OpenStoriesComponent implements OnInit {
 
     ngOnInit() {
         this.dataSource = new StoriesDataSource(this.storiesService);
-
+        
         this.dataSource.loadOpenStories(0, this.initialPageSize);
     }
 
