@@ -1,72 +1,89 @@
 <div class="container mt-2 p-0 border rounded">
-    <h4>Inserate</h4>
-
-    <mat-form-field>
-        <input matInput placeholder="Suche" #searchField>
-    </mat-form-field>
-
     <div class="loading-indicator" *ngIf="dataSource.loading$ | async">
         <mat-spinner></mat-spinner>
     </div>
 
-    <div class="table-responsive">
-        <mat-table class="table table-hover table-bordered table-striped table-sm" [dataSource]="dataSource"
-                   matSort matSortActive="lastUpdate" matSortDirection="desc" matSortDisableClear>
-
-            <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef style="max-width:60px;">ID</mat-header-cell>
-                <mat-cell *matCellDef="let inserat" style="max-width:60px;">{{inserat.id}}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="lastUpdate">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Inseratsdatum</mat-header-cell>
-                <mat-cell *matCellDef="let inserat">{{inserat.lastUpdate}}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="rufname">
-                <mat-header-cell *matHeaderCellDef>Rufname</mat-header-cell>
-                <mat-cell *matCellDef="let inserat">{{inserat.rufname}}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="status">
-                <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-                <mat-cell *matCellDef="let inserat">{{inserat.status}}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let inserat">
-                    <a [routerLink]="['/inserate/detail',inserat.id]"><img src="assets/img/view.png" alt="[View]"
-                                                                           title="Anzeigen" height="30"></a>&nbsp;
-                    <a *ngIf="currentUser?.isVermittler && inserat.editierbar" [routerLink]="['/inserate/edit',inserat.id]"><img
-                        src="assets/img/edit.png" alt="[Edit]"
-                        title="Editieren" height="30"></a>&nbsp;
-                    <a *ngIf="currentUser?.isVermittler && inserat.vermittelbar">
-                        <img class="pointer" src="assets/img/check.png" title="Vermittelt" alt="[Vermittelt]"
-                             height="30" (click)="close(inserat)">&nbsp;
-                    </a>
-                    <a *ngIf="currentUser?.isVermittler && inserat.aktivierbar">
-                        <img class="pointer" src="assets/img/continue.png" title="Aktiv schalten" alt="[Aktiv]"
-                             height="30" (click)="activate(inserat)">&nbsp;
-                    </a>
-                    <a *ngIf="currentUser?.isVermittler && inserat.deaktivierbar">
-                        <img class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]"
-                             height="30" (click)="deactivate(inserat)">&nbsp;
-                    </a>
-                </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-        </mat-table>
-
-
-        <mat-paginator [length]="(dataSource.inserateResult$ | async)?.page?.totalElements"
-                       [pageSize]="initialPageSize"
-                       [pageSizeOptions]="pageSizes"></mat-paginator>
+    <div class="card-header">
+        <div class="row">
+            <div class="col-12">
+                <h4>Inserate</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-left">
+                <mat-form-field>
+                    <input matInput placeholder="Suche" #searchField>
+                </mat-form-field>
+            </div>
+        </div>
     </div>
 
-    <button *ngIf="currentUser?.isVermittler" class="btn btn-success" routerLink="/inserate/create">Neues Inserat
-        anlegen
-    </button>
+    <div class="card-body">
+        <div class="table-responsive">
+            <mat-table class="table table-hover table-bordered table-striped table-sm" [dataSource]="dataSource"
+                       matSort matSortActive="lastUpdate" matSortDirection="desc" matSortDisableClear>
+
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef style="max-width:60px;">ID</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat" style="max-width:60px;">{{inserat.id}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="lastUpdate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Inseratsdatum</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.lastUpdate}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="rufname">
+                    <mat-header-cell *matHeaderCellDef>Rufname</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.rufname}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.status}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">
+                        <a [routerLink]="['/inserate/detail',inserat.id]"><img src="assets/img/view.png" alt="[View]"
+                                                                               title="Anzeigen" height="30"></a>&nbsp;
+                        <a *ngIf="currentUser?.isVermittler && inserat.editierbar"
+                           [routerLink]="['/inserate/edit',inserat.id]"><img
+                            src="assets/img/edit.png" alt="[Edit]"
+                            title="Editieren" height="30"></a>&nbsp;
+                        <a *ngIf="currentUser?.isVermittler && inserat.vermittelbar">
+                            <img class="pointer" src="assets/img/check.png" title="Vermittelt" alt="[Vermittelt]"
+                                 height="30" (click)="close(inserat)">&nbsp;
+                        </a>
+                        <a *ngIf="currentUser?.isVermittler && inserat.aktivierbar">
+                            <img class="pointer" src="assets/img/continue.png" title="Aktiv schalten" alt="[Aktiv]"
+                                 height="30" (click)="activate(inserat)">&nbsp;
+                        </a>
+                        <a *ngIf="currentUser?.isVermittler && inserat.deaktivierbar">
+                            <img class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]"
+                                 height="30" (click)="deactivate(inserat)">&nbsp;
+                        </a>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+
+
+            <mat-paginator [length]="(dataSource.inserateResult$ | async)?.page?.totalElements"
+                           [pageSize]="initialPageSize"
+                           [pageSizeOptions]="pageSizes"></mat-paginator>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <div class="col-12 text-left">
+            <button *ngIf="currentUser?.isVermittler" class="btn btn-success" routerLink="/inserate/create">Neues
+                Inserat
+                anlegen
+            </button>
+        </div>
+    </div>
 </div>
