@@ -1,0 +1,65 @@
+<div class="container mt-2 p-0 border rounded">
+
+    <div class="loading-indicator" *ngIf="dataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <div class="card-header">
+        <div class="row">
+            <div class="col-12">
+                <h4>Suchergebnis</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button (click)="newSearch()" class="btn btn-success mr-3">Neue Suche</button>
+                <button (click)="updateSearch()" class="btn btn-success">Suche ändern</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <mat-table class="table table-hover table-bordered table-striped table-sm" [dataSource]="dataSource"
+                       matSort matSortActive="lastUpdate" matSortDirection="desc" matSortDisableClear>
+
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef style="max-width:60px;">ID</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat" style="max-width:60px;">{{inserat.id}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="lastUpdate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Inseratsdatum</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.lastUpdate}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="rufname">
+                    <mat-header-cell *matHeaderCellDef>Rufname</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.rufname}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.status}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">
+                        <a [routerLink]="['/inserate/detail',inserat.id]"><img src="assets/img/view.png" alt="[View]"
+                                                                               title="Anzeigen" height="30"></a>&nbsp;
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+
+
+            <mat-paginator [length]="(dataSource.inserateResult$ | async)?.page?.totalElements"
+                           [pageSize]="initialPageSize"
+                           [pageSizeOptions]="pageSizes"></mat-paginator>
+        </div>
+    </div>
+</div>

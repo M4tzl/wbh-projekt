@@ -1,0 +1,216 @@
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Suche</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-sm-4 col-md-3 text-left col-form-label control-label required"
+                       for="rasse">Rasse:</label>
+                <div class="col-sm-8 col-md-3 text-left">
+                    <select id="rasse"
+                            class="form-control"
+                            [(ngModel)]="filter.rasse" name="rasse">
+                        <option value="beliebig">beliebig</option>
+                        <option *ngFor="let rasse of rassen | async" [value]="rasse">
+                            {{rasse}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-4 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.reinrassig"
+                           name="reinrassig"
+                           id="reinrassig"/>&nbsp;
+                    <label for="reinrassig"
+                           class="font-weight-light">reinrassig</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-md-3 text-left col-form-label control-label required"
+                       for="groesseAktuell">Größe (aktuell):</label>
+                <div class="col-sm-8 col-md-3 text-left">
+                    <select id="groesseAktuell"
+                            class="form-control"
+                            [(ngModel)]="filter.schulterhoehe" name="groesseAktuell">
+                        <option *ngFor="let schulterhoehe of schulterhoehen" [value]="schulterhoehe">
+                            {{schulterhoehe}}
+                        </option>
+                    </select>
+                </div>
+                <label class="col-sm-4 col-md-3 text-left col-form-label control-label required"
+                       for="groesseVorauss">Größe (vorauss):</label>
+                <div class="col-sm-8 col-md-3 text-left">
+                    <select id="groesseVorauss"
+                            class="form-control"
+                            [(ngModel)]="filter.voraussichtlicheSchulterhoehe" name="groesseVorauss">
+                        <option *ngFor="let schulterhoehe of schulterhoehen" [value]="schulterhoehe">
+                            {{schulterhoehe}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-md-3 text-left col-form-label control-label required"
+                       for="alterVon">Alter ab:</label>
+                <div class="col-sm-8 col-md-3 text-left">
+                    <select id="alterVon"
+                            class="form-control"
+                            [(ngModel)]="filter.alterVon" name="alterVon">
+                        <option *ngFor="let alter of altersstufen" [value]="alter.value">
+                            {{alter.displayName}}
+                        </option>
+                    </select>
+                </div>
+                <label class="col-sm-4 col-md-3 text-left col-form-label control-label required"
+                       for="alterBis">Alter bis:</label>
+                <div class="col-sm-8 col-md-3 text-left">
+                    <select id="alterBis"
+                            class="form-control"
+                            [(ngModel)]="filter.alterBis" name="alterBis">
+                        <option *ngFor="let alter of altersstufen" [value]="alter.value">
+                            {{alter.displayName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-md-3 text-left col-form-label control-label required"
+                       for="bundesland">Bundesland:</label>
+                <div class="col-sm-8 col-md-3 text-left">
+                    <select id="bundesland"
+                            class="form-control"
+                            [(ngModel)]="filter.bundesland" name="bundesland">
+                        <option *ngFor="let bundesland of bundeslaender" [value]="bundesland">
+                            {{bundesland}}
+                        </option>
+                    </select>
+                </div>
+                <label class="col-sm-4 col-md-3 text-left col-form-label control-label required" for="geschlecht">Geschlecht</label>
+                <div class="col-sm-8 col-md-3 text-left">
+                    <select id="geschlecht"
+                            class="form-control"
+                            [(ngModel)]="filter.geschlecht" name="geschlecht">
+                        <option value="">egal</option>
+                        <option value="M">männlich</option>
+                        <option value="W">weiblich</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row mb-2">
+                <div class="col-12 textwithline"><span>Eigenschaften</span></div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.geimpft" name="geimpft"
+                           id="geimpft"/>&nbsp;
+                    <label for="geimpft" class="font-weight-light">geimpft</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.gechipt" name="gechipt"
+                           id="gechipt"/>&nbsp;
+                    <label for="gechipt" class="font-weight-light">gechipt</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.kastriert"
+                           name="kastriert" id="kastriert"/>&nbsp;
+                    <label for="kastriert" class="font-weight-light">kastriert</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.stubenrein"
+                           name="stubenrein" id="stubenrein"/>&nbsp;
+                    <label for="stubenrein" class="font-weight-light">stubenrein</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.leinenfuehrigkeit"
+                           name="leinenfuehrigkeit"
+                           id="leinenfuehrigkeit"/>&nbsp;
+                    <label for="leinenfuehrigkeit" class="font-weight-light">leinenführig</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.zutraulich"
+                           name="zutraulich" id="zutraulich"/>&nbsp;
+                    <label for="zutraulich" class="font-weight-light">zutraulich</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.autofahren"
+                           name="autofahren" id="autofahren"/>&nbsp;
+                    <label for="autofahren" class="font-weight-light">Auto
+                        fahren</label>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 textwithline"><span>verträgt sich mit</span></div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.vertraeglichkeitKatzen"
+                           name="vertraeglichkeitKatzen" id="vertraeglichkeitKatzen"/>&nbsp;
+                    <label for="vertraeglichkeitKatzen" class="font-weight-light">Katzen</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.vertraeglichkeitHunde"
+                           name="vertraeglichkeitHunde"
+                           id="vertraeglichkeitHunde"/>&nbsp;
+                    <label for="vertraeglichkeitHunde" class="font-weight-light">anderen
+                        Hunden</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.vertraeglichkeitKinder"
+                           name="vertraeglichkeitKinder" id="vertraeglichkeitKinder"/>&nbsp;
+                    <label for="vertraeglichkeitKinder" class="font-weight-light">Kindern</label>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 textwithline"><span>Zielgruppe</span></div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.zielgruppeAnfaenger"
+                           name="zielgruppeAnfaenger"
+                           id="zielgruppeAnfaenger"/>&nbsp;
+                    <label for="zielgruppeAnfaenger" class="font-weight-light">Anfänger</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.zielgruppeErfahren"
+                           name="zielgruppeErfahren"
+                           id="zielgruppeErfahren"/>&nbsp;
+                    <label for="zielgruppeErfahren" class="font-weight-light">Erfahrene</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.zielgruppeSenioren"
+                           name="zielgruppeSenioren"
+                           id="zielgruppeSenioren"/>&nbsp;
+                    <label for="zielgruppeSenioren"
+                           class="font-weight-light">Senioren</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.zielgruppeFamilien"
+                           name="zielgruppeFamilien"
+                           id="zielgruppeFamilien"/>&nbsp;
+                    <label for="zielgruppeFamilien"
+                           class="font-weight-light">Familien</label>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 text-left">
+                    <input type="checkbox" [(ngModel)]="filter.zielgruppeGarten"
+                           name="zielgruppeGarten"
+                           id="zielgruppeGarten"/>&nbsp;
+                    <label for="zielgruppeGarten"
+                           class="font-weight-light">Gartenbesitzer</label>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="text-right">
+                    <button (click)="search()" class="btn btn-success">Jetzt Suchen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

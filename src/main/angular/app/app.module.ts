@@ -36,7 +36,7 @@ import {DatenschutzComponent} from './components/allgemein/datenschutz/datenschu
 import {FaqComponent} from './components/allgemein/faq/faq.component';
 import {ImpressumComponent} from './components/allgemein/impressum/impressum.component';
 import {MatPaginatorIntlGerman} from './services/paginator.service';
-import {InseratSucheComponent} from './components/inserate/suche/inserat-suche.component';
+import {InseratSuchMaskeComponent} from './components/inserate/such-maske/inserat-such-maske.component';
 import {InseratKontaktComponent} from './components/inserate/kontakt/inserat-kontakt.component';
 import {UserLoginComponent} from './components/login/login/user-login.component';
 import {InserateDialogStoryschreiberComponent} from './components/inserate/storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
@@ -53,6 +53,7 @@ import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
 import {YesNoDialogComponent} from "./components/allgemein/yes-no-dialog/yes-no-dialog.component";
 import {OpenStoriesComponent} from "./components/stories/open/open-stories.component";
+import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche.component";
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import {OpenStoriesComponent} from "./components/stories/open/open-stories.compo
         DatenschutzComponent,
         FaqComponent,
         ImpressumComponent,
-        InseratSucheComponent,
+        InseratSuchMaskeComponent,
+        InserateSucheComponent,
         InseratKontaktComponent,
         UserLoginComponent,
         InteressentenRegisterComponent,

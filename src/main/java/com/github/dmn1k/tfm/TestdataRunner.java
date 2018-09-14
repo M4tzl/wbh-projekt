@@ -47,7 +47,7 @@ public class TestdataRunner implements ApplicationRunner {
             .ort("Fürth")
             .plz("90765")
             .strasseHsNr("Buchenstraße 6")
-            .telefon("N/A")
+            .telefon("562345234523")
             .username("vermittler@dominik-schlosser.de")
             .webseite("www.tier-fair-mittlung.de")
             .build());
@@ -64,8 +64,9 @@ public class TestdataRunner implements ApplicationRunner {
         Inserat inserat1 = inserateRepository.save(Inserat.builder()
             .lastUpdate(LocalDate.of(2018, 8, 10))
             .status(InseratStatus.AKTIV)
-            .geburtsdatum(LocalDate.now())
+            .geburtsdatum(LocalDate.now().minusDays(10))
             .rasse("cocker spaniel")
+            .rassenFreitext("gasfasfas")
             .rufname("Hansi")
             .bundesland("Bayern")
             .schulterhoehe("<20cm")
@@ -78,8 +79,9 @@ public class TestdataRunner implements ApplicationRunner {
         Inserat inserat2 = inserateRepository.save(Inserat.builder()
             .status(InseratStatus.ENTWURF)
             .created(LocalDate.of(2015, 1, 1))
-            .geburtsdatum(LocalDate.now())
+            .geburtsdatum(LocalDate.now().minusYears(2))
             .rasse("husky")
+            .rassenFreitext("bla")
             .rufname("Hansi 2")
             .bundesland("Bayern")
             .schulterhoehe("51-75cm")
@@ -103,6 +105,22 @@ public class TestdataRunner implements ApplicationRunner {
             .vermittler(vermittler.getUsername())
             .storyschreiber(interessent.getUsername())
             .build());
+
+        inserateRepository.save(Inserat.builder()
+            .status(InseratStatus.AKTIV)
+            .created(LocalDate.of(2015, 1, 1))
+            .lastUpdate(LocalDate.of(2018, 5, 2))
+            .geburtsdatum(LocalDate.now().minusYears(4))
+            .rasse("germanshepherd")
+            .bundesland("Bayern")
+            .rufname("Junger Huepfer")
+            .schulterhoehe("<20cm")
+            .voraussichtlicheSchulterhoehe("<20cm")
+            .geschlecht(Geschlecht.W)
+            .vermittler(vermittler.getUsername())
+            .storyschreiber(interessent.getUsername())
+            .build());
+
 
         storiesRepository.save(new Story(null, inserat1, interessent.getUsername(), "Story 1", "Blablubb", false));
         storiesRepository.save(new Story(null, inserat2, interessent.getUsername(), "Story 2", "Blablubbnvnv", false));

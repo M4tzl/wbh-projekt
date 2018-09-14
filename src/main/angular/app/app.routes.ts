@@ -20,6 +20,8 @@ import {SessionExpiredComponent} from "./components/allgemein/session/expired/se
 import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
 import {OpenStoriesComponent} from "./components/stories/open/open-stories.component";
+import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche.component";
+import {InseratSuchMaskeComponent} from "./components/inserate/such-maske/inserat-such-maske.component";
 
 
 export const AppRoutes: Routes = [
@@ -37,6 +39,8 @@ export const AppRoutes: Routes = [
     {path: 'inserate/kontakt/:id', component: InseratKontaktComponent},
     {path: 'inserate/edit/:id', component: InserateEditComponent},
     {path: 'inserate/create', component: InserateEditComponent},
+    {path: 'inserate/suche', component: InserateSucheComponent},
+    {path: 'inserate/such-maske', component: InseratSuchMaskeComponent},
     {path: 'stories', component: StoriesComponent},
     {path: 'open-stories', component: OpenStoriesComponent},
     {path: 'stories/detail/:id', component: StoriesDetailComponent},

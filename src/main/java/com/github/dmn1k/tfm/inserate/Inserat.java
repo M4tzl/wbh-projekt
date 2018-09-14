@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.validator.constraints.Length;
 
@@ -79,6 +80,10 @@ public class Inserat {
     @NotFound
     @OneToOne(mappedBy = "inserat")
     private Story story;
+
+    // Computed Properties for search:
+    @Formula("rassen_freitext IS NULL OR rassen_freitext = ''")
+    private boolean reinrassig;
 
     @Transient
     public boolean isAktivierbar() {

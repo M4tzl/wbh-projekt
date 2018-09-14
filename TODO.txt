@@ -1,5 +1,5 @@
 MUST:
-- Inseratssuche => ist serverseitig bereits vorbereitet (es kann jedes feld als filter zur url hinzugefügt werden)
+- Inseratssuche: Suche ändern / Parameter vorbelegen
 - Nutzerführung: Wer sieht wann was
 - thumbnails anzeigen in inseratsliste
 
