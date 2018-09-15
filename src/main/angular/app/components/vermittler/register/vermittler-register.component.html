@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label font-weight-bold required" for="webseite">Webseite (mit https://)</label>
+                        <label class="col-sm-4 col-form-label font-weight-bold required" for="webseite">Webseite</label>
                         <div class="col-sm-8">
                             <input type="text" id="webseite" class="form-control" [(ngModel)]="vermittler.webseite" #webseite="ngModel"
                                    (ngModelChange)="resetErrors()"
@@ -139,7 +139,7 @@
                                     Die Webseiten-URL ist zu lang.
                                 </div>
                                 <div *ngIf="webseite.errors.pattern">
-                                    Keine gültige URL.
+                                    Bitte eine gültige URL angeben.
                                 </div>
                             </div>
                         </div>
