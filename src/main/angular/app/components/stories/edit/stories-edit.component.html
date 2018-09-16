@@ -24,12 +24,18 @@
                     <div class="col-sm-8">
                             <textarea
                                 id="beschreibung"
+                                maxlength="5000"
                                 class="form-control"
                                 [(ngModel)]="story.beschreibung" #beschreibung="ngModel"
                                 name="beschreibung" rows="8" required></textarea>
                         <div *ngIf="beschreibung.invalid && (beschreibung.dirty || beschreibung.touched)"
                              class="alert alert-danger">
-                            Beschreibung ist ein Pflichtfeld
+                            <div *ngIf="beschreibung.errors.required">
+                                Beschreibung ist ein Pflichtfeld
+                            </div>
+                            <div *ngIf="beschreibung.errors.maxlength">
+                                Die Beschreibung ist zu lang.
+                            </div>
                         </div>
                     </div>
                 </div>

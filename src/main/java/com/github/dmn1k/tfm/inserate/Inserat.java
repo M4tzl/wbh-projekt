@@ -87,6 +87,7 @@ public class Inserat {
 
     private String plz;
     private String ort;
+    private String organisation;
 
     @JsonIgnore
     @NotFound

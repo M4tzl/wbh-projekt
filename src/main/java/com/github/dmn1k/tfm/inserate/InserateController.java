@@ -138,6 +138,7 @@ public class InserateController {
                 .bundesland(vermittler.getBundesland())
                 .plz(vermittler.getPlz())
                 .ort(vermittler.getOrt())
+                .organisation(vermittler.getOrganisation())
                 .created(LocalDate.now())
                 .lastUpdate(LocalDate.now())
                 .status(InseratStatus.ENTWURF)

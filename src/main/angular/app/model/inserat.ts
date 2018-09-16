@@ -31,5 +31,6 @@ export interface Inserat extends InseratUebersicht {
     zielgruppeFamilien:boolean;
 
     bundesland: string;
+    organisation: string;
 
 }

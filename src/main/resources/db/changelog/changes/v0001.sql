@@ -67,7 +67,7 @@ CREATE TABLE "inserat" (
   vertraeglichkeit_katzen boolean not null,
   vertraeglichkeit_hunde boolean not null,
   zutraulich boolean not null,
-  kurzbeschreibung varchar(500) null,
+  kurzbeschreibung varchar(5000) null,
   zielgruppe_anfaenger boolean not null,
   zielgruppe_senioren boolean not null,
   zielgruppe_garten boolean not null,
@@ -76,6 +76,7 @@ CREATE TABLE "inserat" (
   bundesland varchar(255) not null,
   plz varchar(255) not null,
   ort varchar(255) not null,
+  organisation varchar(255) not null,
   PRIMARY KEY (id),
   FOREIGN KEY (vermittler) REFERENCES "account"(username)
 );
