@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {InserateService} from "../../../services/inserate.service";
 import {InserateDataSource} from "../../../datasources/inserate.dataSource";
 import {MatDialog, MatPaginator, MatSort} from "@angular/material";
-import {EMPTY, fromEvent, merge, of} from "rxjs";
+import {EMPTY, fromEvent, merge, of, Subscription} from "rxjs";
 import {debounceTime, distinctUntilChanged, flatMap, map, switchMap, tap} from "rxjs/operators";
 import {InserateDialogStoryschreiberComponent} from '../storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
 import {SecurityService} from "../../../services/security.service";
@@ -17,12 +17,13 @@ import {YesNoDialogComponent} from "../../allgemein/yes-no-dialog/yes-no-dialog.
     templateUrl: './inserate-verwalten.component.html',
     styleUrls: ['./inserate-verwalten.component.scss']
 })
-export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
+export class InserateVerwaltenComponent implements OnInit, AfterViewInit, OnDestroy {
     currentUser: CurrentUser;
     dataSource: InserateDataSource;
     displayedColumns = ["id", "lastUpdate", "bild", "rufname", "storyschreiber", "status", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
+    currentUserSubscription: Subscription;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -31,7 +32,7 @@ export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
     constructor(private inserateService: InserateService,
                 private securityService: SecurityService,
                 public dialog: MatDialog) {
-        this.securityService.currentUser
+        this.currentUserSubscription = this.securityService.currentUser
             .subscribe(user => this.currentUser = user);
 
     }
@@ -115,6 +116,10 @@ export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
             flatMap(val => val ? of(val) : EMPTY),
             switchMap(i => this.inserateService.delete(inserat))
         ).subscribe(val => this.loadInseratePage());
+    }
+
+    ngOnDestroy(): void {
+        this.currentUserSubscription.unsubscribe();
     }
 
 }

@@ -1,22 +1,24 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {SecurityService} from "./services/security.service";
 import {CurrentUser} from "./model/current-user";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
     currentUser: CurrentUser;
     showConnectionError: boolean;
     widgetMode: boolean;
+    subscription: Subscription;
 
     constructor(private securityService: SecurityService,
                 private route: ActivatedRoute,
                 private router: Router) {
-        this.securityService.currentUser
+        this.subscription = this.securityService.currentUser
             .subscribe(
                 user => {
                     this.currentUser = user;
@@ -36,5 +38,9 @@ export class AppComponent {
     logout() {
         this.securityService.logout()
             .subscribe(res => this.router.navigateByUrl('/'));
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 }

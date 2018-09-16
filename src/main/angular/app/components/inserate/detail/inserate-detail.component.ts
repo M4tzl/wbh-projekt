@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {InserateService} from "../../../services/inserate.service";
 import {ActivatedRoute} from "@angular/router";
 import {Inserat} from "../../../model/inserat";
@@ -7,22 +7,24 @@ import {finalize, map, mergeMap, tap} from "rxjs/operators";
 import {BildMetadaten} from "../../../model/bild-metadaten";
 import {SecurityService} from "../../../services/security.service";
 import {CurrentUser} from "../../../model/current-user";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-inserate-detail',
     templateUrl: './inserate-detail.component.html',
     styleUrls: ['./inserate-detail.component.scss']
 })
-export class InserateDetailComponent implements OnInit {
+export class InserateDetailComponent implements OnInit, OnDestroy {
     inserat: Inserat;
     loading: boolean = true;
     images: BildMetadaten[] = [];
     currentUser: CurrentUser;
+    currentUserSubscription: Subscription;
 
     constructor(private inserateService: InserateService,
                 private securityService: SecurityService,
                 private route: ActivatedRoute) {
-        this.securityService.currentUser
+        this.currentUserSubscription = this.securityService.currentUser
             .subscribe(user => this.currentUser = user);
     }
 
@@ -43,5 +45,9 @@ export class InserateDetailComponent implements OnInit {
 
     goBack(): void {
         window.history.back();
+    }
+
+    ngOnDestroy(): void {
+        this.currentUserSubscription.unsubscribe();
     }
 }

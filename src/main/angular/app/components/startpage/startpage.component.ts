@@ -1,22 +1,23 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {StoriesService} from "../../services/stories.service";
 import {CurrentUser} from "../../model/current-user";
 import {SecurityService} from "../../services/security.service";
 import {catchError, filter, switchMap, tap} from "rxjs/operators";
-import {throwError} from "rxjs";
+import {Subscription, throwError} from "rxjs";
 
 @Component({
     selector: 'app-startpage',
     templateUrl: './startpage.component.html',
     styleUrls: ['./startpage.component.css']
 })
-export class StartpageComponent {
+export class StartpageComponent implements OnDestroy {
     showOpenStories: boolean;
     currentUser: CurrentUser;
+    subscription: Subscription;
 
     constructor(private storiesService: StoriesService,
                 private securityService: SecurityService) {
-        this.securityService.currentUser
+        this.subscription = this.securityService.currentUser
             .pipe(
                 catchError(err => {
                     this.currentUser = null;
@@ -28,6 +29,10 @@ export class StartpageComponent {
                 switchMap(user => this.storiesService.loadOpen(0, 1))
             )
             .subscribe(result => this.showOpenStories = result.stories.length > 0);
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
 }

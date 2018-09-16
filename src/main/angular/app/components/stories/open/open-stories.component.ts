@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {StoriesService} from "../../../services/stories.service";
 import {MatPaginator} from "@angular/material";
 import {StoriesDataSource} from "../../../datasources/stories.dataSource";
@@ -7,6 +7,7 @@ import {SecurityService} from "../../../services/security.service";
 import {Story} from "../../../model/story";
 import {Router} from "@angular/router";
 import {update} from "../../../infrastructure/immutable-update";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -15,20 +16,21 @@ import {update} from "../../../infrastructure/immutable-update";
     styleUrls: ['./open-stories.component.scss']
 })
 
-export class OpenStoriesComponent implements OnInit {
+export class OpenStoriesComponent implements OnInit, OnDestroy {
     errorOccured: boolean;
     currentUser: CurrentUser;
     dataSource: StoriesDataSource;
     displayedColumns = ["titel", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
+    currentUserSubscription: Subscription;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private storiesService: StoriesService,
                 private securityService: SecurityService,
                 private router: Router) {
-        this.securityService.currentUser
+        this.currentUserSubscription = this.securityService.currentUser
             .subscribe(user => this.currentUser = user);
     }
 
@@ -50,5 +52,9 @@ export class OpenStoriesComponent implements OnInit {
                 result => this.router.navigate(['/stories/edit', result.id]),
                 err => this.errorOccured = true
             );
+    }
+
+    ngOnDestroy(): void {
+        this.currentUserSubscription.unsubscribe();
     }
 }

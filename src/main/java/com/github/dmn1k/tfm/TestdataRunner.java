@@ -76,6 +76,7 @@ public class TestdataRunner implements ApplicationRunner {
             .storyschreiber(interessent.getUsername())
             .plz("90765")
             .ort("Fürth")
+            .organisation("Test Organisation")
             .build());
 
         Inserat inserat2 = inserateRepository.save(Inserat.builder()
@@ -93,6 +94,7 @@ public class TestdataRunner implements ApplicationRunner {
             .storyschreiber(interessent.getUsername())
             .plz("86899")
             .ort("Landsberg")
+            .organisation("Test Organisation")
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -110,6 +112,7 @@ public class TestdataRunner implements ApplicationRunner {
             .storyschreiber(interessent.getUsername())
             .plz("91058")
             .ort("Erlangen")
+            .organisation("Test Organisation")
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -127,6 +130,7 @@ public class TestdataRunner implements ApplicationRunner {
             .storyschreiber(interessent.getUsername())
             .plz("90765")
             .ort("Fürth")
+            .organisation("Test Organisation")
             .build());
 
 

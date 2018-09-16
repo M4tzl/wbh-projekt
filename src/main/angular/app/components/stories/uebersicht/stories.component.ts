@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {StoriesService} from "../../../services/stories.service";
 import {MatDialog, MatPaginator, MatSort} from "@angular/material";
-import {EMPTY, fromEvent, merge, of} from "rxjs";
+import {EMPTY, fromEvent, merge, of, Subscription} from "rxjs";
 import {debounceTime, distinctUntilChanged, flatMap, switchMap, tap} from "rxjs/operators";
 import {StoriesDataSource} from "../../../datasources/stories.dataSource";
 import {CurrentUser} from "../../../model/current-user";
@@ -16,12 +16,13 @@ import {YesNoDialogComponent} from "../../allgemein/yes-no-dialog/yes-no-dialog.
   styleUrls: ['./stories.component.scss']
 })
 
-export class StoriesComponent implements OnInit, AfterViewInit {
+export class StoriesComponent implements OnInit, AfterViewInit, OnDestroy {
     currentUser: CurrentUser;
     dataSource: StoriesDataSource;
     displayedColumns= ["id", "titel", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
+    currentUserSubscription: Subscription;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -30,7 +31,7 @@ export class StoriesComponent implements OnInit, AfterViewInit {
     constructor(private storiesService: StoriesService,
                 private securityService: SecurityService,
                 public dialog: MatDialog) {
-        this.securityService.currentUser
+        this.currentUserSubscription = this.securityService.currentUser
             .subscribe(user => this.currentUser = user);
     }
 
@@ -86,5 +87,9 @@ export class StoriesComponent implements OnInit, AfterViewInit {
             flatMap(val => val ? of(val) : EMPTY),
             switchMap(i => this.storiesService.delete(story.id))
         ).subscribe(val => this.loadStoriesPage());
+    }
+
+    ngOnDestroy(): void {
+        this.currentUserSubscription.unsubscribe();
     }
 }

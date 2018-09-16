@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Inserat} from '../../../model/inserat';
 import {InserateService} from '../../../services/inserate.service';
 import {ActivatedRoute} from '@angular/router';
-import {tap, map, switchMap} from 'rxjs/operators';
-import {Location} from '@angular/common';
-import {Vermittler} from "../../../model/vermittler";
-import {SecurityService} from "../../../services/security.service";
+import {tap} from 'rxjs/operators';
+import {Kontaktformular} from "../../../model/kontaktformular";
+import {KontaktformularService} from "../../../services/kontaktformular.service";
+import {update} from "../../../infrastructure/immutable-update";
 
 @Component({
     selector: 'app-inserat-kontakt',
@@ -14,11 +14,11 @@ import {SecurityService} from "../../../services/security.service";
 })
 export class InseratKontaktComponent implements OnInit {
     inserat: Inserat;
-    vermittler: Vermittler;
-    data: any = {};
+    data: Kontaktformular = <Kontaktformular> {};
+    successfullySent: boolean;
 
     constructor(private inserateService: InserateService,
-                private securityService: SecurityService,
+                private kontaktformularService: KontaktformularService,
                 private route: ActivatedRoute) {
     }
 
@@ -28,15 +28,19 @@ export class InseratKontaktComponent implements OnInit {
         const id = this.route.snapshot.params['id'];
         this.inserateService.load(id)
             .pipe(
-                tap(result => this.inserat = result),
-                map(inserat => inserat.id)
-            ).subscribe(result => this.inserat.id = result);
+                tap(result => this.inserat = result)
+            ).subscribe(result => this.inserat = result);
     }
 
     onSubmit(form) {
         if (form.valid) {
-            console.log("Mail versenden:" + form);
+            this.kontaktformularService.send(update(this.data, {inseratId: this.inserat.id}))
+                .subscribe(result => this.successfullySent = true);
         }
+    }
+
+    reset() {
+        this.successfullySent = false;
     }
 
     goBack(): void {

@@ -10,34 +10,50 @@
             </div>
             <div class="card-body">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label"  for="nachricht">Eine Nachricht an {{inserat?.organisation}} senden</label>
+                    <label class="col-sm-4 col-form-label" for="nachricht">Eine Nachricht an {{inserat?.organisation}}
+                        senden</label>
                     <div class="col-sm-8">
                         <textarea
                             id="nachricht"
                             class="form-control"
                             [(ngModel)]="data.nachricht"
+                            (ngModelChange)="reset()"
                             #nachricht="ngModel"
-                             name="nachricht" rows="8" required></textarea>
-                    <div *ngIf="nachricht.invalid && (nachricht.dirty || nachricht.touched)" class="alert alert-danger">
-                             Nachricht ist ein Pflichtfeld
-                    </div>
+                            name="nachricht" rows="8" required></textarea>
+                        <div *ngIf="nachricht.invalid && (nachricht.dirty || nachricht.touched)"
+                             class="alert alert-danger">
+                            Nachricht ist ein Pflichtfeld
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-12 textwithline"><span>allgemeine freiwillige Angaben</span></div>
-                 </div>
-                 <div class="row">
+                </div>
+                <div class="row">
                     <div class="col-12 col-sm-12 col-md-6 text-left">
-                        <input type="checkbox"  [(ngModel)]="data.erfahrungHund" name="erfahrungHund" id="erfahrungHund"/>&nbsp;
-                        <label for="erfahrungHund" class="{{data.erfahrungHund ? 'font-weight-bold' : 'font-weight-light'}}">bereits Erfahrung mit Hunden?</label>
+                        <input type="checkbox" [(ngModel)]="data.erfahrungHund" name="erfahrungHund"
+                               (ngModelChange)="reset()"
+                               id="erfahrungHund"/>&nbsp;
+                        <label for="erfahrungHund"
+                               class="{{data.erfahrungHund ? 'font-weight-bold' : 'font-weight-light'}}">bereits
+                            Erfahrung mit Hunden?</label>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 text-left">
-                        <input type="checkbox"  [(ngModel)]="data.weitereTiere" name="weitereTiere" id="weitereTiere"/>&nbsp;
-                        <label for="weitereTiere" class="{{data.weitereTiere ? 'font-weight-bold' : 'font-weight-light'}}">Weitere Tiere im Haushalt?</label>
+                        <input type="checkbox" [(ngModel)]="data.weitereTiere"
+                               (ngModelChange)="reset()"
+                               name="weitereTiere" id="weitereTiere"/>&nbsp;
+                        <label for="weitereTiere"
+                               class="{{data.weitereTiere ? 'font-weight-bold' : 'font-weight-light'}}">Weitere Tiere im
+                            Haushalt?</label>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 text-left">
-                        <input type="checkbox"  [(ngModel)]="data.kinderHaushalt" name="kinderHaushalt" id="kinderHaushalt"/>&nbsp;
-                        <label for="kinderHaushalt" class="{{data.kinderHaushalt ? 'font-weight-bold' : 'font-weight-light'}}">Kinder im Haushalt?</label>
+                        <input type="checkbox" [(ngModel)]="data.kinderHaushalt"
+                               (ngModelChange)="reset()"
+                               name="kinderHaushalt"
+                               id="kinderHaushalt"/>&nbsp;
+                        <label for="kinderHaushalt"
+                               class="{{data.kinderHaushalt ? 'font-weight-bold' : 'font-weight-light'}}">Kinder im
+                            Haushalt?</label>
                     </div>
 
                 </div>
@@ -45,30 +61,45 @@
                     <div class="col-12 textwithline"><span>freiwillige Angaben zur Wohnsituation</span></div>
                 </div>
                 <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 text-left">
-                            <input type="checkbox"  [(ngModel)]="data.haus" name="Haus" id="Haus"/>&nbsp;
-                            <label for="Haus" class="{{data.haus ? 'font-weight-bold' : 'font-weight-light'}}">Haus?</label>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 text-left">
-                            <input type="checkbox"  [(ngModel)]="data.wohnung" name="Wohnung" id="Wohnung"/>&nbsp;
-                            <label for="Wohnung" class="{{data.wohnung ? 'font-weight-bold' : 'font-weight-light'}}">Wohnung?</label>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 text-left">
-                            <input type="checkbox"  [(ngModel)]="data.tierhaltung" name="tierhaltung" id="tierhaltung"/>&nbsp;
-                            <label for="tierhaltung" class="{{data.tierhaltung ? 'font-weight-bold' : 'font-weight-light'}}">Tierhaltung erlaubt (z.B. vom Vermieter)?</label>
-                        </div>
-                 </div>
-            </div>
-            <div class="card-footer">
-                    <div class="row">
-                        <div class="col-6 text-left">
-                            <button class="btn btn-warning" (click)="goBack()">Zurück</button>
-                        </div>
-                        <div class="col-6 text-right">
-                                <button type="submit" class="btn btn-success" [disabled]="!kontaktForm.form.valid">Nachricht versenden</button>
-                        </div>
+                    <div class="col-12 col-sm-12 col-md-6 text-left">
+                        <input type="checkbox" [(ngModel)]="data.haus"
+                               (ngModelChange)="reset()"
+                               name="Haus" id="Haus"/>&nbsp;
+                        <label for="Haus" class="{{data.haus ? 'font-weight-bold' : 'font-weight-light'}}">Haus?</label>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 text-left">
+                        <input type="checkbox" [(ngModel)]="data.wohnung"
+                               (ngModelChange)="reset()"
+                               name="Wohnung" id="Wohnung"/>&nbsp;
+                        <label for="Wohnung" class="{{data.wohnung ? 'font-weight-bold' : 'font-weight-light'}}">Wohnung?</label>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 text-left">
+                        <input type="checkbox" [(ngModel)]="data.tierhaltung"
+                               (ngModelChange)="reset()"
+                               name="tierhaltung" id="tierhaltung"/>&nbsp;
+                        <label for="tierhaltung"
+                               class="{{data.tierhaltung ? 'font-weight-bold' : 'font-weight-light'}}">Tierhaltung
+                            erlaubt (z.B. vom Vermieter)?</label>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer">
+                <div class="alert alert-success text-left" role="alert" *ngIf="successfullySent">
+                    <span class="text-left">Nachricht wurde erfolgreich versandt!<br /><br />
+                        Der Vermittler wird sich bei der E-Mail-Adresse melden, die Sie bei Ihrer Registrierung angegeben haben.</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 text-left">
+                        <button class="btn btn-warning" (click)="goBack()">Zurück</button>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button type="submit" class="btn btn-success" [disabled]="!kontaktForm.form.valid || successfullySent">Nachricht
+                            versenden
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>

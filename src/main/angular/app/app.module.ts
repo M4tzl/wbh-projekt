@@ -53,6 +53,7 @@ import {YesNoDialogComponent} from "./components/allgemein/yes-no-dialog/yes-no-
 import {OpenStoriesComponent} from "./components/stories/open/open-stories.component";
 import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche.component";
 import {PastValidator} from "./validation/past-validator";
+import {KontaktformularService} from "./services/kontaktformular.service";
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import {PastValidator} from "./validation/past-validator";
         StoriesService,
         BreedService,
         SecurityService,
+        KontaktformularService,
         UpdateUserGuard,
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: NgbDateParserFormatter, useClass: CustomNgbDateParserFormatter},

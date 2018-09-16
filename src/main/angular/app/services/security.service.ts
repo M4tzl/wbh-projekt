@@ -59,10 +59,6 @@ export class SecurityService {
             );
     }
 
-    loadVermittler(): Observable<Vermittler> {
-        return this.http.get<Vermittler>('/api/user/vermittler');
-    }
-
     initiatePasswordReset(credentials: Credentials): Observable<CurrentUser> {
         return this.http.post<any>('/api/password/reset', credentials);
     }
