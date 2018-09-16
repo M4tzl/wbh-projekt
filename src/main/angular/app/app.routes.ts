@@ -11,8 +11,8 @@ import {ImpressumComponent} from "./components/allgemein/impressum/impressum.com
 import {DatenschutzComponent} from "./components/allgemein/datenschutz/datenschutz.component";
 import {InseratKontaktComponent} from "./components/inserate/kontakt/inserat-kontakt.component";
 import {UserLoginComponent} from "./components/login/login/user-login.component";
-import {InteressentenRegisterComponent} from "./components/interessenten/register/interessenten-register.component";
-import {VermittlerRegisterComponent} from "./components/vermittler/register/vermittler-register.component";
+import {InteressentenRegisterComponent} from "./components/register/interessent/interessenten-register.component";
+import {VermittlerRegisterComponent} from "./components/register/vermittler/vermittler-register.component";
 import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
 import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";

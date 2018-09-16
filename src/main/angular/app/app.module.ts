@@ -42,8 +42,8 @@ import {UserLoginComponent} from './components/login/login/user-login.component'
 import {InserateDialogStoryschreiberComponent} from './components/inserate/storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
 import {SecurityService} from "./services/security.service";
 import {XhrInterceptor} from "./infrastructure/xhr.interceptor";
-import {InteressentenRegisterComponent} from "./components/interessenten/register/interessenten-register.component";
-import {VermittlerRegisterComponent} from "./components/vermittler/register/vermittler-register.component";
+import {InteressentenRegisterComponent} from "./components/register/interessent/interessenten-register.component";
+import {VermittlerRegisterComponent} from "./components/register/vermittler/vermittler-register.component";
 import {EqualValidator} from "./validation/equal-validator";
 import {StartpageRoleGuard} from "./guards/startpage-role.guard";
 import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
