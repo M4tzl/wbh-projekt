@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {SecurityService} from "../../../services/security.service";
 import {Router} from "@angular/router";
 import {Credentials} from "../../../model/credentials";
+import {filter, flatMap} from "rxjs/operators";
+import {of, throwError} from "rxjs";
 
 @Component({
     selector: 'app-user-login',
@@ -19,6 +21,9 @@ export class UserLoginComponent {
     onSubmit(form) {
         if (form.valid) {
             this.securityService.authenticate(this.data)
+                .pipe(
+                    flatMap(result => result.loggedIn ? of(result) : throwError(result))
+                )
                 .subscribe(res => this.router.navigateByUrl("/"),
                     err => this.loginFailed = true);
         }

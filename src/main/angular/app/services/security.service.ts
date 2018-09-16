@@ -27,12 +27,14 @@ export class SecurityService {
         return this.http.get<any>('/api/user', {headers: headers})
             .pipe(
                 catchError(err => {
-                    this._currentUser.next(<CurrentUser> {
-                        retrievalFailed: true,
-                        loggedIn: false,
-                        isInteressent: false,
-                        isVermittler: false
-                    });
+                    if(err.status && err.status >= 500) {
+                        this._currentUser.next(<CurrentUser> {
+                            retrievalFailed: true,
+                            loggedIn: false,
+                            isInteressent: false,
+                            isVermittler: false
+                        });
+                    }
 
                     return throwError(err);
                 }),
