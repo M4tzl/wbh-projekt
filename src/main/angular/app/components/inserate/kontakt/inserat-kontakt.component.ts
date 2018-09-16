@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Inserat} from '../../../model/inserat';
 import {InserateService} from '../../../services/inserate.service';
 import {ActivatedRoute} from '@angular/router';
-import {tap, map} from 'rxjs/operators';
+import {tap, map, switchMap} from 'rxjs/operators';
 import {Location} from '@angular/common';
+import {Vermittler} from "../../../model/vermittler";
+import {SecurityService} from "../../../services/security.service";
 
 @Component({
     selector: 'app-inserat-kontakt',
@@ -12,9 +14,11 @@ import {Location} from '@angular/common';
 })
 export class InseratKontaktComponent implements OnInit {
     inserat: Inserat;
+    vermittler: Vermittler;
     data: any = {};
 
     constructor(private inserateService: InserateService,
+                private securityService: SecurityService,
                 private route: ActivatedRoute) {
     }
 
@@ -25,7 +29,8 @@ export class InseratKontaktComponent implements OnInit {
         this.inserateService.load(id)
             .pipe(
                 tap(result => this.inserat = result),
-                map(inserat => inserat.id)).subscribe(result => this.inserat.id = result);
+                map(inserat => inserat.id)
+            ).subscribe(result => this.inserat.id = result);
     }
 
     onSubmit(form) {
