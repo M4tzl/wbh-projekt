@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {SecurityService} from "./services/security.service";
 import {CurrentUser} from "./model/current-user";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -11,8 +11,10 @@ import {Router} from "@angular/router";
 export class AppComponent {
     currentUser: CurrentUser;
     showConnectionError: boolean;
+    widgetMode: boolean;
 
     constructor(private securityService: SecurityService,
+                private route: ActivatedRoute,
                 private router: Router) {
         this.securityService.currentUser
             .subscribe(
@@ -25,6 +27,10 @@ export class AppComponent {
                     this.showConnectionError = true;
                 }
             );
+        this.route.queryParams.subscribe(params => {
+            this.widgetMode = params['widgetMode'];
+        });
+
     }
 
     logout() {

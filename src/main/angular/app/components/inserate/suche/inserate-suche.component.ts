@@ -27,11 +27,12 @@ export class InserateSucheComponent implements OnInit, AfterViewInit {
     constructor(private inserateService: InserateService,
                 private route: ActivatedRoute,
                 private router: Router) {
-        const params = this.route.snapshot.queryParams;
-        this.queryParams = Object.keys(params)
-            .map(key => {
-                return {key: <keyof Inserat> key, value: params[key]};
-            });
+        this.route.queryParams.subscribe(params => {
+            this.queryParams = Object.keys(params)
+                .map(key => {
+                    return {key: <keyof Inserat> key, value: params[key]};
+                });
+        });
     }
 
     ngOnInit() {
@@ -62,7 +63,14 @@ export class InserateSucheComponent implements OnInit, AfterViewInit {
     }
 
     newSearch() {
-        this.router.navigateByUrl('/inserate/such-maske');
+        const widgetMode = this.route.snapshot.queryParams['widgetMode'];
+
+        console.log(widgetMode);
+        if (widgetMode) {
+            this.router.navigate(['/inserate/such-maske'], {queryParams: {widgetMode}});
+        } else {
+            this.router.navigateByUrl('/inserate/such-maske');
+        }
     }
 
     updateSearch() {

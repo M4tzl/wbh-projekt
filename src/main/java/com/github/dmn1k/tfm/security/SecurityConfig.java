@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
 @Configuration
 @EnableWebSecurity
@@ -55,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().logout()
             .logoutUrl("/api/logout")
             .and().sessionManagement()
-            .sessionAuthenticationErrorUrl("/#/session-expired");
+            .sessionAuthenticationErrorUrl("/#/session-expired")
+            .and().headers().frameOptions().disable();
 
         if(sslRequired) {
             http.requiresChannel().anyRequest().requiresSecure();

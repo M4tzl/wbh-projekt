@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light fixed-top tfm">
+<nav *ngIf="!widgetMode" class="navbar navbar-expand-md navbar-light fixed-top tfm">
 
     <a class="navbar-brand" href="#"><img src="assets/img/logo-quer-40px.png"><span class="sr-only">(current)</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -8,7 +8,8 @@
     <div class="collapse navbar-collapse " id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li *ngIf="currentUser?.isVermittler; else noVermittlerInserate" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="vermittlerInserateDropdown" href="#" role="button" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" id="vermittlerInserateDropdown" href="#" role="button"
+                   data-toggle="dropdown"
                    aria-haspopup="true"
                    aria-expanded="false">Inserate</a>
                 <div class="dropdown-menu" aria-labelledby="vermittlerInserateDropdown" data-toggle="collapse"
@@ -25,7 +26,8 @@
             </ng-template>
 
             <li *ngIf="currentUser?.isInteressent; else noInteressent" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="interessenStoriesDropdown" href="#" role="button" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" id="interessenStoriesDropdown" href="#" role="button"
+                   data-toggle="dropdown"
                    aria-haspopup="true"
                    aria-expanded="false">Stories</a>
                 <div class="dropdown-menu" aria-labelledby="interessenStoriesDropdown" data-toggle="collapse"
@@ -59,7 +61,8 @@
         <ng-template #loggedOut>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                       data-toggle="dropdown"
                        aria-haspopup="true"
                        aria-expanded="false">Registrierung</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" data-toggle="collapse"
@@ -90,7 +93,7 @@
 </main><!-- /.container -->
 
 <!-- Footer -->
-<footer class="page-footer font-small fixed-bottom">
+<footer *ngIf="!widgetMode" class="page-footer font-small fixed-bottom">
     <!-- Footer Links -->
     <div class="container text-center">
         <!-- Grid row -->
@@ -125,4 +128,3 @@
     <div class="footer-copyright text-center">&copy; 2018 Copyright: TFM &nbsp;</div>
 </footer>
 <!-- Footer -->
-

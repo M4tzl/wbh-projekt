@@ -43,12 +43,12 @@
 
                 <ng-container matColumnDef="rufname">
                     <mat-header-cell *matHeaderCellDef>Rufname</mat-header-cell>
-                    <mat-cell *matCellDef="let inserat">{{inserat.rufname}}</mat-cell>
+                    <mat-cell *matCellDef="let inserat"><span class="text-left">{{inserat.rufname}}</span></mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="rasse">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Rasse</mat-header-cell>
-                    <mat-cell *matCellDef="let inserat">{{inserat.rasse}}</mat-cell>
+                    <mat-cell *matCellDef="let inserat"><span class="text-left">{{inserat.rasse}}</span></mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="alter">

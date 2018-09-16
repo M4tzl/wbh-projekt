@@ -280,10 +280,17 @@
                     <div class="col-sm-8">
                         <textarea
                             id="beschreibung"
+                            maxlength="500"
                             class="form-control"
                             [(ngModel)]="inserat.kurzbeschreibung"
                             name="beschreibung"
+                            #kurzbeschreibung="ngModel"
                             rows="8"></textarea>
+                        <div *ngIf="kurzbeschreibung.invalid && (kurzbeschreibung.dirty || kurzbeschreibung.touched)" class="alert alert-danger">
+                            <div *ngIf="kurzbeschreibung.errors.maxlength">
+                                Die Beschreibung ist zu lang.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

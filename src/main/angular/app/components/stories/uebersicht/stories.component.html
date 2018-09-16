@@ -30,7 +30,7 @@
 
                 <ng-container matColumnDef="titel">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Titel</mat-header-cell>
-                    <mat-cell *matCellDef="let story">{{story.titel}}</mat-cell>
+                    <mat-cell *matCellDef="let story"><span class="text-left">{{story.titel}}</span></mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="actions">

@@ -21,7 +21,7 @@ public class ImageResizer {
 
         try {
             BufferedImage img = ImageIO.read(inputStream);
-            BufferedImage scaledImg = Scalr.resize(img, Scalr.Mode.FIT_TO_WIDTH, 60);
+            BufferedImage scaledImg = Scalr.resize(img, Scalr.Method.QUALITY, Scalr.Mode.FIT_TO_WIDTH, 60);
 
             ImageIO.setUseCache(false);
             ImageIO.write(scaledImg, MediaType.parseMediaType(multipartFile.getContentType()).getSubtype(), outputStream);
