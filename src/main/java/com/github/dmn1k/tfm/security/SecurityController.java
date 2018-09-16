@@ -124,7 +124,7 @@ public class SecurityController {
                 throw new IllegalStateException("Token expired");
             }
 
-            Account account = accountRepository.findByUsername(credentials.getUsername())
+            Account account = accountRepository.findByUsername(activation.getUsername())
                 .orElseThrow(() -> new IllegalStateException("Nutzer existiert nicht"));
             account.setPassword(passwordEncoder.encode(credentials.getPassword()));
 

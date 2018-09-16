@@ -120,7 +120,11 @@ public class InserateController {
 
     @DeleteMapping("/api/inserate/{id}")
     public ResponseEntity<?> deleteInserat(@PathVariable long id) {
-        repository.deleteById(id);
+        Inserat inserat = repository.findById(id)
+            .filter(Inserat::isLoeschbar)
+            .orElseThrow(() -> new IllegalStateException("Inserat kann nicht gelöscht werden!"));
+
+        repository.delete(inserat);
 
         return ResponseEntity.ok().build();
     }

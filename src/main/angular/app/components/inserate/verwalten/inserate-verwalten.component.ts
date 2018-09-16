@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InserateService} from "../../../services/inserate.service";
 import {InserateDataSource} from "../../../datasources/inserate.dataSource";
-import {MatDialog, MatDialogConfig, MatPaginator, MatSort} from "@angular/material";
+import {MatDialog, MatPaginator, MatSort} from "@angular/material";
 import {EMPTY, fromEvent, merge, of} from "rxjs";
 import {debounceTime, distinctUntilChanged, flatMap, map, switchMap, tap} from "rxjs/operators";
 import {InserateDialogStoryschreiberComponent} from '../storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
@@ -9,6 +9,7 @@ import {SecurityService} from "../../../services/security.service";
 import {CurrentUser} from "../../../model/current-user";
 import {Inserat} from "../../../model/inserat";
 import {update} from "../../../infrastructure/immutable-update";
+import {YesNoDialogComponent} from "../../allgemein/yes-no-dialog/yes-no-dialog.component";
 
 
 @Component({
@@ -104,8 +105,16 @@ export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
     }
 
     delete(inserat: Inserat) {
-        this.inserateService.delete(inserat)
-            .subscribe(result => this.loadInseratePage());
+        const dialogRef = this.dialog.open(YesNoDialogComponent, {
+            disableClose: true,
+            autoFocus: true,
+            data: 'Möchten Sie das Inserat wirklich löschen?'
+        });
+
+        dialogRef.afterClosed().pipe(
+            flatMap(val => val ? of(val) : EMPTY),
+            switchMap(i => this.inserateService.delete(inserat))
+        ).subscribe(val => this.loadInseratePage());
     }
 
 }

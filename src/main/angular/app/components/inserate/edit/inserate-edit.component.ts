@@ -87,7 +87,7 @@ export class InserateEditComponent implements OnInit {
     }
 
     goBack() {
-        window.history.back();
+        this.router.navigateByUrl("/inserate/manage");
     }
 
     backToWizardOne() {

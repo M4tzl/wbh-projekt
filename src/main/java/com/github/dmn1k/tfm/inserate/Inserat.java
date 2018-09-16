@@ -110,7 +110,7 @@ public class Inserat {
 
     @Transient
     public boolean isLoeschbar() {
-        return !InseratStatus.VERMITTELT.equals(status);
+        return !EnumSet.of(InseratStatus.VERMITTELT, InseratStatus.IN_RECHNUNG_GESTELLT).contains(status);
     }
 
     @Transient
