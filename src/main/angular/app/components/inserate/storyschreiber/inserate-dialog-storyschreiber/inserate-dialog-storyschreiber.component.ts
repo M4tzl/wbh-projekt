@@ -2,6 +2,11 @@ import {Component} from '@angular/core';
 import {InserateService} from '../../../../services/inserate.service';
 import {MatDialogRef} from '@angular/material';
 
+export interface AssignStoryschreiberResult {
+    assigned: boolean;
+    storyschreiber: string;
+}
+
 @Component({
     selector: 'app-inserate-dialog-storyschreiber',
     templateUrl: './inserate-dialog-storyschreiber.component.html',
@@ -15,12 +20,12 @@ export class InserateDialogStoryschreiberComponent {
 
     save(form) {
         if(form.valid) {
-            this.dialogRef.close(this.data.storyschreiber);
+            this.dialogRef.close(<AssignStoryschreiberResult> {assigned: true, storyschreiber: this.data.storyschreiber});
         }
     }
 
     close() {
-        this.dialogRef.close();
+        this.dialogRef.close(<AssignStoryschreiberResult> {assigned: false});
     }
 
 }

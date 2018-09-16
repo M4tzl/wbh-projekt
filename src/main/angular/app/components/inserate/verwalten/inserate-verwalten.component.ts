@@ -82,8 +82,8 @@ export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
         const dialogRef = this.dialog.open(InserateDialogStoryschreiberComponent, dialogConfig);
 
         dialogRef.afterClosed().pipe(
-            flatMap(val => val ? of(val) : EMPTY),
-            switchMap(val => this.inserateService.assignStoryschreiber(inserat.id, val))
+            flatMap(val => val.assigned ? of(val) : EMPTY),
+            switchMap(val => this.inserateService.assignStoryschreiber(inserat.id, val.storyschreiber))
         ).subscribe(val => this.loadInseratePage());
     }
 

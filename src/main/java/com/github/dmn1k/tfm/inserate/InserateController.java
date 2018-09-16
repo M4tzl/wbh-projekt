@@ -152,7 +152,8 @@ public class InserateController {
     }
 
     @PutMapping("/api/inserate/{id}/storyschreiber")
-    public ResponseEntity<?> assignStoryschreiber(@PathVariable long id, @RequestBody String storyschreiber) {
+    public ResponseEntity<?> assignStoryschreiber(@PathVariable long id,
+                                                  @RequestBody(required = false) String storyschreiber) {
         Inserat updatedInserat = getLoggedInUser()
             .flatMap(u -> repository.findById(id)
                 .filter(i -> i.getVermittler().equals(u.getUsername())))
