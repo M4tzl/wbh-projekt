@@ -1,19 +1,20 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {Story} from "../model/story";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpEventType, HttpRequest} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {StoriesResult} from "../model/stories-result";
 import {BildMetadaten} from "../model/bild-metadaten";
 import {UploadService} from "./upload.service";
 import {Inserat} from "../model/inserat";
+import {BildUploadProgress} from "../model/bild-upload-progress";
 
 @Injectable()
 export class StoriesService implements UploadService {
-    constructor(private httpClient: HttpClient){
+    constructor(private httpClient: HttpClient) {
     }
 
-    public loadAll(filter: {key: keyof Story, value: string}[],
+    public loadAll(filter: { key: keyof Story, value: string }[],
                    sort: string, sortDirection: string,
                    page: number, pageSize: number): Observable<StoriesResult> {
         const filterString = filter.map(entry => `${entry.key}=${entry.value}`)
@@ -38,12 +39,12 @@ export class StoriesService implements UploadService {
             );
     }
 
-    public load(id:number): Observable<Story> {
-        return this.httpClient.get<Story>("/api/stories/"+id);
+    public load(id: number): Observable<Story> {
+        return this.httpClient.get<Story>("/api/stories/" + id);
     }
 
-    public delete(id:number): Observable<Story> {
-        return this.httpClient.delete<Story>("/api/stories/"+id);
+    public delete(id: number): Observable<Story> {
+        return this.httpClient.delete<Story>("/api/stories/" + id);
     }
 
     public update(story: Story): Observable<Story> {
@@ -54,24 +55,33 @@ export class StoriesService implements UploadService {
         return this.httpClient.post<Story>(`/api/stories`, story);
     }
 
-    public uploadImage(storyBild: BildMetadaten, file: File): Observable<BildMetadaten> {
+    public uploadImage(storyBild: BildMetadaten, file: File): Observable<BildUploadProgress> {
         const formData: FormData = new FormData();
         formData.append('file', file);
 
-        if(storyBild.id){
+        if (storyBild.id) {
+            const req = new HttpRequest('PUT', `/api/stories/${storyBild.entityId}/images/${storyBild.id}`, formData, {
+                reportProgress: true
+            });
+
             return this.httpClient
-                .put<BildMetadaten>(`/api/stories/${storyBild.entityId}/images/${storyBild.id}`, formData)
+                .request(req)
                 .pipe(
-                    map(this.mapStoryBildToBildMetadaten)
+                    map(this.getEventMessage)
                 );
         }
 
+        const req = new HttpRequest('POST', `/api/stories/${storyBild.entityId}/images`, formData, {
+            reportProgress: true
+        });
+
         return this.httpClient
-            .post<BildMetadaten>(`/api/stories/${storyBild.entityId}/images`, formData)
+            .request(req)
             .pipe(
-                map(this.mapStoryBildToBildMetadaten)
+                map(this.getEventMessage)
             );
     }
+
     public loadImages(storyId: number): Observable<BildMetadaten[]> {
         return this.httpClient.get<BildMetadaten[]>(`/api/stories/${storyId}/images`)
             .pipe(
@@ -79,7 +89,35 @@ export class StoriesService implements UploadService {
             );
     }
 
-    private mapStoryBildToBildMetadaten(storyBild) : BildMetadaten{
+    private getEventMessage(event: HttpEvent<any>): BildUploadProgress {
+        switch (event.type) {
+            case HttpEventType.Sent:
+                return {finished: false, progress: 0, result: null};
+
+            case HttpEventType.UploadProgress:
+                return {finished: false, progress: Math.round(100 * event.loaded / event.total), result: null}
+
+            case HttpEventType.Response:
+                return {
+                    finished: true, progress: 100,
+                    result: <BildMetadaten> {
+                        id: event.body.id,
+                        entityId: event.body.storyId,
+                        bildKey: event.body.bildKey,
+                        imageUrl: `/api/stories/${event.body.storyId}/images/${event.body.bildKey}`
+                    }
+                };
+
+            case HttpEventType.DownloadProgress:
+            case HttpEventType.ResponseHeader:
+                return {finished: false, progress: 100, result: null};
+
+            default:
+                throw event;
+        }
+    }
+
+    private mapStoryBildToBildMetadaten(storyBild): BildMetadaten {
         return <BildMetadaten> {
             id: storyBild.id,
             entityId: storyBild.storyId,

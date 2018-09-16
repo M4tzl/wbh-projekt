@@ -8,7 +8,6 @@ ADMINMODUS:
 - Kontaktformular => mail senden
 
 Nice2have:
-- Upload-Progressanzeige
 - security vereinfachen
 
 Externe Quellen:

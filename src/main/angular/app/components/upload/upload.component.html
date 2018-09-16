@@ -1,10 +1,14 @@
 <div class="card mb-2" style="width:200px;height:216px;">
-    <img class="card-img"
+    <img *ngIf="!uploading"
+         class="card-img"
          (click)="fileInput.click()"
          class="m-1"
          style="max-width:200px;"
          [src]="(imageSource || '') | safeUrl">
     <input type="file" accept="image/*"
            (change)="handleFileInput($event.target.files)"
-           #fileInput />
+           #fileInput/>
+
+    <ngb-progressbar *ngIf="uploading" type="info" [value]="uploadProgress" style="margin-top: 100px"
+                     [striped]="true" [max]="100" [showValue]="true"></ngb-progressbar>
 </div>
