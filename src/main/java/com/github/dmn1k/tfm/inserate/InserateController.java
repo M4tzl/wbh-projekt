@@ -151,6 +151,22 @@ public class InserateController {
         return ResponseEntity.ok(saved);
     }
 
+    @PutMapping("/api/inserate/{id}/storyschreiber")
+    public ResponseEntity<?> assignStoryschreiber(@PathVariable long id, @RequestBody String storyschreiber) {
+        Inserat updatedInserat = getLoggedInUser()
+            .flatMap(u -> repository.findById(id)
+                .filter(i -> i.getVermittler().equals(u.getUsername())))
+            .map(i -> i.toBuilder()
+                .id(id)
+                .lastUpdate(LocalDate.now())
+                .storyschreiber(storyschreiber)
+                .build())
+            .orElseThrow(() -> new IllegalStateException("Inserat existiert nicht bzw. der Zugriff ist nicht erlaubt"));
+
+        Inserat saved = repository.save(updatedInserat);
+        return ResponseEntity.ok(saved);
+    }
+
     @PutMapping("/api/inserate/{id}/publish")
     public ResponseEntity<?> publishInserat(@PathVariable long id, @RequestBody Inserat inserat) {
         Inserat updatedInserat = getLoggedInUser()

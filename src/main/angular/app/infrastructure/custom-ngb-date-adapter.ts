@@ -8,11 +8,11 @@ export class CustomNgbDateAdapter extends NgbDateAdapter<string> {
             return null;
         }
 
-        const parts = value.split("-");
+        const parts = value.split(".");
         return <NgbDateStruct> {
-            day: Number(parts[2]),
+            day: Number(parts[0]),
             month: Number(parts[1]),
-            year: Number(parts[0])
+            year: Number(parts[2])
         };
     }
 
@@ -21,7 +21,7 @@ export class CustomNgbDateAdapter extends NgbDateAdapter<string> {
             return null;
         }
 
-        return `${date.year}-${this.pad(date.month)}-${this.pad(date.day)}`;
+        return `${this.pad(date.day)}.${this.pad(date.month)}.${date.year}`;
     }
 
     private pad(n: number): string{

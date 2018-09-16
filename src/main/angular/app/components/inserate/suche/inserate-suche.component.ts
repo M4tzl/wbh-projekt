@@ -15,7 +15,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class InserateSucheComponent implements OnInit, AfterViewInit {
     dataSource: InserateDataSource;
-    displayedColumns = ["id", "lastUpdate", "rufname", "rasse", "alter", "plz", "ort", "actions"];
+    displayedColumns = ["id", "lastUpdate", "bild", "rufname", "rasse", "alter", "plz", "ort", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
     private queryParams: { key: keyof Inserat, value: string }[];

@@ -33,9 +33,21 @@
                     <mat-cell *matCellDef="let inserat">{{inserat.lastUpdate}}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="bild">
+                    <mat-header-cell *matHeaderCellDef>Bild</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">
+                        <img src="/api/inserate/{{inserat.id}}/thumbnail" alt="[Bild]" title="Vorschaubild">
+                    </mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="rufname">
                     <mat-header-cell *matHeaderCellDef>Rufname</mat-header-cell>
                     <mat-cell *matCellDef="let inserat">{{inserat.rufname}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="storyschreiber">
+                    <mat-header-cell *matHeaderCellDef>Storyschreiber</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.storyschreiber}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">

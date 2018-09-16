@@ -82,6 +82,7 @@ CREATE TABLE "inserat" (
 
 CREATE TABLE "inserat_bild" (
   id bigserial NOT NULL,
+  created date not null,
   inserat_id bigserial NOT NULL,
   bild_key varchar(200) NOT NULL,
   PRIMARY KEY (id),
@@ -101,6 +102,7 @@ CREATE TABLE "story" (
 
 CREATE TABLE "story_bild" (
   id bigserial NOT NULL,
+  created date not null,
   story_id bigserial NOT NULL,
   bild_key varchar(200) NOT NULL,
   PRIMARY KEY (id),

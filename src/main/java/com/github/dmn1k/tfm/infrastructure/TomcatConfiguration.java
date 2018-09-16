@@ -1,6 +1,6 @@
 package com.github.dmn1k.tfm.infrastructure;
 
-import com.github.dmn1k.tfm.files.FileService;
+import com.github.dmn1k.tfm.images.ImageService;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import org.apache.catalina.Context;
@@ -32,7 +32,7 @@ public class TomcatConfiguration {
     private boolean sslRequired;
 
     @Autowired
-    private FileService fileService;
+    private ImageService imageService;
 
     @SneakyThrows
     @Bean
@@ -73,7 +73,7 @@ public class TomcatConfiguration {
     }
 
     private File readPrivateKeyFile() throws IOException {
-        ResponseEntity<byte[]> keyFile = fileService.download("tfm.p12");
+        ResponseEntity<byte[]> keyFile = imageService.download("tfm.p12");
         File tempFile = File.createTempFile("ssl-key", ".p12");
         @Cleanup FileOutputStream fos = new FileOutputStream(tempFile);
         fos.write(keyFile.getBody());

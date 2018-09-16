@@ -7,8 +7,6 @@ ADMINMODUS:
 
 - registrierungsdaten anpassen
 - Kontaktformular => mail senden
-- STYLING!!!
-- IFrame-Einbindung
 
 Nice2have:
 - Upload-Progressanzeige

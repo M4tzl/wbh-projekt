@@ -16,4 +16,5 @@ export interface InseratUebersicht {
     editierbar:boolean;
 
     vermittler:string;
+    storyschreiber: string;
 }

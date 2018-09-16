@@ -1,5 +1,6 @@
 package com.github.dmn1k.tfm.inserate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.dmn1k.tfm.stories.Story;
 import lombok.AllArgsConstructor;
@@ -32,9 +33,11 @@ public class Inserat {
     private Long id;
 
     @Builder.Default
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate created = LocalDate.now();
 
     @Builder.Default
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate lastUpdate = LocalDate.now();
 
     private String rasse;
@@ -52,6 +55,7 @@ public class Inserat {
     private Geschlecht geschlecht;
 
     @Past
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate geburtsdatum;
 
     private String kurzbeschreibung;
@@ -155,6 +159,7 @@ public class Inserat {
             .vermittelbar(isVermittelbar())
             .loeschbar(isLoeschbar())
             .editierbar(isEditierbar())
+            .storyschreiber(storyschreiber)
             .build();
     }
 }

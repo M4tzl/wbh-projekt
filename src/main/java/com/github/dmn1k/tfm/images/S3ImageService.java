@@ -1,4 +1,4 @@
-package com.github.dmn1k.tfm.files;
+package com.github.dmn1k.tfm.images;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
@@ -13,21 +13,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
 @Profile("prod")
 @Service
-public class S3FileService implements FileService {
+public class S3ImageService implements ImageService {
     private static final String CONTENT_TYPE = "content-type";
     private static final String FILE_NAME = "fileName";
+    private static final String IMAGES_BUCKET = "tfm-images";
+    private static final String THUMBNAILS_BUCKET = "tfm-thumbnails";
 
     @Autowired
     private AmazonS3 amazonS3Client;
 
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
-
+    @Autowired
+    private ImageResizer imageResizer;
 
     @Override
     @SneakyThrows
@@ -39,11 +42,21 @@ public class S3FileService implements FileService {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.addUserMetadata(CONTENT_TYPE, multipartFile.getContentType());
             metadata.addUserMetadata(FILE_NAME, multipartFile.getOriginalFilename());
-            PutObjectRequest putObjectRequest = new PutObjectRequest(bucket,
+            PutObjectRequest putObjectRequest = new PutObjectRequest(IMAGES_BUCKET,
                 key, inputStream, metadata);
             putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead);
 
             amazonS3Client.putObject(putObjectRequest);
+
+
+            byte[] thumbnail = imageResizer.createThumbnail(multipartFile);
+            @Cleanup ByteArrayInputStream thumbnailInputStream = new ByteArrayInputStream(thumbnail);
+
+            PutObjectRequest putThumbnailRequest = new PutObjectRequest(THUMBNAILS_BUCKET,
+                key, thumbnailInputStream, metadata);
+            putThumbnailRequest.setCannedAcl(CannedAccessControlList.PublicRead);
+
+            amazonS3Client.putObject(putThumbnailRequest);
             return key;
         }
 
@@ -53,7 +66,17 @@ public class S3FileService implements FileService {
     @Override
     @SneakyThrows
     public ResponseEntity<byte[]> download(String key) {
-        GetObjectRequest getObjectRequest = new GetObjectRequest(bucket, key);
+        return downloadFromBucket(key, IMAGES_BUCKET);
+    }
+
+    @Override
+    @SneakyThrows
+    public ResponseEntity<byte[]> downloadThumbnail(String key) {
+        return downloadFromBucket(key, THUMBNAILS_BUCKET);
+    }
+
+    private ResponseEntity<byte[]> downloadFromBucket(String key, String thumbnailsBucket) throws IOException {
+        GetObjectRequest getObjectRequest = new GetObjectRequest(thumbnailsBucket, key);
         @Cleanup S3Object s3Object = amazonS3Client.getObject(getObjectRequest);
         @Cleanup S3ObjectInputStream objectInputStream = s3Object.getObjectContent();
 

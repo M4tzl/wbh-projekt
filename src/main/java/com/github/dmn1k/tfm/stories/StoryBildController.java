@@ -1,6 +1,6 @@
 package com.github.dmn1k.tfm.stories;
 
-import com.github.dmn1k.tfm.files.FileService;
+import com.github.dmn1k.tfm.images.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +15,17 @@ import java.util.List;
 @RestController
 public class StoryBildController {
     private final StoryBildRepository storyBildRepository;
-    private final FileService fileService;
+    private final ImageService imageService;
 
     @SneakyThrows
     @PostMapping(value = "/api/stories/{id}/images")
     public ResponseEntity<?> handleFileUpload(@PathVariable long id,
                                               @RequestParam("file") MultipartFile file) {
-        String key = fileService.upload(file);
-        StoryBild storyBild = storyBildRepository.save(new StoryBild(null, id, key));
+        String key = imageService.upload(file);
+        StoryBild storyBild = storyBildRepository.save(StoryBild.builder()
+            .storyId(id)
+            .bildKey(key)
+            .build());
 
         return ResponseEntity.ok(storyBild);
     }
@@ -36,7 +39,7 @@ public class StoryBildController {
         StoryBild storyBild = storyBildRepository.findById(storyBildId)
             .orElseThrow(() -> new RuntimeException("StoryBild mit ID " + id + " nicht gefunden!"));
 
-        String key = fileService.upload(file);
+        String key = imageService.upload(file);
         storyBild.setBildKey(key);
 
         StoryBild updated = storyBildRepository.save(storyBild);
@@ -47,7 +50,7 @@ public class StoryBildController {
     @GetMapping("/api/stories/{id}/images/{bildKey}")
     public @ResponseBody
     ResponseEntity<byte[]> serve(@PathVariable long id, @PathVariable String bildKey) {
-        return fileService.download(bildKey);
+        return imageService.download(bildKey);
     }
 
     @GetMapping("/api/stories/{id}/images")

@@ -15,6 +15,7 @@ public class InseratUebersicht {
     private String ort;
     private InseratStatus status;
     private String vermittler;
+    private String storyschreiber;
 
     private boolean aktivierbar;
     private boolean deaktivierbar;

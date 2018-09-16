@@ -3,12 +3,11 @@ import {InserateService} from "../../../services/inserate.service";
 import {InserateDataSource} from "../../../datasources/inserate.dataSource";
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort} from "@angular/material";
 import {EMPTY, fromEvent, merge, of} from "rxjs";
-import {debounceTime, distinctUntilChanged, flatMap, map, switchMap, tap} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, flatMap, switchMap, tap} from "rxjs/operators";
 import {InserateDialogStoryschreiberComponent} from '../storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
 import {SecurityService} from "../../../services/security.service";
 import {CurrentUser} from "../../../model/current-user";
 import {Inserat} from "../../../model/inserat";
-import {update} from "../../../infrastructure/immutable-update";
 
 
 @Component({
@@ -19,7 +18,7 @@ import {update} from "../../../infrastructure/immutable-update";
 export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
     currentUser: CurrentUser;
     dataSource: InserateDataSource;
-    displayedColumns = ["id", "lastUpdate", "rufname", "status", "actions"];
+    displayedColumns = ["id", "lastUpdate", "bild", "rufname", "storyschreiber", "status", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
 
@@ -84,8 +83,7 @@ export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
 
         dialogRef.afterClosed().pipe(
             flatMap(val => val ? of(val) : EMPTY),
-            map(val => update(inserat, {storyschreiber: val})),
-            switchMap(i => this.inserateService.close(i))
+            switchMap(val => this.inserateService.assignStoryschreiber(inserat.id, val))
         ).subscribe(val => this.loadInseratePage());
     }
 
