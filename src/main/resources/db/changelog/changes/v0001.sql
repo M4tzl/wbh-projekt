@@ -23,7 +23,7 @@ CREATE TABLE "vermittler" (
   webseite varchar(255) not null,
   PRIMARY KEY (id),
   CONSTRAINT UC_Vermittler_Username UNIQUE (username),
-  FOREIGN KEY(username) REFERENCES "account"(username)
+  FOREIGN KEY(username) REFERENCES "account"(username) ON DELETE CASCADE
 );
 
 CREATE TABLE "role" (
@@ -78,7 +78,7 @@ CREATE TABLE "inserat" (
   ort varchar(255) not null,
   organisation varchar(255) not null,
   PRIMARY KEY (id),
-  FOREIGN KEY (vermittler) REFERENCES "account"(username)
+  FOREIGN KEY (vermittler) REFERENCES "account"(username) ON DELETE CASCADE
 );
 
 CREATE TABLE "inserat_bild" (
@@ -98,7 +98,7 @@ CREATE TABLE "story" (
     beschreibung varchar(5000) null,
     draft boolean not null,
     PRIMARY KEY (id),
-    FOREIGN KEY (inserat_id) REFERENCES inserat(id)
+    FOREIGN KEY (inserat_id) REFERENCES inserat(id) ON DELETE CASCADE
 );
 
 CREATE TABLE "story_bild" (

@@ -1,11 +1,5 @@
-MUST:
-
-ADMINMODUS:
- - Rechnungsstellung
- - Lösch-Job
-
 - registrierungsdaten anpassen
-- Kontaktformular => mail senden
-
-Nice2have:
-- security vereinfachen (annotation-basiert, nicht alles über SecurityConfig steuern)
+- Admin: Anzeige und Löschmöglichkeit Nutzer
+- Admin: Anzeige und Löschmöglichkeit aller Inserate
+- Admin: Anzeige und Löschmöglichkeit aller Stories
+- Admin: Generierung "Rechnung": Alle vermittelten Inserate
