@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable, of, ReplaySubject} from "rxjs";
+import {Observable, of, ReplaySubject, throwError} from "rxjs";
 import {catchError, map, switchMap, tap} from "rxjs/operators";
 import {CurrentUser} from "../model/current-user";
 import {Vermittler} from "../model/vermittler";
@@ -26,6 +26,16 @@ export class SecurityService {
 
         return this.http.get<any>('/api/user', {headers: headers})
             .pipe(
+                catchError(err => {
+                    this._currentUser.next(<CurrentUser> {
+                        retrievalFailed: true,
+                        loggedIn: false,
+                        isInteressent: false,
+                        isVermittler: false
+                    });
+
+                    return throwError(err);
+                }),
                 map(this.mapToCurrentUser),
                 tap(user => this._currentUser.next(user))
             );
@@ -71,6 +81,7 @@ export class SecurityService {
 
     private mapToCurrentUser(resp): CurrentUser {
         return resp ? <CurrentUser> {
+                retrievalFailed: false,
                 loggedIn: true,
                 userName: resp.username,
                 enabled: resp.enabled,
@@ -78,6 +89,7 @@ export class SecurityService {
                 isVermittler: resp.roles.map(r => r.name).indexOf('VERMITTLER') > -1
             }
             : <CurrentUser> {
+                retrievalFailed: false,
                 loggedIn: false,
                 isInteressent: false,
                 isVermittler: false

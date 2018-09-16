@@ -10,13 +10,20 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
     currentUser: CurrentUser;
+    showConnectionError: boolean;
 
     constructor(private securityService: SecurityService,
                 private router: Router) {
         this.securityService.currentUser
             .subscribe(
-                user => this.currentUser = user,
-                err => this.currentUser = null
+                user => {
+                    this.currentUser = user;
+                    this.showConnectionError = user.retrievalFailed;
+                },
+                err => {
+                    this.currentUser = null;
+                    this.showConnectionError = true;
+                }
             );
     }
 

@@ -105,4 +105,15 @@ export class InserateEditComponent implements OnInit {
             this.images.push(this.placeholderInseratBild(this.inserat));
         }
     }
+
+    get maxDate(): any {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        return {
+            year: yesterday.getFullYear(),
+            month: yesterday.getMonth(),
+            day: yesterday.getDate()
+        }
+    }
 }

@@ -80,8 +80,11 @@
 <main role="main" class="container-fluid p-0 pt-5 pb-6">
 
     <div class="starter-template">
-        <router-outlet></router-outlet>
+        <div class="alert alert-danger" role="alert" *ngIf="showConnectionError">
+            <span>Es besteht ein Verbindungsproblem zum Server. Bitte probieren Sie es später noch einmal!</span>
+        </div>
 
+        <router-outlet></router-outlet>
     </div>
 
 </main><!-- /.container -->
@@ -89,7 +92,7 @@
 <!-- Footer -->
 <footer class="page-footer font-small fixed-bottom">
     <!-- Footer Links -->
-    <div class="container text-center ">
+    <div class="container text-center">
         <!-- Grid row -->
         <div class="row ">
             <span class="clearfix w-100"></span>

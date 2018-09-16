@@ -52,6 +52,7 @@ import {ResetPasswordComponent} from "./components/login/reset/reset-password.co
 import {YesNoDialogComponent} from "./components/allgemein/yes-no-dialog/yes-no-dialog.component";
 import {OpenStoriesComponent} from "./components/stories/open/open-stories.component";
 import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche.component";
+import {PastValidator} from "./validation/past-validator";
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche
         VermittlerRegisterComponent,
         InserateDialogStoryschreiberComponent,
         EqualValidator,
+        PastValidator,
         SessionExpiredComponent,
         InitiatePasswordResetComponent,
         ResetPasswordComponent,

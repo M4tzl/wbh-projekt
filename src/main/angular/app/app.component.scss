@@ -6,3 +6,46 @@ body {
     padding: 3rem 1.5rem;
     text-align: center;
 }
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #FF9B21;
+    z-index: 9999;
+    border: 0;
+    border-radius: 0;
+    letter-spacing: 3px;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.2);
+    font-size:1.1em;
+}
+.dropdown-menu{
+    background-color: #A7612C;
+}
+.navbar li a, .navbar .navbar-brand {
+    color: #fff;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #FF9B21;
+    background-color: #fff;
+
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff;
+}
+.page-footer {
+    margin-bottom: 0;
+    background-color: #A7612C;
+    z-index: 9999;
+    border: 0;
+    border-radius: 0;
+}
+
+.page-footer li a, .page-footer  {
+    color: #fff;
+}
+
+.navbar-toggler{
+    background-color: #fff;
+}
