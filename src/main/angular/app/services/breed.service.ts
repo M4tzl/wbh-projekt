@@ -13,7 +13,8 @@ export class BreedService {
         return this.httpClient.get<any>("https://dog.ceo/api/breeds/list/all")
             .pipe(
                 map(result => result.message),
-                map(this.flattenBreeds)
+                map(this.flattenBreeds),
+                map(result => result.sort())
             );
     }
 

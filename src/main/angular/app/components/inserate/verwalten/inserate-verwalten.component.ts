@@ -80,7 +80,8 @@ export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
         const dialogRef = this.dialog.open(InserateDialogStoryschreiberComponent, {
             data: {storyschreiber: inserat.storyschreiber},
             disableClose: true,
-            autoFocus: true
+            autoFocus: true,
+            minWidth: 300
         });
 
         dialogRef.afterClosed().pipe(

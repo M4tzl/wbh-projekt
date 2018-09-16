@@ -1,26 +1,28 @@
 <mat-dialog-content>
     <form #storyschreiberForm="ngForm" class="needs-validation" novalidate>
-            Email-Adresse angeben:
-    <input type="text" id="storyschreiber" [(ngModel)]="data.storyschreiber"
-           #storyschreiber="ngModel" class="form-control"
-           name="storyschreiber" email maxlength="100"/>
-    <div *ngIf="storyschreiber.invalid && (storyschreiber.dirty || storyschreiber.touched)" class="alert alert-danger">
-        <div *ngIf="storyschreiber.errors.maxlength">
-            Die Adresse ist zu lang
+        Email-Adresse angeben:
+        <input type="text" id="storyschreiber" [(ngModel)]="data.storyschreiber"
+               #storyschreiber="ngModel" class="form-control"
+               name="storyschreiber" email maxlength="100"/>
+        <div *ngIf="storyschreiber.invalid && (storyschreiber.dirty || storyschreiber.touched)"
+             class="alert alert-danger">
+            <div *ngIf="storyschreiber.errors.maxlength">
+                Die Adresse ist zu lang
+            </div>
+            <div *ngIf="storyschreiber.errors.email">
+                Bitte eine gültige Email-Adresse angeben
+            </div>
         </div>
-        <div *ngIf="storyschreiber.errors.email">
-            Bitte eine gültige Email-Adresse angeben
-        </div>
-    </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions>
+    <div class="row mt-2">
+        <button class="btn btn-warning mr-3" (click)="close()">
+            abbrechen
+        </button>
 
-    <button class="btn btn-warning" (click)="close()">
-        abbrechen
-    </button>
-
-    <button class="btn btn-success" (click)="save(storyschreiberForm)" [disabled]="storyschreiberForm.invalid">
-        speichern
-    </button>
+        <button class="btn btn-success" (click)="save(storyschreiberForm)" [disabled]="storyschreiberForm.invalid">
+            speichern
+        </button>
+    </div>
 </mat-dialog-actions>
