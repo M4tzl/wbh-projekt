@@ -64,7 +64,7 @@ public class InseratBildController {
 
     @GetMapping("/api/inserate/{id}/images")
     public ResponseEntity<List<InseratBild>> getImages(@PathVariable long id) {
-        List<InseratBild> result = inseratBildRepository.findByInseratId(id);
+        List<InseratBild> result = inseratBildRepository.findByInseratIdOrderByIdAsc(id);
 
         return ResponseEntity.ok(result);
     }

@@ -6,7 +6,6 @@ import com.amazonaws.util.IOUtils;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -49,18 +48,24 @@ public class S3ImageService implements ImageService {
             amazonS3Client.putObject(putObjectRequest);
 
 
-            byte[] thumbnail = imageResizer.createThumbnail(multipartFile);
-            @Cleanup ByteArrayInputStream thumbnailInputStream = new ByteArrayInputStream(thumbnail);
+            imageResizer.tryCreateThumbnail(multipartFile)
+                .ifPresent(thumbnail -> saveImage(THUMBNAILS_BUCKET, key, metadata, thumbnail));
 
-            PutObjectRequest putThumbnailRequest = new PutObjectRequest(THUMBNAILS_BUCKET,
-                key, thumbnailInputStream, metadata);
-            putThumbnailRequest.setCannedAcl(CannedAccessControlList.PublicRead);
-
-            amazonS3Client.putObject(putThumbnailRequest);
             return key;
         }
 
         return null;
+    }
+
+    @SneakyThrows
+    private void saveImage(String bucket, String key, ObjectMetadata metadata, byte[] image) {
+        @Cleanup ByteArrayInputStream thumbnailInputStream = new ByteArrayInputStream(image);
+
+        PutObjectRequest putThumbnailRequest = new PutObjectRequest(bucket,
+            key, thumbnailInputStream, metadata);
+        putThumbnailRequest.setCannedAcl(CannedAccessControlList.PublicRead);
+
+        amazonS3Client.putObject(putThumbnailRequest);
     }
 
     @Override
@@ -75,11 +80,22 @@ public class S3ImageService implements ImageService {
         return downloadFromBucket(key, THUMBNAILS_BUCKET);
     }
 
-    private ResponseEntity<byte[]> downloadFromBucket(String key, String thumbnailsBucket) throws IOException {
-        GetObjectRequest getObjectRequest = new GetObjectRequest(thumbnailsBucket, key);
-        @Cleanup S3Object s3Object = amazonS3Client.getObject(getObjectRequest);
-        @Cleanup S3ObjectInputStream objectInputStream = s3Object.getObjectContent();
+    private ResponseEntity<byte[]> downloadFromBucket(String key, String bucket) throws IOException {
+        try {
+            GetObjectRequest getObjectRequest = new GetObjectRequest(bucket, key);
+            @Cleanup S3Object s3Object = amazonS3Client.getObject(getObjectRequest);
 
+            return createResponse(s3Object);
+        } catch (Exception e) {
+            @Cleanup S3Object s3Object = amazonS3Client.getObject(new GetObjectRequest(THUMBNAILS_BUCKET, "thumbnail-missing.png"));
+
+            return createResponse(s3Object);
+        }
+    }
+
+    @SneakyThrows
+    private ResponseEntity<byte[]> createResponse(S3Object s3Object) {
+        @Cleanup S3ObjectInputStream objectInputStream = s3Object.getObjectContent();
         ObjectMetadata objectMetadata = s3Object.getObjectMetadata();
 
         byte[] bytes = IOUtils.toByteArray(objectInputStream);

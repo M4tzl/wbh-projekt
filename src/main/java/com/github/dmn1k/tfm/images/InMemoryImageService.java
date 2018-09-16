@@ -26,7 +26,8 @@ public class InMemoryImageService implements ImageService {
     public String upload(MultipartFile multipartFile) {
         String key = UUID.randomUUID().toString();
 
-        byte[] thumbnail = imageResizer.createThumbnail(multipartFile);
+        byte[] thumbnail = imageResizer.tryCreateThumbnail(multipartFile)
+            .orElse(null);
         IMAGE_STORE.put(key, new UploadedFile(multipartFile.getBytes(), thumbnail, multipartFile.getOriginalFilename(), multipartFile.getContentType()));
 
         return key;

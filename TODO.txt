@@ -8,8 +8,4 @@ ADMINMODUS:
 - Kontaktformular => mail senden
 
 Nice2have:
-- security vereinfachen
-
-Externe Quellen:
-- http://www.dogbreedslist.info/free-dog-wallpapers/#.W5GMy5N9iUl  (die Ähnlichkeit zu dieser Seite ist wirklich zufällig... oh man. Naja.)
-
+- security vereinfachen (annotation-basiert, nicht alles über SecurityConfig steuern)

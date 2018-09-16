@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/user", "/api/logout",
                 "/api/password/reset/**",
                 "/api/stories/**", "/api/inserate/**",
+                "/api/breeds",
                 "/api/register/**").permitAll()
             .anyRequest().authenticated()
             .and().csrf()

@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @RepositoryRestResource(exported = false)
 public interface InseratBildRepository extends JpaRepository<InseratBild, Long> {
-    List<InseratBild> findByInseratId(@Param("inseratId") long inseratId);
+    List<InseratBild> findByInseratIdOrderByIdAsc(@Param("inseratId") long inseratId);
     Optional<InseratBild> findFirstByInseratIdOrderByIdAsc(@Param("inseratId") long inseratId);
 }

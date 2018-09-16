@@ -11,19 +11,24 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class ImageResizer {
-    public byte[] createThumbnail(MultipartFile multipartFile) throws IOException {
+    public Optional<byte[]> tryCreateThumbnail(MultipartFile multipartFile) throws IOException {
         @Cleanup ByteArrayInputStream inputStream = new ByteArrayInputStream(multipartFile.getBytes());
         @Cleanup ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-        BufferedImage img = ImageIO.read(inputStream);
-        BufferedImage scaledImg = Scalr.resize(img, Scalr.Method.QUALITY, Scalr.Mode.FIT_TO_WIDTH, 60);
+        try {
+            BufferedImage img = ImageIO.read(inputStream);
+            BufferedImage scaledImg = Scalr.resize(img, Scalr.Mode.FIT_TO_WIDTH, 60);
 
-        ImageIO.setUseCache(false);
-        ImageIO.write(scaledImg, MediaType.parseMediaType(multipartFile.getContentType()).getSubtype(), outputStream);
+            ImageIO.setUseCache(false);
+            ImageIO.write(scaledImg, MediaType.parseMediaType(multipartFile.getContentType()).getSubtype(), outputStream);
 
-        return outputStream.toByteArray();
+            return Optional.of(outputStream.toByteArray());
+        } catch (Exception ex){
+            return Optional.empty();
+        }
     }
 }
