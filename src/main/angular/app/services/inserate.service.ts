@@ -48,10 +48,6 @@ export class InserateService implements UploadService {
         return this.httpClient.put<Inserat>(`/api/inserate/${inserat.id}/close`, inserat);
     }
 
-    public assignStoryschreiber(id: number, storyschreiber: string): Observable<Inserat> {
-        return this.httpClient.put<Inserat>(`/api/inserate/${id}/storyschreiber`, storyschreiber);
-    }
-
     public activate(inserat: Inserat): Observable<Inserat> {
         return this.httpClient.put<Inserat>(`/api/inserate/${inserat.id}/activate`, inserat);
     }

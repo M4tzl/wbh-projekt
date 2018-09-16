@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {InserateService} from '../../../../services/inserate.service';
-import {MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 export interface AssignStoryschreiberResult {
     assigned: boolean;
@@ -13,14 +13,18 @@ export interface AssignStoryschreiberResult {
     styleUrls: ['./inserate-dialog-storyschreiber.component.css']
 })
 export class InserateDialogStoryschreiberComponent {
-    data: {storyschreiber: string} = {storyschreiber: ''};
+    constructor(public inserateService: InserateService,
+                private dialogRef: MatDialogRef<InserateDialogStoryschreiberComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: { storyschreiber: string }) {
 
-    constructor(public inserateService: InserateService, private dialogRef: MatDialogRef<InserateDialogStoryschreiberComponent>) {
     }
 
     save(form) {
-        if(form.valid) {
-            this.dialogRef.close(<AssignStoryschreiberResult> {assigned: true, storyschreiber: this.data.storyschreiber});
+        if (form.valid) {
+            this.dialogRef.close(<AssignStoryschreiberResult> {
+                assigned: true,
+                storyschreiber: this.data.storyschreiber
+            });
         }
     }
 

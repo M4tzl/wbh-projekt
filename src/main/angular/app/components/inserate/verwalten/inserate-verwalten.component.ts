@@ -3,11 +3,12 @@ import {InserateService} from "../../../services/inserate.service";
 import {InserateDataSource} from "../../../datasources/inserate.dataSource";
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort} from "@angular/material";
 import {EMPTY, fromEvent, merge, of} from "rxjs";
-import {debounceTime, distinctUntilChanged, flatMap, switchMap, tap} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, flatMap, map, switchMap, tap} from "rxjs/operators";
 import {InserateDialogStoryschreiberComponent} from '../storyschreiber/inserate-dialog-storyschreiber/inserate-dialog-storyschreiber.component';
 import {SecurityService} from "../../../services/security.service";
 import {CurrentUser} from "../../../model/current-user";
 import {Inserat} from "../../../model/inserat";
+import {update} from "../../../infrastructure/immutable-update";
 
 
 @Component({
@@ -76,14 +77,18 @@ export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
     }
 
     close(inserat: Inserat) {
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        const dialogRef = this.dialog.open(InserateDialogStoryschreiberComponent, dialogConfig);
+        const dialogRef = this.dialog.open(InserateDialogStoryschreiberComponent, {
+            data: {storyschreiber: inserat.storyschreiber},
+            disableClose: true,
+            autoFocus: true
+        });
 
         dialogRef.afterClosed().pipe(
             flatMap(val => val.assigned ? of(val) : EMPTY),
-            switchMap(val => this.inserateService.assignStoryschreiber(inserat.id, val.storyschreiber))
+            switchMap(val => this.inserateService.load(inserat.id).pipe( // wir haben aktuell nur die InseratUebersicht, benoetigen aber das ganze Inserat
+                map(completeInserat => update(completeInserat, {storyschreiber: val.storyschreiber}))
+            )),
+            switchMap(completeInserat => this.inserateService.close(completeInserat))
         ).subscribe(val => this.loadInseratePage());
     }
 
