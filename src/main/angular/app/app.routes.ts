@@ -19,29 +19,30 @@ import {ResetPasswordComponent} from "./components/login/reset/reset-password.co
 import {OpenStoriesComponent} from "./components/stories/open/open-stories.component";
 import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche.component";
 import {InseratSuchMaskeComponent} from "./components/inserate/such-maske/inserat-such-maske.component";
+import {UpdateUserGuard} from "./guards/update-user-guard.service";
 
 
 export const AppRoutes: Routes = [
-    {path: '', component: StartpageComponent},
-    {path: 'session-expired', component: SessionExpiredComponent},
-    {path: 'initiate-pw-reset', component: InitiatePasswordResetComponent},
-    {path: 'reset-password', component: ResetPasswordComponent},
-    {path: 'login', component: UserLoginComponent},
-    {path: 'interessent/register', component: InteressentenRegisterComponent},
-    {path: 'vermittler/register', component: VermittlerRegisterComponent},
-    {path: 'inserate/manage', component: InserateVerwaltenComponent},
-    {path: 'inserate/detail/:id', component: InserateDetailComponent},
-    {path: 'inserate/kontakt/:id', component: InseratKontaktComponent},
-    {path: 'inserate/edit/:id', component: InserateEditComponent},
-    {path: 'inserate/create', component: InserateEditComponent},
-    {path: 'inserate/suche', component: InserateSucheComponent},
-    {path: 'inserate/such-maske', component: InseratSuchMaskeComponent},
-    {path: 'stories', component: StoriesComponent},
-    {path: 'open-stories', component: OpenStoriesComponent},
-    {path: 'stories/detail/:id', component: StoriesDetailComponent},
-    {path: 'stories/edit/:id', component: StoriesEditComponent},
-    {path: 'faq', component: FaqComponent},
-    {path: 'impressum', component: ImpressumComponent},
-    {path: 'datenschutz', component: DatenschutzComponent}
+    {path: '', component: StartpageComponent, canActivate: [UpdateUserGuard]},
+    {path: 'session-expired', component: SessionExpiredComponent, canActivate: [UpdateUserGuard]},
+    {path: 'initiate-pw-reset', component: InitiatePasswordResetComponent, canActivate: [UpdateUserGuard]},
+    {path: 'reset-password', component: ResetPasswordComponent, canActivate: [UpdateUserGuard]},
+    {path: 'login', component: UserLoginComponent, canActivate: [UpdateUserGuard]},
+    {path: 'interessent/register', component: InteressentenRegisterComponent, canActivate: [UpdateUserGuard]},
+    {path: 'vermittler/register', component: VermittlerRegisterComponent, canActivate: [UpdateUserGuard]},
+    {path: 'inserate/manage', component: InserateVerwaltenComponent, canActivate: [UpdateUserGuard]},
+    {path: 'inserate/detail/:id', component: InserateDetailComponent, canActivate: [UpdateUserGuard]},
+    {path: 'inserate/kontakt/:id', component: InseratKontaktComponent, canActivate: [UpdateUserGuard]},
+    {path: 'inserate/edit/:id', component: InserateEditComponent, canActivate: [UpdateUserGuard]},
+    {path: 'inserate/create', component: InserateEditComponent, canActivate: [UpdateUserGuard]},
+    {path: 'inserate/suche', component: InserateSucheComponent, canActivate: [UpdateUserGuard]},
+    {path: 'inserate/such-maske', component: InseratSuchMaskeComponent, canActivate: [UpdateUserGuard]},
+    {path: 'stories', component: StoriesComponent, canActivate: [UpdateUserGuard]},
+    {path: 'open-stories', component: OpenStoriesComponent, canActivate: [UpdateUserGuard]},
+    {path: 'stories/detail/:id', component: StoriesDetailComponent, canActivate: [UpdateUserGuard]},
+    {path: 'stories/edit/:id', component: StoriesEditComponent, canActivate: [UpdateUserGuard]},
+    {path: 'faq', component: FaqComponent, canActivate: [UpdateUserGuard]},
+    {path: 'impressum', component: ImpressumComponent, canActivate: [UpdateUserGuard]},
+    {path: 'datenschutz', component: DatenschutzComponent, canActivate: [UpdateUserGuard]}
 
 ];

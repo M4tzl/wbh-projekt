@@ -1,5 +1,4 @@
 MUST:
-- thumbnails anzeigen in inseratsliste
 
 ADMINMODUS:
  - Rechnungsstellung

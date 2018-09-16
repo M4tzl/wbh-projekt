@@ -24,7 +24,7 @@
                 </li>
             </ng-template>
 
-            <li *ngIf="currentUser?.isInteressent && showOpenStories; else noOpenStories" class="nav-item dropdown">
+            <li *ngIf="currentUser?.isInteressent; else noInteressent" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="interessenStoriesDropdown" href="#" role="button" data-toggle="dropdown"
                    aria-haspopup="true"
                    aria-expanded="false">Stories</a>
@@ -34,7 +34,7 @@
                     <a class="dropdown-item" routerLink="/open-stories">Offene Story anlegen</a>
                 </div>
             </li>
-            <ng-template #noOpenStories>
+            <ng-template #noInteressent>
                 <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                     <a class="nav-link" routerLink="/stories">Stories</a>
                 </li>

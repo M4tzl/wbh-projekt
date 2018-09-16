@@ -3,11 +3,8 @@
             Email-Adresse angeben:
     <input type="text" id="storyschreiber" [(ngModel)]="data.storyschreiber"
            #storyschreiber="ngModel" class="form-control"
-           name="storyschreiber" required email maxlength="100"/>
+           name="storyschreiber" email maxlength="100"/>
     <div *ngIf="storyschreiber.invalid && (storyschreiber.dirty || storyschreiber.touched)" class="alert alert-danger">
-        <div *ngIf="storyschreiber.errors.required">
-            Eine Eingabe ist erforderlich
-        </div>
         <div *ngIf="storyschreiber.errors.maxlength">
             Die Adresse ist zu lang
         </div>

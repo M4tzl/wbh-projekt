@@ -45,7 +45,7 @@ import {XhrInterceptor} from "./infrastructure/xhr.interceptor";
 import {InteressentenRegisterComponent} from "./components/register/interessent/interessenten-register.component";
 import {VermittlerRegisterComponent} from "./components/register/vermittler/vermittler-register.component";
 import {EqualValidator} from "./validation/equal-validator";
-import {StartpageRoleGuard} from "./guards/startpage-role.guard";
+import {UpdateUserGuard} from "./guards/update-user-guard.service";
 import {SessionExpiredComponent} from "./components/allgemein/session/expired/session-expired.component";
 import {InitiatePasswordResetComponent} from "./components/login/initiate-reset/initiate-password-reset.component";
 import {ResetPasswordComponent} from "./components/login/reset/reset-password.component";
@@ -102,7 +102,7 @@ import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche
         StoriesService,
         BreedService,
         SecurityService,
-        StartpageRoleGuard,
+        UpdateUserGuard,
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: NgbDateParserFormatter, useClass: CustomNgbDateParserFormatter},
         {provide: NgbDateAdapter, useClass: CustomNgbDateAdapter},
