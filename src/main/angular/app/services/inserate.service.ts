@@ -56,6 +56,10 @@ export class InserateService implements UploadService {
         return this.httpClient.put<Inserat>(`/api/inserate/${inserat.id}/deactivate`, inserat);
     }
 
+    public delete(inserat: Inserat): Observable<any> {
+        return this.httpClient.delete<Inserat>(`/api/inserate/${inserat.id}`);
+    }
+
     public uploadImage(inseratBild: BildMetadaten, file: File): Observable<BildUploadProgress> {
         const formData: FormData = new FormData();
         formData.append('file', file);

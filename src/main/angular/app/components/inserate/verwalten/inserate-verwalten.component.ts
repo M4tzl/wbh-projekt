@@ -102,5 +102,11 @@ export class InserateVerwaltenComponent implements OnInit, AfterViewInit {
         this.inserateService.deactivate(inserat)
             .subscribe(result => this.loadInseratePage());
     }
+
+    delete(inserat: Inserat) {
+        this.inserateService.delete(inserat)
+            .subscribe(result => this.loadInseratePage());
+    }
+
 }
 

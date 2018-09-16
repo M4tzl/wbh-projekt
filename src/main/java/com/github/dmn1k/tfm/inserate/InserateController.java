@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.Response;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -115,6 +116,13 @@ public class InserateController {
         return repository.findById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+    }
+
+    @DeleteMapping("/api/inserate/{id}")
+    public ResponseEntity<?> deleteInserat(@PathVariable long id) {
+        repository.deleteById(id);
+
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/api/inserate")
