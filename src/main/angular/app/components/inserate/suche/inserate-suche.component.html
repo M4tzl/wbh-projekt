@@ -39,9 +39,24 @@
                     <mat-cell *matCellDef="let inserat">{{inserat.rufname}}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="status">
-                    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-                    <mat-cell *matCellDef="let inserat">{{inserat.status}}</mat-cell>
+                <ng-container matColumnDef="rasse">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Rasse</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.rasse}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="alter">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Alter</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.alter}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="plz">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>PLZ</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.plz}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="ort">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Ort</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.ort}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="actions">

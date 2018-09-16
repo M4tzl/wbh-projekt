@@ -1,6 +1,5 @@
 MUST:
 - thumbnails anzeigen in inseratsliste
-- allgemein inhalte der tabellen an pflichtenheft angleichen inklusive sortierbarkeit
 
 ADMINMODUS:
  - Rechnungsstellung

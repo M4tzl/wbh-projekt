@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.MessageFormat;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 @Transactional
@@ -31,26 +32,22 @@ public class SecurityController {
 
     @GetMapping("/api/user")
     public ResponseEntity<?> user() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof User)) {
-            return ResponseEntity.ok(null);
-        }
-
-        User springUser = (User) principal;
-        Account account = accountRepository.findByUsername(springUser.getUsername());
+        Account account = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+            .filter(principal -> principal instanceof User)
+            .map(principal -> (User) principal)
+            .flatMap(u -> accountRepository.findByUsername(u.getUsername()))
+            .orElse(null);
 
         return ResponseEntity.ok(account);
     }
 
     @GetMapping("/api/user/vermittler")
     public ResponseEntity<?> currentVermittler() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof User)) {
-            throw new IllegalStateException("Nuter ist kein Vermittler!");
-        }
-
-        User springUser = (User) principal;
-        Vermittler vermittler = vermittlerRepository.findByUsername(springUser.getUsername());
+        Vermittler vermittler = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+            .filter(principal -> principal instanceof User)
+            .map(principal -> (User) principal)
+            .flatMap(u -> vermittlerRepository.findByUsername(u.getUsername()))
+            .orElseThrow(() -> new IllegalStateException("Nutzer ist kein Vermittler!"));
 
         return ResponseEntity.ok(vermittler);
     }
@@ -95,14 +92,10 @@ public class SecurityController {
     @PostMapping("/api/password/reset")
     public ResponseEntity<?> resetPassword(@RequestBody AccountCredentials credentials,
                                            HttpServletRequest request) {
-        Account account = accountRepository.findByUsername(credentials.getUsername());
+        Account account = accountRepository.findByUsername(credentials.getUsername())
+            .orElseThrow(() -> new IllegalStateException("Nutzer existiert nicht"));
 
-        if (account == null) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        AccountToken accountToken = createToken(credentials.getUsername());
-
+        AccountToken accountToken = createToken(account.getUsername());
         String url = MessageFormat.format("{0}://{1}:{2}/#/reset-password?token={3}", request.getScheme(),
             request.getServerName(), String.valueOf(request.getServerPort()), accountToken.getToken());
 
@@ -131,7 +124,8 @@ public class SecurityController {
                 throw new IllegalStateException("Token expired");
             }
 
-            Account account = accountRepository.findByUsername(activation.getUsername());
+            Account account = accountRepository.findByUsername(credentials.getUsername())
+                .orElseThrow(() -> new IllegalStateException("Nutzer existiert nicht"));
             account.setPassword(passwordEncoder.encode(credentials.getPassword()));
 
             accountRepository.save(account);
@@ -157,7 +151,8 @@ public class SecurityController {
                 throw new IllegalStateException("Token expired");
             }
 
-            Account account = accountRepository.findByUsername(activation.getUsername());
+            Account account = accountRepository.findByUsername(activation.getUsername())
+                .orElseThrow(() -> new IllegalStateException("Nutzer existiert nicht"));
             account.setEnabled(true);
 
             accountRepository.save(account);

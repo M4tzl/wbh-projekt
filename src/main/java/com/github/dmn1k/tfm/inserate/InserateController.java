@@ -6,14 +6,15 @@ import com.github.dmn1k.tfm.mail.EmailService;
 import com.github.dmn1k.tfm.security.Account;
 import com.github.dmn1k.tfm.security.AccountRepository;
 import com.github.dmn1k.tfm.security.Role;
+import com.github.dmn1k.tfm.security.VermittlerRepository;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 import com.google.common.collect.Sets;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
 import java.time.LocalDate;
-import java.util.*;
-import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -45,6 +48,7 @@ public class InserateController {
     private final InserateRepository repository;
     private final EmailService emailService;
     private final AccountRepository accountRepository;
+    private final VermittlerRepository vermittlerRepository;
 
     @GetMapping("/api/inserate")
     public ResponseEntity<?> loadInserate(@QuerydslPredicate(root = Inserat.class) Predicate predicate,
@@ -58,15 +62,8 @@ public class InserateController {
             predicates.add(predicate);
         }
 
-        Optional<Account> account = getLoggedInUser()
-            .map(User::getUsername)
-            .map(accountRepository::findByUsername);
-
-        List<InseratStatus> relevantStatuses = account
-            .map(Account::getRoles)
-            .orElse(Sets.newHashSet(Role.INTERESSENT)).stream() // Anonyme Nutzer dürfen alle Inserate sehen, die ein angemeldeter Interessent sehen darf
-            .flatMap(r -> VISIBLE_STATUSES_PER_ROLE.get(r).stream())
-            .collect(Collectors.toList());
+        Optional<Account> account = getLoggedInAccount();
+        List<InseratStatus> relevantStatuses = getRelevantStatuses(account);
 
         if (!relevantStatuses.isEmpty()) {
             predicates.add(QInserat.inserat.status.in(relevantStatuses));
@@ -78,14 +75,14 @@ public class InserateController {
             .ifPresent(predicates::add);
 
         if (alterVon != null) {
-            predicates.add(QInserat.inserat.geburtsdatum.before(LocalDate.now().minusDays(alterVon)));
+            predicates.add(QInserat.inserat.alter.goe(alterVon));
         }
 
         if (alterBis != null) {
-            predicates.add(QInserat.inserat.geburtsdatum.after(LocalDate.now().minusDays(alterBis)));
+            predicates.add(QInserat.inserat.alter.loe(alterBis));
         }
 
-        if(reinrassig != null){
+        if (reinrassig != null) {
             predicates.add(QInserat.inserat.rassenFreitext.isNull()
                 .or(QInserat.inserat.rassenFreitext.isEmpty()));
         }
@@ -94,7 +91,23 @@ public class InserateController {
             .map(Expressions::asBoolean)
             .toArray(BooleanExpression[]::new));
 
-        return ResponseEntity.ok(repository.findAll(completePredicate, pageable));
+        Page<InseratUebersicht> result = repository.findAll(completePredicate, pageable)
+            .map(Inserat::toUebersicht);
+        return ResponseEntity.ok(result);
+    }
+
+    private Optional<Account> getLoggedInAccount() {
+        return getLoggedInUser()
+                .map(User::getUsername)
+                .flatMap(accountRepository::findByUsername);
+    }
+
+    private List<InseratStatus> getRelevantStatuses(Optional<Account> account) {
+        return account
+                .map(Account::getRoles)
+                .orElse(Sets.newHashSet(Role.INTERESSENT)).stream() // Anonyme Nutzer dürfen alle Inserate sehen, die ein angemeldeter Interessent sehen darf
+                .flatMap(r -> VISIBLE_STATUSES_PER_ROLE.get(r).stream())
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/api/inserate/{id}")
@@ -106,21 +119,21 @@ public class InserateController {
 
     @PostMapping("/api/inserate")
     public ResponseEntity<?> createInserat(@RequestBody Inserat inserat) {
-        Optional<User> loggedInUser = getLoggedInUser();
-
-        if (loggedInUser.isPresent()) {
-            Inserat updatedInserat = inserat.toBuilder()
-                .vermittler(loggedInUser.get().getUsername())
+        Inserat updatedInserat = getLoggedInUser()
+            .flatMap(u -> vermittlerRepository.findByUsername(u.getUsername()))
+            .map(vermittler -> inserat.toBuilder()
+                .vermittler(vermittler.getUsername())
+                .bundesland(vermittler.getBundesland())
+                .plz(vermittler.getPlz())
+                .ort(vermittler.getOrt())
                 .created(LocalDate.now())
                 .lastUpdate(LocalDate.now())
                 .status(InseratStatus.ENTWURF)
-                .build();
+                .build())
+            .orElseThrow(() -> new IllegalStateException("Nur Vermittler koennen Inserate erstellen!"));
 
-            Inserat saved = repository.save(updatedInserat);
-            return ResponseEntity.ok(saved);
-        }
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        Inserat saved = repository.save(updatedInserat);
+        return ResponseEntity.ok(saved);
     }
 
     @PutMapping("/api/inserate/{id}")
@@ -179,15 +192,18 @@ public class InserateController {
     }
 
     private void sendStoryschreiberEmail(HttpServletRequest request, Inserat inserat) {
-        // TODO: Was ist, wenn der Account ein Vermittler ist? => Fehler werfen und im UI anzeigen
-        Account account = accountRepository.findByUsername(inserat.getStoryschreiber());
+        Optional<Account> account = accountRepository.findByUsername(inserat.getStoryschreiber());
 
         String url = MessageFormat.format("{0}://{1}:{2}/#/login", request.getScheme(),
             request.getServerName(), String.valueOf(request.getServerPort()));
         String message = MessageFormat.format("<a href=\"{0}\">Loggen Sie sich ein und schreiben Sie eine Story über Ihren neuen Hund!</a><br/><br/><strong>{1}</strong>",
             url, Constants.STUDIENPROJEKT_DISCLAIMER);
 
-        if (account == null) {
+        if (account.isPresent()) {
+            if(!account.get().getRoles().contains(Role.INTERESSENT)){
+                throw new IllegalStateException("Account existiert ist aber kein Interessent");
+            }
+
             url = MessageFormat.format("{0}://{1}:{2}/#/interessent/register", request.getScheme(),
                 request.getServerName(), String.valueOf(request.getServerPort()));
             message = MessageFormat.format("<a href=\"{0}\">Registrieren Sie sich bei Tier-Fair-Mittlung und schreiben Sie eine Story über Ihren neuen Hund!</a><br/><br/><strong>{1}</strong>",

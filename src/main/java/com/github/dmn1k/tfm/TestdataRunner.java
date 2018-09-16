@@ -74,6 +74,8 @@ public class TestdataRunner implements ApplicationRunner {
             .geschlecht(Geschlecht.M)
             .vermittler(vermittler.getUsername())
             .storyschreiber(interessent.getUsername())
+            .plz("90765")
+            .ort("Fürth")
             .build());
 
         Inserat inserat2 = inserateRepository.save(Inserat.builder()
@@ -89,6 +91,8 @@ public class TestdataRunner implements ApplicationRunner {
             .geschlecht(Geschlecht.M)
             .vermittler(vermittler.getUsername())
             .storyschreiber(interessent.getUsername())
+            .plz("86899")
+            .ort("Landsberg")
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -104,6 +108,8 @@ public class TestdataRunner implements ApplicationRunner {
             .geschlecht(Geschlecht.W)
             .vermittler(vermittler.getUsername())
             .storyschreiber(interessent.getUsername())
+            .plz("91058")
+            .ort("Erlangen")
             .build());
 
         inserateRepository.save(Inserat.builder()
@@ -119,6 +125,8 @@ public class TestdataRunner implements ApplicationRunner {
             .geschlecht(Geschlecht.W)
             .vermittler(vermittler.getUsername())
             .storyschreiber(interessent.getUsername())
+            .plz("90765")
+            .ort("Fürth")
             .build());
 
 

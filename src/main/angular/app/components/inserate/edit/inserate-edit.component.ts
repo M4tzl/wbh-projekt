@@ -5,10 +5,8 @@ import {Inserat} from "../../../model/inserat";
 import {Observable} from "rxjs";
 import {BreedService} from "../../../services/breed.service";
 import {BildMetadaten} from "../../../model/bild-metadaten";
-import {map, mergeMap, switchMap, tap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {ImageUploadResult} from "../../upload/image-upload-result";
-import {SecurityService} from "../../../services/security.service";
-import {update} from "../../../infrastructure/immutable-update";
 import {Constants} from "../../../model/constants";
 
 // TODO: Die Logik in dieser Komponente ist mittlerweile leicht verworren. Tests und ein Refactoring wären gut...
@@ -25,7 +23,6 @@ export class InserateEditComponent implements OnInit {
     constants: Constants = new Constants();
 
     constructor(public inserateService: InserateService,
-                private securityService: SecurityService,
                 private breedService: BreedService,
                 private route: ActivatedRoute,
                 private router: Router) {
@@ -52,10 +49,8 @@ export class InserateEditComponent implements OnInit {
 
     onWeiter(form) {
         if (form.valid) {
-            this.securityService.loadVermittler()
+            this.inserateService.save(this.inserat)
                 .pipe(
-                    map(vermittler => update(this.inserat, {bundesland: vermittler.bundesland})),
-                    switchMap(inserat => this.inserateService.save(inserat)),
                     tap(inserat => this.inserat = inserat),
                     tap(inserat => {
                         if (this.images.length === 0) {

@@ -13,7 +13,10 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Past;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.EnumSet;
 
 @Builder(toBuilder = true)
@@ -22,6 +25,8 @@ import java.util.EnumSet;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Inserat {
+    private static final DateTimeFormatter DATUM_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -76,6 +81,9 @@ public class Inserat {
     private boolean zielgruppeFamilien;
     private String vermittler;
 
+    private String plz;
+    private String ort;
+
     @JsonIgnore
     @NotFound
     @OneToOne(mappedBy = "inserat")
@@ -104,5 +112,49 @@ public class Inserat {
     @Transient
     public boolean isEditierbar() {
         return !EnumSet.of(InseratStatus.VERMITTELT, InseratStatus.IN_RECHNUNG_GESTELLT).contains(status);
+    }
+
+    @Formula("date_part('day', now() - geburtsdatum)")
+    private int alter;
+
+    @Transient
+    public String getFormattedAlter() {
+        // Ungenauigkeiten durch nicht gleichlange Monate/Jahre werden in Kauf genommen.
+        if (getAlter() == 1) {
+            return "1 Tag";
+        } else if (getAlter() < 7) {
+            return getAlter() + " Tage";
+        } else if ((getAlter() / 7) == 1) {
+            return "1 Woche";
+        } else if (getAlter() < 30) {
+            return (getAlter() / 7) + " Wochen";
+        } else if ((getAlter() / 30) == 1) {
+            return "1 Monat";
+        } else if (getAlter() < 365) {
+            return (getAlter() / 30) + " Monate";
+        } else if ((getAlter() / 365) == 1) {
+            return "1 Jahr";
+        } else {
+            return (getAlter() / 365) + " Jahre";
+        }
+    }
+
+    public InseratUebersicht toUebersicht() {
+        return InseratUebersicht.builder()
+            .id(id)
+            .lastUpdate(DATUM_FORMATTER.format(lastUpdate))
+            .rufname(rufname)
+            .rasse(rasse)
+            .alter(getFormattedAlter())
+            .plz(plz)
+            .ort(ort)
+            .status(status)
+            .vermittler(vermittler)
+            .aktivierbar(isAktivierbar())
+            .deaktivierbar(isDeaktivierbar())
+            .vermittelbar(isVermittelbar())
+            .loeschbar(isLoeschbar())
+            .editierbar(isEditierbar())
+            .build();
     }
 }

@@ -5,6 +5,9 @@ export interface InseratUebersicht {
     lastUpdate: Date;
     rufname: string;
     status: InseratStatus;
+    alter: string;
+    plz: string;
+    ort: string;
 
     aktivierbar:boolean;
     deaktivierbar:boolean;

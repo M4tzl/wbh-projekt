@@ -21,7 +21,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = userRepository.findByUsername(username);
+        Account account = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException(username));
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role : account.getRoles()) {
