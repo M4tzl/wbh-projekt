@@ -28,6 +28,13 @@
                     <mat-cell *matCellDef="let story" style="max-width:60px;">{{story.id}}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="bild">
+                    <mat-header-cell *matHeaderCellDef>Bild</mat-header-cell>
+                    <mat-cell *matCellDef="let story">
+                        <img src="/api/stories/{{story.id}}/thumbnail" alt="[Bild]" title="Vorschaubild">
+                    </mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="titel">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Titel</mat-header-cell>
                     <mat-cell *matCellDef="let story"><span class="text-left">{{story.titel}}</span></mat-cell>
@@ -36,12 +43,12 @@
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let story">
-                        <a [routerLink]="['/stories/detail',story.id]"><img src="assets/img/view.png" alt="[View]"
+                        <a [routerLink]="['/stories/detail',story.id]" href="#"><img src="assets/img/view.png" alt="[View]"
                                                                             title="Anzeigen" height="30"></a>&nbsp;
-                        <a [routerLink]="['/stories/edit',story.id]" *ngIf="currentUser?.userName === story.autor"><img
+                        <a [routerLink]="['/stories/edit',story.id]" href="#" *ngIf="currentUser?.userName === story.autor"><img
                             src="assets/img/edit.png" alt="[Edit]"
                             title="Editieren" height="30"></a>&nbsp;
-                        <a (click)="deleteStory(story)" *ngIf="currentUser?.userName === story.autor"><img
+                        <a (click)="deleteStory(story)" href="#" *ngIf="currentUser?.userName === story.autor"><img
                             src="assets/img/trash.png" alt="[Trash]"
                             title="Löschen" height="30"></a>
                     </mat-cell>

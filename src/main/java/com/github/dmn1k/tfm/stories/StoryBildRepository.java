@@ -5,8 +5,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
+import java.util.Optional;
 
 @RepositoryRestResource(exported = false)
 public interface StoryBildRepository extends JpaRepository<StoryBild, Long> {
-    List<StoryBild> findByStoryId(@Param("storyId") long storyId);
+    List<StoryBild> findByStoryIdOrderByIdAsc(@Param("storyId") long storyId);
+    Optional<StoryBild> findFirstByStoryIdOrderByIdAsc(@Param("storyId") long storyId);
 }

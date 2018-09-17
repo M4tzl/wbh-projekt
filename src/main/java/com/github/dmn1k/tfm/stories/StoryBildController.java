@@ -53,9 +53,19 @@ public class StoryBildController {
         return imageService.download(bildKey);
     }
 
+    @SneakyThrows
+    @GetMapping("/api/stories/{id}/thumbnail")
+    public ResponseEntity<byte[]> serveThumbnail(@PathVariable long id) {
+        String bildKey = storyBildRepository.findFirstByStoryIdOrderByIdAsc(id)
+            .map(StoryBild::getBildKey)
+            .orElse("thumbnail-missing.png");
+
+        return imageService.downloadThumbnail(bildKey);
+    }
+
     @GetMapping("/api/stories/{id}/images")
     public @ResponseBody ResponseEntity<List<StoryBild>> getImages(@PathVariable long id) {
-        List<StoryBild> result = storyBildRepository.findByStoryId(id);
+        List<StoryBild> result = storyBildRepository.findByStoryIdOrderByIdAsc(id);
 
         return ResponseEntity.ok(result);
     }

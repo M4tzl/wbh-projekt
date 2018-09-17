@@ -19,7 +19,7 @@ import {YesNoDialogComponent} from "../../allgemein/yes-no-dialog/yes-no-dialog.
 export class StoriesComponent implements OnInit, AfterViewInit, OnDestroy {
     currentUser: CurrentUser;
     dataSource: StoriesDataSource;
-    displayedColumns= ["id", "titel", "actions"];
+    displayedColumns= ["id", "bild", "titel", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
     currentUserSubscription: Subscription;
