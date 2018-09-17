@@ -71,6 +71,21 @@ public class SecurityController {
     }
 
 
+    @PutMapping("/api/register/interessent")
+    public ResponseEntity<?> updateInteressentRegistration(@RequestBody AccountCredentials regData) {
+        Account origAccount = accountRepository.findByUsername(regData.getUsername())
+            .filter(acc -> Objects.equals(user().getBody(), acc))
+            .orElseThrow(() -> new IllegalStateException("Interessent-Account existiert nicht"));
+
+        Account account = origAccount.toBuilder()
+            .password(passwordEncoder.encode(regData.getPassword()))
+            .build();
+
+        accountRepository.save(account);
+
+        return ResponseEntity.ok(account);
+    }
+
     @PostMapping("/api/register/vermittler")
     public ResponseEntity<?> register(@RequestBody VermittlerRegistrationData regData,
                                       HttpServletRequest request) {
@@ -90,8 +105,7 @@ public class SecurityController {
     }
 
     @PutMapping("/api/register/vermittler")
-    public ResponseEntity<?> updateVermittlerRegistration(@RequestBody VermittlerRegistrationData regData,
-                                                          HttpServletRequest request) {
+    public ResponseEntity<?> updateVermittlerRegistration(@RequestBody VermittlerRegistrationData regData) {
 
         Account origAccount = accountRepository.findByUsername(regData.getVermittler().getUsername())
             .filter(acc -> Objects.equals(user().getBody(), acc))

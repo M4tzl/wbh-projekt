@@ -50,6 +50,13 @@ export class SecurityService {
             );
     }
 
+    updateInteressentRegistration(credentials: Credentials): Observable<CurrentUser> {
+        return this.http.put<any>('/api/register/interessent', credentials)
+            .pipe(
+                switchMap(user => this.authenticate(credentials))
+            );
+    }
+
     registerVermittler(credentials: Credentials, vermittler: Vermittler): Observable<CurrentUser> {
         return this.http.post<any>('/api/register/vermittler', {
             username: credentials.username, password: credentials.password, vermittler
@@ -92,6 +99,7 @@ export class SecurityService {
 
     private mapToCurrentUser(resp): CurrentUser {
         return resp ? <CurrentUser> {
+                id: resp.id,
                 retrievalFailed: false,
                 loggedIn: true,
                 userName: resp.username,

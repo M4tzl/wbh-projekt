@@ -29,6 +29,7 @@ export const AppRoutes: Routes = [
     {path: 'reset-password', component: ResetPasswordComponent, canActivate: [UpdateUserGuard]},
     {path: 'login', component: UserLoginComponent, canActivate: [UpdateUserGuard]},
     {path: 'interessent/register', component: InteressentenRegisterComponent, canActivate: [UpdateUserGuard]},
+    {path: 'interessent/update-data', component: InteressentenRegisterComponent, canActivate: [UpdateUserGuard]},
     {path: 'vermittler/register', component: VermittlerRegisterComponent, canActivate: [UpdateUserGuard]},
     {path: 'vermittler/update-data', component: VermittlerRegisterComponent, canActivate: [UpdateUserGuard]},
     {path: 'inserate/manage', component: InserateVerwaltenComponent, canActivate: [UpdateUserGuard]},

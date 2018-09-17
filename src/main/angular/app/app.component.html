@@ -51,6 +51,7 @@
                 <div class="dropdown-menu" aria-labelledby="accountDropdown" data-toggle="collapse"
                      data-target=".navbar-collapse.show">
                     <a class="dropdown-item" *ngIf="currentUser.isVermittler" routerLink="/vermittler/update-data">Daten bearbeiten</a>
+                    <a class="dropdown-item" *ngIf="currentUser.isInteressent" routerLink="/interessent/update-data">Daten bearbeiten</a>
                     <a class="dropdown-item" (click)="logout()" href="#" data-toggle="collapse"
                        data-target=".navbar-collapse.show">Abmelden</a>
                 </div>
