@@ -30,6 +30,7 @@ export const AppRoutes: Routes = [
     {path: 'login', component: UserLoginComponent, canActivate: [UpdateUserGuard]},
     {path: 'interessent/register', component: InteressentenRegisterComponent, canActivate: [UpdateUserGuard]},
     {path: 'vermittler/register', component: VermittlerRegisterComponent, canActivate: [UpdateUserGuard]},
+    {path: 'vermittler/update-data', component: VermittlerRegisterComponent, canActivate: [UpdateUserGuard]},
     {path: 'inserate/manage', component: InserateVerwaltenComponent, canActivate: [UpdateUserGuard]},
     {path: 'inserate/detail/:id', component: InserateDetailComponent, canActivate: [UpdateUserGuard]},
     {path: 'inserate/kontakt/:id', component: InseratKontaktComponent, canActivate: [UpdateUserGuard]},

@@ -3,7 +3,8 @@ import {StoriesService} from "../../services/stories.service";
 import {CurrentUser} from "../../model/current-user";
 import {SecurityService} from "../../services/security.service";
 import {catchError, filter, switchMap, tap} from "rxjs/operators";
-import {Subscription, throwError} from "rxjs";
+import {of, Subscription, throwError} from "rxjs";
+import {StoriesResult} from "../../model/stories-result";
 
 @Component({
     selector: 'app-startpage',
@@ -24,9 +25,9 @@ export class StartpageComponent implements OnDestroy {
                     return throwError(err);
                 }),
                 tap(user => this.currentUser = user),
-                filter(user => user != null),
-                filter(user => user.isInteressent),
-                switchMap(user => this.storiesService.loadOpen(0, 1))
+                switchMap(user => user && user.isInteressent
+                    ? this.storiesService.loadOpen(0, 1)
+                    : of(<StoriesResult>{stories: []}))
             )
             .subscribe(result => this.showOpenStories = result.stories.length > 0);
     }

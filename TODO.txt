@@ -1,4 +1,3 @@
-- registrierungsdaten anpassen
 - Admin: Anzeige und Löschmöglichkeit Nutzer
 - Admin: Anzeige und Löschmöglichkeit aller Inserate
 - Admin: Anzeige und Löschmöglichkeit aller Stories

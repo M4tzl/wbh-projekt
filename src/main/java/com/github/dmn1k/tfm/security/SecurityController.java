@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.MessageFormat;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class SecurityController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/api/user")
-    public ResponseEntity<?> user() {
+    public ResponseEntity<Account> user() {
         Account account = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication().getPrincipal())
             .filter(principal -> principal instanceof User)
             .map(principal -> (User) principal)
@@ -84,6 +85,25 @@ public class SecurityController {
         vermittlerRepository.save(regData.getVermittler());
 
         handleActivation(regData.getUsername(), request);
+
+        return ResponseEntity.ok(account);
+    }
+
+    @PutMapping("/api/register/vermittler")
+    public ResponseEntity<?> updateVermittlerRegistration(@RequestBody VermittlerRegistrationData regData,
+                                                          HttpServletRequest request) {
+
+        Account origAccount = accountRepository.findByUsername(regData.getVermittler().getUsername())
+            .filter(acc -> Objects.equals(user().getBody(), acc))
+            .orElseThrow(() -> new IllegalStateException("Vermittler-Account existiert nicht"));
+
+        Account account = origAccount.toBuilder()
+            .password(passwordEncoder.encode(regData.getPassword()))
+            .build();
+
+        vermittlerRepository.updateVermittlerInInseraten(regData.getVermittler());
+        accountRepository.save(account);
+        vermittlerRepository.save(regData.getVermittler());
 
         return ResponseEntity.ok(account);
     }

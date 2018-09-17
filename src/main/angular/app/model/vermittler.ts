@@ -1,4 +1,5 @@
 export interface Vermittler {
+    id: number;
     username: string;
     organisation: string;
     ansprechpartner: string;

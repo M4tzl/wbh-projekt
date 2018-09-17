@@ -59,6 +59,19 @@ export class SecurityService {
             );
     }
 
+    updateVermittlerRegistration(credentials: Credentials, vermittler: Vermittler): Observable<CurrentUser> {
+        return this.http.put<any>('/api/register/vermittler', {
+            username: credentials.username, password: credentials.password, vermittler
+        })
+            .pipe(
+                switchMap(user => this.authenticate(credentials))
+            );
+    }
+
+    loadVermittler(): Observable<Vermittler> {
+        return this.http.get<Vermittler>('/api/user/vermittler');
+    }
+
     initiatePasswordReset(credentials: Credentials): Observable<CurrentUser> {
         return this.http.post<any>('/api/password/reset', credentials);
     }
