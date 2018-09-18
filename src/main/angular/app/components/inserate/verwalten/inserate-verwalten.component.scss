@@ -1,9 +1,31 @@
-.spinner-container {
-    height: 360px;
-    width: 390px;
-    position: fixed;
+.mat-column-id {
+    flex: 0 0 50px;
 }
 
-.spinner-container mat-spinner {
-    margin: 130px auto 0 auto;
+.mat-column-lastUpdate {
+    flex: 0 0 100px;
+}
+
+.mat-column-vermittler {
+    flex: 0 0 100px;
+}
+
+.mat-column-bild {
+    flex: 0 0 80px;
+}
+
+.mat-column-status {
+    flex: 0 0 100px;
+}
+
+.mat-column-rufname {
+    flex: 0 1 200px;
+}
+
+.mat-column-storyschreiber {
+    flex: 0 1 200px;
+}
+
+.mat-column-actions {
+    flex: 0 1 200px;
 }

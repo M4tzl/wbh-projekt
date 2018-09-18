@@ -52,7 +52,8 @@
 
                 <ng-container matColumnDef="storyschreiber">
                     <mat-header-cell *matHeaderCellDef>Storyschreiber</mat-header-cell>
-                    <mat-cell *matCellDef="let inserat"><span class="text-left">{{inserat.storyschreiber}}</span></mat-cell>
+                    <mat-cell *matCellDef="let inserat"><span
+                        class="text-left">{{inserat.storyschreiber}}</span></mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
@@ -63,28 +64,32 @@
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let inserat">
-                        <a [routerLink]="['/inserate/detail',inserat.id]"><img src="assets/img/view.png" alt="[View]"
-                                                                               title="Anzeigen" height="30"></a>&nbsp;
-                        <a *ngIf="currentUser?.isVermittler && inserat.editierbar"
-                           [routerLink]="['/inserate/edit',inserat.id]"><img
-                            src="assets/img/edit.png" alt="[Edit]"
-                            title="Editieren" height="30"></a>&nbsp;
-                        <a *ngIf="currentUser?.isVermittler && inserat.vermittelbar">
-                            <img class="pointer" src="assets/img/check.png" title="Vermittelt" alt="[Vermittelt]"
-                                 height="30" (click)="close(inserat)">&nbsp;
-                        </a>
-                        <a *ngIf="currentUser?.isVermittler && inserat.aktivierbar">
-                            <img class="pointer" src="assets/img/continue.png" title="Aktiv schalten" alt="[Aktiv]"
-                                 height="30" (click)="activate(inserat)">&nbsp;
-                        </a>
-                        <a *ngIf="currentUser?.isVermittler && inserat.deaktivierbar">
-                            <img class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]"
-                                 height="30" (click)="deactivate(inserat)">&nbsp;
-                        </a>
-                        <a *ngIf="currentUser?.isAdmin || (currentUser?.isVermittler && inserat.loeschbar)">
-                            <img class="pointer" src="assets/img/trash.png" title="löschen" alt="[Löschen]"
-                                 height="30" (click)="delete(inserat)">&nbsp;
-                        </a>
+                        <div class="icon-row">
+                            <a [routerLink]="['/inserate/detail',inserat.id]">
+                                <img src="assets/img/view.png"
+                                     alt="[View]"
+                                     title="Anzeigen" height="30"></a>&nbsp;
+                            <a *ngIf="currentUser?.isVermittler && inserat.editierbar"
+                               [routerLink]="['/inserate/edit',inserat.id]"><img
+                                src="assets/img/edit.png" alt="[Edit]"
+                                title="Editieren" height="30"></a>&nbsp;
+                            <a *ngIf="currentUser?.isVermittler && inserat.vermittelbar">
+                                <img class="pointer" src="assets/img/check.png" title="Vermittelt" alt="[Vermittelt]"
+                                     height="30" (click)="close(inserat)">&nbsp;
+                            </a>
+                            <a *ngIf="currentUser?.isVermittler && inserat.aktivierbar">
+                                <img class="pointer" src="assets/img/continue.png" title="Aktiv schalten" alt="[Aktiv]"
+                                     height="30" (click)="activate(inserat)">&nbsp;
+                            </a>
+                            <a *ngIf="currentUser?.isVermittler && inserat.deaktivierbar">
+                                <img class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]"
+                                     height="30" (click)="deactivate(inserat)">&nbsp;
+                            </a>
+                            <a *ngIf="currentUser?.isAdmin || (currentUser?.isVermittler && inserat.loeschbar)">
+                                <img class="pointer" src="assets/img/trash.png" title="löschen" alt="[Löschen]"
+                                     height="30" (click)="delete(inserat)">&nbsp;
+                            </a>
+                        </div>
                     </mat-cell>
                 </ng-container>
 

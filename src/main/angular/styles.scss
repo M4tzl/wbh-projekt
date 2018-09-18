@@ -29,6 +29,17 @@
         background-color: rgba(0, 0, 0, 0);
     }
 
+    .spinner-container {
+        height: 360px;
+        width: 390px;
+        position: fixed;
+    }
+
+    .spinner-container mat-spinner {
+        margin: 130px auto 0 auto;
+    }
+
+
     .opaque-overlay:before {
         background-color: rgba(0, 0, 0, 0.4);
     }
@@ -106,5 +117,14 @@
         color: #fff;
         background-color: #FF9B21;
         border-color: #FF9B21;
+    }
+
+    .text-overflow {
+        overflow: auto;
+    }
+
+    .icon-row {
+        @extend .row;
+        margin: 0;
     }
 }
