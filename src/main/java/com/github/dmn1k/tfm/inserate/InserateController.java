@@ -41,9 +41,9 @@ public class InserateController {
     private static final Multimap<Role, InseratStatus> VISIBLE_STATUSES_PER_ROLE = HashMultimap.create();
 
     static {
-        VISIBLE_STATUSES_PER_ROLE.putAll(Role.VERMITTLER, Sets.difference(EnumSet.allOf(InseratStatus.class), Sets.newHashSet(InseratStatus.IN_RECHNUNG_GESTELLT)));
+        VISIBLE_STATUSES_PER_ROLE.putAll(Role.VERMITTLER, EnumSet.allOf(InseratStatus.class));
         VISIBLE_STATUSES_PER_ROLE.put(Role.INTERESSENT, InseratStatus.AKTIV);
-        VISIBLE_STATUSES_PER_ROLE.putAll(Role.ADMIN, Sets.newHashSet(InseratStatus.VERMITTELT, InseratStatus.IN_RECHNUNG_GESTELLT));
+        VISIBLE_STATUSES_PER_ROLE.putAll(Role.ADMIN, Sets.difference(EnumSet.allOf(InseratStatus.class), Sets.newHashSet(InseratStatus.VERMITTELT)));
     }
 
     private final InserateRepository repository;
@@ -120,7 +120,11 @@ public class InserateController {
 
     @DeleteMapping("/api/inserate/{id}")
     public ResponseEntity<?> deleteInserat(@PathVariable long id) {
-        Inserat inserat = repository.findById(id)
+        Inserat inserat = getLoggedInUser()
+            .map(User::getUsername)
+            .flatMap(accountRepository::findByUsername)
+            .flatMap(u -> repository.findById(id)
+                .filter(i -> u.getRoles().contains(Role.ADMIN) || i.getVermittler().equals(u.getUsername())))
             .filter(Inserat::isLoeschbar)
             .orElseThrow(() -> new IllegalStateException("Inserat kann nicht gelöscht werden!"));
 

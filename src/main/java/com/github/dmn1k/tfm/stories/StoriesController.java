@@ -3,6 +3,8 @@ package com.github.dmn1k.tfm.stories;
 import com.github.dmn1k.tfm.inserate.Inserat;
 import com.github.dmn1k.tfm.inserate.InserateRepository;
 import com.github.dmn1k.tfm.inserate.QInserat;
+import com.github.dmn1k.tfm.security.AccountRepository;
+import com.github.dmn1k.tfm.security.Role;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.sql.JPASQLQuery;
@@ -25,6 +27,7 @@ import java.util.Optional;
 public class StoriesController {
     private final StoriesRepository storiesRepository;
     private final InserateRepository inserateRepository;
+    private final AccountRepository accountRepository;
 
     @GetMapping("/api/stories")
     public @ResponseBody ResponseEntity<?> loadStories(@QuerydslPredicate(root = Story.class) Predicate predicate,
@@ -72,8 +75,10 @@ public class StoriesController {
     @DeleteMapping("/api/stories/{id}")
     public ResponseEntity<?> deleteStory(@PathVariable long id) {
         Story story = getLoggedInUser()
+            .map(User::getUsername)
+            .flatMap(accountRepository::findByUsername)
             .flatMap(u -> storiesRepository.findById(id)
-                .filter(i -> i.getAutor().equals(u.getUsername())))
+                .filter(i -> u.getRoles().contains(Role.ADMIN) || i.getAutor().equals(u.getUsername())))
             .orElseThrow(() -> new IllegalStateException("Story existiert nicht bzw. der Zugriff ist nicht erlaubt"));
 
         storiesRepository.delete(story);

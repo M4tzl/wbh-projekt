@@ -20,10 +20,12 @@ import {YesNoDialogComponent} from "../../allgemein/yes-no-dialog/yes-no-dialog.
 export class InserateVerwaltenComponent implements OnInit, AfterViewInit, OnDestroy {
     currentUser: CurrentUser;
     dataSource: InserateDataSource;
-    displayedColumns = ["id", "lastUpdate", "bild", "rufname", "storyschreiber", "status", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
     currentUserSubscription: Subscription;
+
+    private static normalDisplayedColumns = ["id", "lastUpdate", "bild", "rufname", "storyschreiber", "status", "actions"];
+    private static adminDisplayedColumns = ["id", "lastUpdate", "vermittler", "rufname", "actions"];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -122,5 +124,10 @@ export class InserateVerwaltenComponent implements OnInit, AfterViewInit, OnDest
         this.currentUserSubscription.unsubscribe();
     }
 
+    get displayedColumns(): string[] {
+        return this.currentUser.isAdmin
+            ? InserateVerwaltenComponent.adminDisplayedColumns
+            : InserateVerwaltenComponent.normalDisplayedColumns;
+    }
 }
 

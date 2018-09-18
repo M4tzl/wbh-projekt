@@ -105,7 +105,8 @@ export class SecurityService {
                 userName: resp.username,
                 enabled: resp.enabled,
                 isInteressent: resp.roles.map(r => r.name).indexOf('INTERESSENT') > -1,
-                isVermittler: resp.roles.map(r => r.name).indexOf('VERMITTLER') > -1
+                isVermittler: resp.roles.map(r => r.name).indexOf('VERMITTLER') > -1,
+                isAdmin: resp.roles.map(r => r.name).indexOf('ADMIN') > -1,
             }
             : <CurrentUser> {
                 retrievalFailed: false,

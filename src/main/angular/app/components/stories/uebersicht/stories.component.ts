@@ -19,10 +19,12 @@ import {YesNoDialogComponent} from "../../allgemein/yes-no-dialog/yes-no-dialog.
 export class StoriesComponent implements OnInit, AfterViewInit, OnDestroy {
     currentUser: CurrentUser;
     dataSource: StoriesDataSource;
-    displayedColumns= ["id", "bild", "titel", "actions"];
     initialPageSize = 10;
     pageSizes = [10, 20, 50];
     currentUserSubscription: Subscription;
+
+    private static normalDisplayedColumns= ["id", "bild", "titel", "actions"];
+    private static adminDisplayedColumns= ["id", "autor", "titel", "actions"];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -91,5 +93,11 @@ export class StoriesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.currentUserSubscription.unsubscribe();
+    }
+
+    get displayedColumns(): string[] {
+        return this.currentUser.isAdmin
+            ? StoriesComponent.adminDisplayedColumns
+            : StoriesComponent.normalDisplayedColumns;
     }
 }

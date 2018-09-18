@@ -33,6 +33,11 @@
                     <mat-cell *matCellDef="let inserat">{{inserat.lastUpdate}}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="vermittler">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Besitzer</mat-header-cell>
+                    <mat-cell *matCellDef="let inserat">{{inserat.vermittler}}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="bild">
                     <mat-header-cell *matHeaderCellDef>Bild</mat-header-cell>
                     <mat-cell *matCellDef="let inserat">
@@ -76,7 +81,7 @@
                             <img class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]"
                                  height="30" (click)="deactivate(inserat)">&nbsp;
                         </a>
-                        <a *ngIf="currentUser?.isVermittler && inserat.loeschbar">
+                        <a *ngIf="currentUser?.isAdmin || (currentUser?.isVermittler && inserat.loeschbar)">
                             <img class="pointer" src="assets/img/trash.png" title="löschen" alt="[Löschen]"
                                  height="30" (click)="delete(inserat)">&nbsp;
                         </a>

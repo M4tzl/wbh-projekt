@@ -31,7 +31,17 @@ public class TestdataRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         Role vermittlerRole = roleRepository.findByName("VERMITTLER");
         Role interessentRole = roleRepository.findByName("INTERESSENT");
+        Role adminRole = roleRepository.findByName("ADMIN");
 
+        Account admin = Account.builder()
+            .username("admin@test.de")
+            .password(passwordEncoder.encode("admin123"))
+            .role(adminRole)
+            .enabled(true)
+            .build();
+
+        userRepository.save(admin);
+        
         Account vermittler = Account.builder()
             .username("vermittler@dominik-schlosser.de")
             .password(passwordEncoder.encode("test123"))

@@ -6,4 +6,5 @@ export interface CurrentUser {
     enabled: boolean;
     isVermittler: boolean;
     isInteressent: boolean;
+    isAdmin: boolean;
 }
