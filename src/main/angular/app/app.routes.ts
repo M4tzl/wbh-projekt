@@ -20,6 +20,7 @@ import {OpenStoriesComponent} from "./components/stories/open/open-stories.compo
 import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche.component";
 import {InseratSuchMaskeComponent} from "./components/inserate/such-maske/inserat-such-maske.component";
 import {UpdateUserGuard} from "./guards/update-user-guard.service";
+import {AccountUebersichtComponent} from "./components/admin/account-uebersicht/account-uebersicht.component";
 
 
 export const AppRoutes: Routes = [
@@ -45,6 +46,7 @@ export const AppRoutes: Routes = [
     {path: 'stories/edit/:id', component: StoriesEditComponent, canActivate: [UpdateUserGuard]},
     {path: 'faq', component: FaqComponent, canActivate: [UpdateUserGuard]},
     {path: 'impressum', component: ImpressumComponent, canActivate: [UpdateUserGuard]},
-    {path: 'datenschutz', component: DatenschutzComponent, canActivate: [UpdateUserGuard]}
+    {path: 'datenschutz', component: DatenschutzComponent, canActivate: [UpdateUserGuard]},
+    {path: 'admin/accounts', component: AccountUebersichtComponent, canActivate: [UpdateUserGuard]},
 
 ];

@@ -54,6 +54,8 @@ import {OpenStoriesComponent} from "./components/stories/open/open-stories.compo
 import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche.component";
 import {PastValidator} from "./validation/past-validator";
 import {KontaktformularService} from "./services/kontaktformular.service";
+import {AdminService} from "./services/admin.service";
+import {AccountUebersichtComponent} from "./components/admin/account-uebersicht/account-uebersicht.component";
 
 
 @NgModule({
@@ -84,7 +86,8 @@ import {KontaktformularService} from "./services/kontaktformular.service";
         InitiatePasswordResetComponent,
         ResetPasswordComponent,
         YesNoDialogComponent,
-        OpenStoriesComponent
+        OpenStoriesComponent,
+        AccountUebersichtComponent
     ],
     imports: [
         BrowserModule,
@@ -106,6 +109,7 @@ import {KontaktformularService} from "./services/kontaktformular.service";
         BreedService,
         SecurityService,
         KontaktformularService,
+        AdminService,
         UpdateUserGuard,
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: NgbDateParserFormatter, useClass: CustomNgbDateParserFormatter},

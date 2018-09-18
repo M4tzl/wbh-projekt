@@ -18,6 +18,8 @@ public interface InserateRepository extends JpaRepository<Inserat, Long>,
     @Query("SELECT i FROM Inserat i WHERE i.storyschreiber = :storyschreiber AND NOT EXISTS(SELECT s FROM Story s WHERE s.inserat = i AND s.draft = false)")
     Page<Inserat> findInserateWithoutStory(@Param("storyschreiber") String storyschreiber, Pageable pageable);
 
+    long countByVermittler(@Param("vermittler") String vermittler);
+
     @Override
     default void customize(QuerydslBindings bindings, QInserat root) {
         bindings.bind(root.rufname).first(StringExpression::containsIgnoreCase);

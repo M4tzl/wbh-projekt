@@ -1,2 +1,3 @@
-- Admin: Anzeige und Löschmöglichkeit Nutzer
+- Admin: Löschmöglichkeit Nutzer
+- Admin: Anzeige Veröffentlichungen => Jeweils vorgefilterte Suche (Inserat bzw. Story)
 - Admin: Generierung "Rechnung": Alle vermittelten Inserate
