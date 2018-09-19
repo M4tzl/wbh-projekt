@@ -2,6 +2,7 @@ package com.github.dmn1k.tfm.stories;
 
 import com.querydsl.core.types.dsl.StringExpression;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -14,6 +15,9 @@ public interface StoriesRepository extends JpaRepository<Story, Long>,
     QuerydslPredicateExecutor<Story>, QuerydslBinderCustomizer<QStory> {
 
     long countStoriesByAutor(@Param("autor") String autor);
+
+    @Modifying(clearAutomatically = true)
+    void deleteAllByAutor(@Param("autor") String autor);
 
     @Override
     default void customize(QuerydslBindings bindings, QStory root) {

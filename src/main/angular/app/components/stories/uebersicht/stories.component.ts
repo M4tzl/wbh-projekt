@@ -8,6 +8,8 @@ import {CurrentUser} from "../../../model/current-user";
 import {SecurityService} from "../../../services/security.service";
 import {Story} from "../../../model/story";
 import {YesNoDialogComponent} from "../../allgemein/yes-no-dialog/yes-no-dialog.component";
+import {ActivatedRoute} from "@angular/router";
+import {Inserat} from "../../../model/inserat";
 
 
 @Component({
@@ -23,6 +25,7 @@ export class StoriesComponent implements OnInit, AfterViewInit, OnDestroy {
     pageSizes = [10, 20, 50];
     currentUserSubscription: Subscription;
 
+    private queryParams: { key: keyof Story, value: string }[];
     private static normalDisplayedColumns= ["id", "bild", "titel", "actions"];
     private static adminDisplayedColumns= ["id", "autor", "titel", "actions"];
 
@@ -32,15 +35,23 @@ export class StoriesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(private storiesService: StoriesService,
                 private securityService: SecurityService,
+                private route: ActivatedRoute,
                 public dialog: MatDialog) {
         this.currentUserSubscription = this.securityService.currentUser
             .subscribe(user => this.currentUser = user);
+
+        this.route.queryParams.subscribe(params => {
+            this.queryParams = Object.keys(params)
+                .map(key => {
+                    return {key: <keyof Story> key, value: params[key]};
+                });
+        });
     }
 
     ngOnInit() {
         this.dataSource = new StoriesDataSource(this.storiesService);
 
-        this.dataSource.loadStories([], 'titel', 'asc', 0, this.initialPageSize);
+        this.dataSource.loadStories(this.queryParams, 'titel', 'asc', 0, this.initialPageSize);
     }
 
     ngAfterViewInit() {
@@ -70,6 +81,7 @@ export class StoriesComponent implements OnInit, AfterViewInit, OnDestroy {
     loadStoriesPage() {
         this.dataSource.loadStories(
             [
+                ...this.queryParams,
                 {key: "titel", value: this.searchField.nativeElement.value}
             ],
             'titel',

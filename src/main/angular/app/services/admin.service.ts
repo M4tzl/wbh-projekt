@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {AccountUebersichtResult} from "../model/account-uebersicht-result";
+import {Inserat} from "../model/inserat";
+import {AccountUebersicht} from "../model/account-uebersicht";
 
 @Injectable()
 export class AdminService {
@@ -21,4 +23,13 @@ export class AdminService {
                 })
             );
     }
+
+    public delete(id: number): Observable<any> {
+        return this.httpClient.delete<Inserat>(`/api/admin/users/${id}`);
+    }
+
+    public load(id: number): Observable<AccountUebersicht> {
+        return this.httpClient.get<AccountUebersicht>(`/api/admin/users/${id}`);
+    }
+
 }

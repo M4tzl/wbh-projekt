@@ -98,7 +98,7 @@ CREATE TABLE "story" (
     beschreibung varchar(5000) null,
     draft boolean not null,
     PRIMARY KEY (id),
-    FOREIGN KEY (inserat_id) REFERENCES inserat(id) ON DELETE CASCADE
+    FOREIGN KEY (inserat_id) REFERENCES inserat(id)
 );
 
 CREATE TABLE "story_bild" (

@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.StringExpression;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -17,6 +18,10 @@ public interface InserateRepository extends JpaRepository<Inserat, Long>,
 
     @Query("SELECT i FROM Inserat i WHERE i.storyschreiber = :storyschreiber AND NOT EXISTS(SELECT s FROM Story s WHERE s.inserat = i AND s.draft = false)")
     Page<Inserat> findInserateWithoutStory(@Param("storyschreiber") String storyschreiber, Pageable pageable);
+
+    @Modifying(clearAutomatically = true)
+    @Query("DELETE FROM Inserat i WHERE i.status <> com.github.dmn1k.tfm.inserate.InseratStatus.VERMITTELT AND i.vermittler=:username")
+    void deleteZurAbrechnungNichtMehrRelevanteInserate(@Param("username") String username);
 
     long countByVermittler(@Param("vermittler") String vermittler);
 

@@ -30,7 +30,8 @@
 
                 <ng-container matColumnDef="username">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>E-Mail-Adresse</mat-header-cell>
-                    <mat-cell *matCellDef="let account"><span class="text-left text-overflow">{{account.username}}</span>
+                    <mat-cell *matCellDef="let account"><span
+                        class="text-left text-overflow">{{account.username}}</span>
                     </mat-cell>
                 </ng-container>
 
@@ -50,13 +51,15 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let account">
                         <div class="icon-row">
-                            <a [routerLink]="['/admin/account/details',account.id]" href="#">
+                            <a *ngIf="account.veroeffentlichungen > 0"
+                               [routerLink]="['/admin/account/details',account.id]" href="#">
                                 <img src="assets/img/view.png"
                                      alt="[View]"
                                      title="Anzeigen"
                                      height="30"></a>&nbsp;
-                            <a (click)="deleteAccount(account)" href="#">
+                            <a (click)="deleteAccount(account)">
                                 <img src="assets/img/trash.png" alt="[Trash]"
+                                     class="pointer"
                                      title="Löschen" height="30"></a>
                         </div>
                     </mat-cell>

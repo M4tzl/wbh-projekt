@@ -19,8 +19,10 @@ import {ResetPasswordComponent} from "./components/login/reset/reset-password.co
 import {OpenStoriesComponent} from "./components/stories/open/open-stories.component";
 import {InserateSucheComponent} from "./components/inserate/suche/inserate-suche.component";
 import {InseratSuchMaskeComponent} from "./components/inserate/such-maske/inserat-such-maske.component";
-import {UpdateUserGuard} from "./guards/update-user-guard.service";
+import {UpdateUserGuard} from "./guards/update-user.guard";
 import {AccountUebersichtComponent} from "./components/admin/account-uebersicht/account-uebersicht.component";
+import {NotAllowedComponent} from "./components/allgemein/not-allowed/not-allowed.component";
+import {AdminAccountDetailsGuard} from "./guards/admin-account-details.guard";
 
 
 export const AppRoutes: Routes = [
@@ -48,5 +50,6 @@ export const AppRoutes: Routes = [
     {path: 'impressum', component: ImpressumComponent, canActivate: [UpdateUserGuard]},
     {path: 'datenschutz', component: DatenschutzComponent, canActivate: [UpdateUserGuard]},
     {path: 'admin/accounts', component: AccountUebersichtComponent, canActivate: [UpdateUserGuard]},
+    {path: 'admin/account/details/:id', component: NotAllowedComponent, canActivate: [AdminAccountDetailsGuard, UpdateUserGuard]},
 
 ];

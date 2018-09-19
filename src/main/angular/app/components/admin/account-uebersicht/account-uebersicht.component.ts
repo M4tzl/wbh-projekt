@@ -1,10 +1,11 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort} from "@angular/material";
-import {fromEvent, merge} from "rxjs";
-import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
+import {EMPTY, fromEvent, merge, of} from "rxjs";
+import {debounceTime, distinctUntilChanged, flatMap, switchMap, tap} from "rxjs/operators";
 import {AccountsDataSource} from "../../../datasources/accounts.dataSource";
 import {AdminService} from "../../../services/admin.service";
 import {AccountUebersicht} from "../../../model/account-uebersicht";
+import {YesNoDialogComponent} from "../../allgemein/yes-no-dialog/yes-no-dialog.component";
 
 
 @Component({
@@ -67,6 +68,15 @@ export class AccountUebersichtComponent implements OnInit, AfterViewInit {
     }
 
     deleteAccount(account: AccountUebersicht) {
-        // TODO
+        const dialogRef = this.dialog.open(YesNoDialogComponent, {
+            disableClose: true,
+            autoFocus: true,
+            data: 'Möchten Sie den User wirklich löschen?'
+        });
+
+        dialogRef.afterClosed().pipe(
+            flatMap(val => val ? of(val) : EMPTY),
+            switchMap(_ => this.adminService.delete(account.id))
+        ).subscribe(_ => this.loadAccountsPage());
     }
 }
