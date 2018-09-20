@@ -82,6 +82,12 @@
             <version>4.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.13.Final</version>
+        </dependency>
+
         <!-- Datenbank (Schema-Update, Treiber) -->
         <dependency>
             <groupId>org.liquibase</groupId>

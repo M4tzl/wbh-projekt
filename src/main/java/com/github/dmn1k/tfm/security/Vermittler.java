@@ -41,7 +41,7 @@ public class Vermittler {
 
     private String bundesland;
 
-    @Length(max = 20)
+    @Length(min = 7, max = 20)
     @Pattern(regexp = "^[0-9-+/\\ss()]*$")
     private String telefon;
 

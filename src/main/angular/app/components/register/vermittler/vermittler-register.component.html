@@ -111,10 +111,13 @@
                         <div class="col-sm-8">
                             <input type="text" id="telefon" class="form-control" [(ngModel)]="vermittler.telefon" #telefon="ngModel"
                                    (ngModelChange)="resetErrors()"
-                                   name="telefon" required pattern="^[0-9-+/\ss()]*$" maxlength="20" />
+                                   name="telefon" required pattern="^[0-9-+/\ss()]*$" minlength="7" maxlength="20" />
                             <div *ngIf="telefon.invalid && (telefon.dirty || telefon.touched)" class="alert alert-danger">
                                 <div *ngIf="telefon.errors.required">
                                     Bitte die Telefonnummer angeben.
+                                </div>
+                                <div *ngIf="telefon.errors.minlength">
+                                    Die Telefonnummer ist zu kurz.
                                 </div>
                                 <div *ngIf="telefon.errors.maxlength">
                                     Die Telefonnummer ist zu lang.
