@@ -105,6 +105,7 @@ public class InserateController {
 
     private List<InseratStatus> getRelevantStatuses(Optional<Account> account) {
         return account
+                .filter(Account::isEnabled)
                 .map(Account::getRoles)
                 .orElse(Sets.newHashSet(Role.INTERESSENT)).stream() // Anonyme Nutzer dürfen alle Inserate sehen, die ein angemeldeter Interessent sehen darf
                 .flatMap(r -> VISIBLE_STATUSES_PER_ROLE.get(r).stream())
