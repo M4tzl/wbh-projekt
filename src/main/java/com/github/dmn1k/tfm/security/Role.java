@@ -14,9 +14,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "role")
 public class Role {
-    public static final Role VERMITTLER = new Role(null, "VERMITTLER");
-    public static final Role INTERESSENT = new Role(null, "INTERESSENT");
-    public static final Role ADMIN = new Role(null, "ADMIN");
+    public static final String VERMITTLER_NAME = "VERMITTLER";
+    public static final String INTERESSENT_NAME = "INTERESSENT";
+    public static final String ADMIN_NAME = "ADMIN";
+
+    public static final Role VERMITTLER = new Role(null, VERMITTLER_NAME);
+    public static final Role INTERESSENT = new Role(null, INTERESSENT_NAME);
+    public static final Role ADMIN = new Role(null, ADMIN_NAME);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

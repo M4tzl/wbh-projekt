@@ -1,6 +1,7 @@
 package com.github.dmn1k.tfm.inserate;
 
 import com.github.dmn1k.tfm.images.ImageService;
+import com.github.dmn1k.tfm.security.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Transactional
@@ -18,6 +20,7 @@ public class InseratBildController {
     private final ImageService imageService;
 
     @SneakyThrows
+    @RolesAllowed(Role.VERMITTLER_NAME)
     @PostMapping(value = "/api/inserate/{id}/images")
     public ResponseEntity<?> handleFileUpload(@PathVariable long id,
                                               @RequestParam("file") MultipartFile file) {
@@ -31,6 +34,7 @@ public class InseratBildController {
     }
 
     @SneakyThrows
+    @RolesAllowed(Role.VERMITTLER_NAME)
     @PutMapping(value = "/api/inserate/{id}/images/{inseratBildId}")
     public ResponseEntity<?> handleFileUpload(@PathVariable long id,
                                               @PathVariable long inseratBildId,

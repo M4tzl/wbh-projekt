@@ -13,12 +13,9 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.EnumSet;
 
 @Builder(toBuilder = true)
@@ -59,7 +56,6 @@ public class Inserat {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate geburtsdatum;
 
-    @NotNull
     private String kurzbeschreibung;
 
     private String schulterhoehe;

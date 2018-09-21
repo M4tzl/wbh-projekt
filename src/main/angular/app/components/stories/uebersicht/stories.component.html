@@ -60,9 +60,9 @@
                                *ngIf="currentUser?.userName === story.autor">
                                 <img src="assets/img/edit.png" alt="[Edit]"
                                      title="Editieren" height="30"></a>&nbsp;
-                            <a (click)="deleteStory(story)" href="#"
-                               *ngIf="currentUser?.isAdmin || currentUser?.userName === story.autor">
+                            <a *ngIf="currentUser?.isAdmin || currentUser?.userName === story.autor">
                                 <img src="assets/img/trash.png" alt="[Trash]"
+                                     (click)="deleteStory(story)" class="pointer"
                                      title="Löschen" height="30"></a>
                         </div>
                     </mat-cell>

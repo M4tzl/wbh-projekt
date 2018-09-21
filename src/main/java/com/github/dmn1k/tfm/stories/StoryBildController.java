@@ -1,6 +1,7 @@
 package com.github.dmn1k.tfm.stories;
 
 import com.github.dmn1k.tfm.images.ImageService;
+import com.github.dmn1k.tfm.security.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Transactional
@@ -18,6 +20,7 @@ public class StoryBildController {
     private final ImageService imageService;
 
     @SneakyThrows
+    @RolesAllowed(Role.INTERESSENT_NAME)
     @PostMapping(value = "/api/stories/{id}/images")
     public ResponseEntity<?> handleFileUpload(@PathVariable long id,
                                               @RequestParam("file") MultipartFile file) {
@@ -31,6 +34,7 @@ public class StoryBildController {
     }
 
     @SneakyThrows
+    @RolesAllowed(Role.INTERESSENT_NAME)
     @PutMapping(value = "/api/stories/{id}/images/{storyBildId}")
     public ResponseEntity<?> handleFileUpload(@PathVariable long id,
                                               @PathVariable long storyBildId,
@@ -48,8 +52,7 @@ public class StoryBildController {
 
     @SneakyThrows
     @GetMapping("/api/stories/{id}/images/{bildKey}")
-    public @ResponseBody
-    ResponseEntity<byte[]> serve(@PathVariable long id, @PathVariable String bildKey) {
+    public ResponseEntity<byte[]> serve(@PathVariable long id, @PathVariable String bildKey) {
         return imageService.download(bildKey);
     }
 
@@ -64,7 +67,7 @@ public class StoryBildController {
     }
 
     @GetMapping("/api/stories/{id}/images")
-    public @ResponseBody ResponseEntity<List<StoryBild>> getImages(@PathVariable long id) {
+    public ResponseEntity<List<StoryBild>> getImages(@PathVariable long id) {
         List<StoryBild> result = storyBildRepository.findByStoryIdOrderByIdAsc(id);
 
         return ResponseEntity.ok(result);

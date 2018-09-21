@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.Response;
 import java.text.MessageFormat;
@@ -119,6 +120,7 @@ public class InserateController {
             .orElse(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
 
+    @RolesAllowed({Role.ADMIN_NAME, Role.VERMITTLER_NAME})
     @DeleteMapping("/api/inserate/{id}")
     public ResponseEntity<?> deleteInserat(@PathVariable long id) {
         Inserat inserat = getLoggedInUser()
@@ -134,6 +136,7 @@ public class InserateController {
         return ResponseEntity.ok().build();
     }
 
+    @RolesAllowed(Role.VERMITTLER_NAME)
     @PostMapping("/api/inserate")
     public ResponseEntity<?> createInserat(@RequestBody Inserat inserat) {
         Inserat updatedInserat = getLoggedInUser()
@@ -154,6 +157,7 @@ public class InserateController {
         return ResponseEntity.ok(saved);
     }
 
+    @RolesAllowed(Role.VERMITTLER_NAME)
     @PutMapping("/api/inserate/{id}")
     public ResponseEntity<?> updateInserat(@PathVariable long id, @RequestBody Inserat inserat) {
         Inserat updatedInserat = getLoggedInUser()
@@ -169,6 +173,7 @@ public class InserateController {
         return ResponseEntity.ok(saved);
     }
 
+    @RolesAllowed(Role.VERMITTLER_NAME)
     @PutMapping("/api/inserate/{id}/publish")
     public ResponseEntity<?> publishInserat(@PathVariable long id, @RequestBody Inserat inserat) {
         Inserat updatedInserat = getLoggedInUser()
@@ -186,6 +191,7 @@ public class InserateController {
         return ResponseEntity.ok(saved);
     }
 
+    @RolesAllowed(Role.VERMITTLER_NAME)
     @PutMapping("/api/inserate/{id}/close")
     public ResponseEntity<?> closeInserat(@PathVariable long id,
                                           @RequestBody Inserat inserat,
@@ -218,7 +224,7 @@ public class InserateController {
         String message = MessageFormat.format("<a href=\"{0}\">Loggen Sie sich ein und schreiben Sie eine Story über Ihren neuen Hund!</a><br/><br/><strong>{1}</strong>",
             url, Constants.STUDIENPROJEKT_DISCLAIMER);
 
-        if (account.isPresent()) {
+        if (account.isPresent() && account.get().isEnabled()) {
             if(!account.get().getRoles().contains(Role.INTERESSENT)){
                 throw new IllegalStateException("Account existiert ist aber kein Interessent");
             }
@@ -236,6 +242,7 @@ public class InserateController {
             .build());
     }
 
+    @RolesAllowed(Role.VERMITTLER_NAME)
     @PutMapping("/api/inserate/{id}/activate")
     public ResponseEntity<?> activateInserat(@PathVariable long id) {
         Inserat updatedInserat = getLoggedInUser()
@@ -253,6 +260,7 @@ public class InserateController {
         return ResponseEntity.ok(saved);
     }
 
+    @RolesAllowed(Role.VERMITTLER_NAME)
     @PutMapping("/api/inserate/{id}/deactivate")
     public ResponseEntity<?> deactivateInserat(@PathVariable long id) {
         Inserat updatedInserat = getLoggedInUser()

@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Optional;
 
 @Transactional
@@ -39,6 +40,7 @@ public class StoriesController {
         return ResponseEntity.ok(storyDtos);
     }
 
+    @RolesAllowed(Role.INTERESSENT_NAME)
     @GetMapping("/api/stories/open")
     public ResponseEntity<?> loadOpenStories(Pageable pageable) {
         User user = getLoggedInUser().orElseThrow(() -> new IllegalStateException("Anonymous access not allowed"));
@@ -61,17 +63,20 @@ public class StoriesController {
             .orElse(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
 
+    @RolesAllowed(Role.INTERESSENT_NAME)
     @PostMapping("/api/stories")
     public ResponseEntity<?> createStory(@RequestBody StoryDto dto) {
         return saveStory(dto, dto.getId());
     }
 
+    @RolesAllowed(Role.INTERESSENT_NAME)
     @PutMapping("/api/stories/{id}")
     public ResponseEntity<?> updateStory(@PathVariable long id,
                                          @RequestBody StoryDto dto) {
         return saveStory(dto, id);
     }
 
+    @RolesAllowed({Role.ADMIN_NAME, Role.INTERESSENT_NAME})
     @DeleteMapping("/api/stories/{id}")
     public ResponseEntity<?> deleteStory(@PathVariable long id) {
         Story story = getLoggedInUser()

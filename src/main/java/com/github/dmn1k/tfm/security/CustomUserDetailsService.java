@@ -26,7 +26,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role : account.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+            // ROLE_ - prefix für JSR 250 @RolesAllowed (wird dort als std-prefix genutzt)
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
         }
 
         return new User(account.getUsername(), account.getPassword(), grantedAuthorities);
