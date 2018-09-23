@@ -85,7 +85,7 @@
                                 <img class="pointer" src="assets/img/pause.png" title="inaktiv schalten" alt="[Inaktiv]"
                                      height="30" (click)="deactivate(inserat)">&nbsp;
                             </a>
-                            <a *ngIf="currentUser?.isAdmin || (currentUser?.isVermittler && inserat.loeschbar)">
+                            <a *ngIf="(currentUser?.isAdmin || currentUser?.isVermittler) && inserat.loeschbar">
                                 <img class="pointer" src="assets/img/trash.png" title="löschen" alt="[Löschen]"
                                      height="30" (click)="delete(inserat)">&nbsp;
                             </a>

@@ -44,7 +44,7 @@ public class InserateController {
     static {
         VISIBLE_STATUSES_PER_ROLE.putAll(Role.VERMITTLER, EnumSet.allOf(InseratStatus.class));
         VISIBLE_STATUSES_PER_ROLE.put(Role.INTERESSENT, InseratStatus.AKTIV);
-        VISIBLE_STATUSES_PER_ROLE.putAll(Role.ADMIN, EnumSet.allOf(InseratStatus.class));
+        VISIBLE_STATUSES_PER_ROLE.putAll(Role.ADMIN, EnumSet.complementOf(EnumSet.of(InseratStatus.INAKTIV)));
     }
 
     private final InserateRepository repository;
